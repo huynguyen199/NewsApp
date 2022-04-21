@@ -1,6 +1,9 @@
 const Ionicons = {
   build: "build-outline",
   alertOutline: "alert-outline",
+  eye: "eye-outline",
+  eyeOff: "eye-off-outline",
+  facebookOutLine: "logo-facebook",
 }
 const Fontisto = {
   heart: "heart",
