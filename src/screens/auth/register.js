@@ -2,11 +2,11 @@ import {View, Image, Text, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 import {Header, Icon} from "@rneui/themed"
-import FormLogin from "./components/formLogin"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
+import FormRegister from "./components/register/formRegister"
 
-const Login = () => {
+const Register = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -31,11 +31,11 @@ const Login = () => {
               uri: "https://www.patentlyapple.com/.a/6a0120a5580826970c01b7c8b154b7970b-pi",
             }}
           />
-          <Text style={styles.txtTitle}>Let&apos;s Sign You In</Text>
+          <Text style={styles.txtTitle}>Create an Account</Text>
           {/*END create an account */}
         </View>
         <View style={styles.boxFormLogin}>
-          <FormLogin />
+          <FormRegister />
           <Text style={styles.txtOr}>or continue with</Text>
           <SocialContainer />
           <WithoutAccountButton />
@@ -77,4 +77,4 @@ const makeStyles = (colors) =>
     },
     container: {flex: 1, backgroundColor: colors.primary},
   })
-export default Login
+export default Register

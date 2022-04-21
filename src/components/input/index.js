@@ -1,6 +1,7 @@
 import {View, TextInput, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
+import {color} from "@rneui/base"
 const Input = (props) => {
   const {onChangeText, value, containerStyle, rightComponent} = props
   const {colors} = useTheme()
@@ -32,9 +33,10 @@ const makeStyles = (colors) =>
     styleInput: {
       marginLeft: 15,
       fontFamily: "SourceSansPro-Bold",
+      color: colors.black,
     },
     container: {
-      backgroundColor: colors,
+      backgroundColor: colors.white,
       borderRadius: 30,
       borderWidth: 2,
       borderColor: colors.lightRed,

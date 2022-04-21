@@ -1,18 +1,17 @@
 import {View, Text, StyleSheet} from "react-native"
 import React, {useState} from "react"
-import Label from "./label"
-import HelperText from "../../../components/helperText"
 import {useTheme} from "@react-navigation/native"
-import Input from "../../../components/input"
-import Button from "../../../components/button"
-import EyeIcon from "./eyeIcon"
 import EyeOffIcon from "./eyeOffIcon"
-
 import CheckBox from "@react-native-community/checkbox"
 import {Controller, useForm} from "react-hook-form"
-import {emailContraints, passwordContraints} from "../../../common/validator"
+import HelperText from "../../../../components/helperText"
+import Button from "../../../../components/button"
+import EyeIcon from "./eyeIcon"
+import {emailContraints, passwordContraints} from "../../../../common/validator"
+import Label from "./label"
+import Input from "../../../../components/input"
 
-const FormLogin = () => {
+const FormRegister = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const {colors} = useTheme()
@@ -42,8 +41,8 @@ const FormLogin = () => {
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               containerStyle={styles.inputEmail}
-              placeholder={"Enter your email"}
               placeholderTextColor={colors.grey}
+              placeholder={"Enter your email"}
               value={value}
               onChangeText={onChange}
             />
@@ -130,4 +129,4 @@ const makeStyles = (colors) =>
     },
   })
 
-export default FormLogin
+export default FormRegister
