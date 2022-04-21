@@ -1,6 +1,9 @@
 import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
+import {Dimensions} from "react-native"
+
+const {height} = Dimensions.get("window")
 
 const WithoutAccountButton = () => {
   const {colors} = useTheme()
@@ -24,7 +27,7 @@ const makeStyles = (colors) =>
       color: "black",
     },
     container: {
-      marginTop: 20,
+      marginTop: height / 20 - 20,
       justifyContent: "center",
       alignItems: "center",
     },

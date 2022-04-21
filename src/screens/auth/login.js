@@ -5,7 +5,9 @@ import {Header, Icon} from "@rneui/themed"
 import FormLogin from "./components/formLogin"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
+import {Dimensions} from "react-native"
 
+const {width} = Dimensions.get("window")
 const Login = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
@@ -52,7 +54,8 @@ const makeStyles = (colors) =>
       fontFamily: "SourceSansPro-Regular",
       textAlign: "center",
       color: colors.black,
-      marginVertical: 40,
+      marginBottom: width / 18,
+      marginTop: width / 18,
     },
     stylePasswordHelper: {marginTop: 5},
     styleEmailHelper: {marginTop: 5},
@@ -62,7 +65,7 @@ const makeStyles = (colors) =>
       marginTop: 40,
       fontFamily: "SourceSansPro-Bold",
     },
-    logoTop: {width: 100, height: 100, marginTop: 20},
+    logoTop: {width: 100, height: 100, marginTop: width / 10 - 40},
     styleLabel: {
       fontSize: 16,
       marginLeft: 10,

@@ -9,7 +9,7 @@ const Stack = createStackNavigator()
 const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={authStack.register}
+      initialRouteName={authStack.login}
       screenOptions={{gestureEnabled: false}}>
       <Stack.Screen
         options={{headerShown: false}}

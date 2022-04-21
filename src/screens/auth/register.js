@@ -5,7 +5,9 @@ import {Header, Icon} from "@rneui/themed"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
 import FormRegister from "./components/register/formRegister"
+import {Dimensions} from "react-native"
 
+const {width, height} = Dimensions.get("window")
 const Register = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
@@ -38,8 +40,8 @@ const Register = () => {
           <FormRegister />
           <Text style={styles.txtOr}>or continue with</Text>
           <SocialContainer />
-          <WithoutAccountButton />
         </View>
+        <WithoutAccountButton />
       </View>
     </View>
   )
@@ -47,22 +49,23 @@ const Register = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
-    boxFormLogin: {marginTop: 20},
+    boxFormLogin: {marginTop: 30},
     txtOr: {
       fontFamily: "SourceSansPro-Regular",
       textAlign: "center",
       color: colors.black,
-      marginVertical: 40,
+      marginBottom: width / 18,
+      marginTop: width / 18,
     },
     stylePasswordHelper: {marginTop: 5},
     styleEmailHelper: {marginTop: 5},
     txtTitle: {
       fontSize: 24,
       color: "black",
-      marginTop: 40,
+      marginTop: width / 10 - 10,
       fontFamily: "SourceSansPro-Bold",
     },
-    logoTop: {width: 100, height: 100, marginTop: 20},
+    logoTop: {width: 100, height: 100, marginTop: width / 10 - 40},
     styleLabel: {
       fontSize: 16,
       marginLeft: 10,
