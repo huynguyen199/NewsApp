@@ -2,12 +2,14 @@ import {Text, Image, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 
-const SocicalButton = ({containerStyle, uri}) => {
+const SocicalButton = ({onPress, containerStyle, uri}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   return (
-    <TouchableOpacity style={[styles.container, containerStyle]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, containerStyle]}>
       <Image
         style={styles.imageStyle}
         source={{

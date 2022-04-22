@@ -6,11 +6,20 @@ import FormLogin from "./components/formLogin"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
 import {Dimensions} from "react-native"
+import {GoogleSignin} from "@react-native-google-signin/google-signin"
+
+GoogleSignin.configure({
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"], // [Android] what API you want to access on behalf of the user, default is email and profile
+  webClientId:
+    "906709917089-qfr9f4880g1bvn9q7gv4ip1spfc90cin.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
+  offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+})
 
 const {width} = Dimensions.get("window")
 const Login = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+
   return (
     <View style={styles.container}>
       <Header

@@ -11,12 +11,19 @@ import EyeOffIcon from "./eyeOffIcon"
 import CheckBox from "@react-native-community/checkbox"
 import {Controller, useForm} from "react-hook-form"
 import {emailContraints, passwordContraints} from "../../../common/validator"
+import auth from "@react-native-firebase/auth"
+import useAuth from "../../../hooks/useAuth"
 
 const FormLogin = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const {userInfo} = useAuth()
+  console.log(
+    "DEBUG: - file: formLogin.js - line 23 - FormLogin - userInfo",
+    userInfo,
+  )
   const {
     handleSubmit,
     control,
@@ -31,7 +38,24 @@ const FormLogin = () => {
   const showPasswords = () => {
     setIsVisible(!isVisible)
   }
-  const onSubmitForm = () => {}
+  const onSubmitForm = () => {
+    auth()
+      .signInWithEmailAndPassword("test1@gmail.com", "123456")
+      .then(() => {
+        console.log("User account created & signed in!")
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          console.log("That email address is already in use!")
+        }
+
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!")
+        }
+
+        console.error(error)
+      })
+  }
 
   return (
     <>
@@ -103,7 +127,7 @@ const FormLogin = () => {
         />
         <Text style={styles.txtTitle}>Remember me</Text>
       </View>
-      <Button title={"Sign in"} onPress={handleSubmit(onSubmitForm)} />
+      <Button title={"Sign in"} onPress={onSubmitForm} />
     </>
   )
 }
