@@ -4,6 +4,10 @@ const Ionicons = {
   eye: "eye-outline",
   eyeOff: "eye-off-outline",
   facebookOutLine: "logo-facebook",
+  checkMarkFilled: "checkmark-circle",
+  checkMarkOutline: "checkmark-circle-outline",
+  alertCircle: "alert-circle",
+  warningOutline: "warning-outline",
 }
 const Fontisto = {
   heart: "heart",

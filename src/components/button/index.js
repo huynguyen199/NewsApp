@@ -2,12 +2,12 @@ import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 
-const Button = ({title, onPress}) => {
+const Button = ({title, onPress, containerStyle}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <Text style={styles.txtTitle}>{title}</Text>
       </View>
     </TouchableOpacity>

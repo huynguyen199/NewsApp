@@ -51,13 +51,13 @@ const FormRegister = () => {
           rules={emailContraints}
         />
       </View>
-      <View style={styles.boxHelperEmail}>
-        <HelperText
-          isVisible={errors.email && errors.email.message}
-          title={errors.email && errors.email.message}
-          style={styles.styleEmailHelper}
-        />
-      </View>
+      {/* <View style={styles.boxHelperEmail}> */}
+      <HelperText
+        isVisible={errors.email && errors.email.message}
+        title={errors.email && errors.email.message}
+        style={styles.styleEmailHelper}
+      />
+      {/* </View> */}
 
       <View>
         <Label title={"Password"} />
@@ -84,13 +84,13 @@ const FormRegister = () => {
           rules={passwordContraints}
         />
       </View>
-      <View style={styles.boxHelperPassword}>
-        <HelperText
-          isVisible={errors.password && errors.password.message}
-          title={errors.password && errors.password.message}
-          style={styles.stylePasswordHelper}
-        />
-      </View>
+      {/* <View style={styles.boxHelperPassword}> */}
+      <HelperText
+        isVisible={errors.password && errors.password.message}
+        title={errors.password && errors.password.message}
+        style={styles.stylePasswordHelper}
+      />
+      {/* </View> */}
       <View style={styles.boxRow}>
         <CheckBox
           tintColors={{
