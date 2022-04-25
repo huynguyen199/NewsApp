@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
+import fonts from "@assets/fonts"
 
 const Button = ({title, onPress, containerStyle}) => {
   const {colors} = useTheme()
@@ -18,11 +19,11 @@ const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {
       color: colors.white,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
       fontSize: 16,
     },
     container: {
-      backgroundColor: "rgba(253,64,94,255)",
+      backgroundColor: colors.lightRed,
       padding: 15,
       alignItems: "center",
       justifyContent: "center",

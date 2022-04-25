@@ -29,6 +29,8 @@ module.exports = {
           "@utils": "./src/utils",
           "@containers": "./src/containers",
           "@services": "./src/services",
+          "@assets": "./src/assets",
+          "@hooks": "./src/hooks",
         },
       },
     ],

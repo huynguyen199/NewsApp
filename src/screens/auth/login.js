@@ -6,14 +6,7 @@ import FormLogin from "./components/formLogin"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
 import {Dimensions} from "react-native"
-import {GoogleSignin} from "@react-native-google-signin/google-signin"
-
-GoogleSignin.configure({
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"], // [Android] what API you want to access on behalf of the user, default is email and profile
-  webClientId:
-    "906709917089-qfr9f4880g1bvn9q7gv4ip1spfc90cin.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
-  offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-})
+import fonts from "@assets/fonts"
 
 const {width} = Dimensions.get("window")
 const Login = () => {
@@ -28,7 +21,7 @@ const Login = () => {
             // onPress={onGoBackHome}
             name={"arrow-back-outline"}
             type="ionicon"
-            color="rgba(253,64,94,255)"
+            color={colors.lightRed}
             size={36}
           />
         }
@@ -60,7 +53,7 @@ const makeStyles = (colors) =>
   StyleSheet.create({
     boxFormLogin: {marginTop: 20},
     txtOr: {
-      fontFamily: "SourceSansPro-Regular",
+      fontFamily: fonts.regular,
       textAlign: "center",
       color: colors.black,
       marginBottom: width / 18,
@@ -70,15 +63,15 @@ const makeStyles = (colors) =>
     styleEmailHelper: {marginTop: 5},
     txtTitle: {
       fontSize: 24,
-      color: "black",
+      color: colors.black,
       marginTop: 40,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
     },
     logoTop: {width: 100, height: 100, marginTop: width / 10 - 40},
     styleLabel: {
       fontSize: 16,
       marginLeft: 10,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
     },
     boxLogo: {
       alignItems: "center",

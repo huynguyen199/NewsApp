@@ -1,7 +1,7 @@
 import {StyleSheet} from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
-import {Ionicons} from "../../../../common/icon"
+import {Ionicons} from "@common/icon"
 Ionicons
 const EyeOffIcon = ({onPress, color = "grey"}) => {
   return (

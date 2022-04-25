@@ -1,18 +1,21 @@
 import React from "react"
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import Color from "../common/Color"
-import {Icon} from "react-native-elements"
 import {homeTabs} from "../common/navigator"
 import Home from "../screens/home/home"
+
+import {useTheme} from "@react-navigation/native"
+import {Icon} from "@rneui/themed"
 
 const Tab = createBottomTabNavigator()
 
 const HomeTabs = () => {
+  const {colors} = useTheme()
+
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: Color.orange,
-        tabBarInactiveTintColor: Color.black,
+        tabBarActiveTintColor: colors.lightRed,
+        tabBarInactiveTintColor: colors.white,
         tabBarStyle: {
           height: 55,
         },
@@ -23,7 +26,7 @@ const HomeTabs = () => {
       }}>
       <Tab.Screen
         options={{
-          tabBarLabel: "test",
+          tabBarLabel: "Home",
           tabBarIcon: ({color, size}) => (
             <Icon name="newspaper-outline" type="ionicon" color={color} />
           ),

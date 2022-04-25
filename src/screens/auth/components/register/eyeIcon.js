@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native"
 import React from "react"
-import {Ionicons} from "../../../../common/icon"
+import {Ionicons} from "@common/icon"
 import {Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
 const EyeIcon = ({onPress, color = "grey"}) => {

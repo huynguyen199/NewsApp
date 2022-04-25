@@ -1,8 +1,5 @@
 import React from "react"
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from "@react-navigation/stack"
+import {createStackNavigator} from "@react-navigation/stack"
 import {mainStack} from "../common/navigator"
 import HomeTabs from "./homeTabs"
 

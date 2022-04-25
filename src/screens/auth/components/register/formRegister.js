@@ -4,20 +4,28 @@ import {useTheme} from "@react-navigation/native"
 import EyeOffIcon from "./eyeOffIcon"
 import CheckBox from "@react-native-community/checkbox"
 import {Controller, useForm} from "react-hook-form"
-import HelperText from "../../../../components/helperText"
-import Button from "../../../../components/button"
+import HelperText from "@components/helperText"
+import Button from "@components/button"
 import EyeIcon from "./eyeIcon"
-import {emailContraints, passwordContraints} from "../../../../common/validator"
+import {emailContraints, passwordContraints} from "@common/validator"
 import Label from "./label"
-import Input from "../../../../components/input"
+import Input from "@components/input"
+import auth from "@react-native-firebase/auth"
+import SuccessDialog from "@components/successDialog"
+import FailedDialog from "@components/failedDialog"
+import LoadingDialog from "@components/loadingDialog"
 
 const FormRegister = () => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const {colors} = useTheme()
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isFailed, setIsFailed] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   const styles = makeStyles(colors)
   const {
     handleSubmit,
+    setValue,
     control,
     formState: {errors},
   } = useForm({
@@ -27,10 +35,55 @@ const FormRegister = () => {
     },
   })
 
+  const clearForm = () => {
+    setValue("email", "")
+    setValue("password", "")
+  }
+
+  const showLoadingDialog = () => {
+    setIsLoading(true)
+  }
+
+  const hideLoadingDialog = () => {
+    setIsLoading(false)
+  }
+
+  const showSuccessDialog = () => {
+    setIsSuccess(true)
+  }
+
+  const hideSuccessDialog = () => {
+    setIsSuccess(false)
+  }
+
+  const showFailedDialog = () => {
+    setIsFailed(true)
+  }
+
+  const hideFailedDialog = () => {
+    setIsFailed(false)
+  }
+
   const showPasswords = () => {
     setIsVisible(!isVisible)
   }
-  const onSubmitForm = () => {}
+  const onSubmitForm = (data) => {
+    const {email, password} = data
+    showLoadingDialog()
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        hideLoadingDialog()
+        clearForm()
+        showSuccessDialog()
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          showFailedDialog()
+        }
+        hideLoadingDialog()
+      })
+  }
 
   return (
     <>
@@ -90,19 +143,27 @@ const FormRegister = () => {
         title={errors.password && errors.password.message}
         style={styles.stylePasswordHelper}
       />
-      {/* </View> */}
-      <View style={styles.boxRow}>
-        <CheckBox
-          tintColors={{
-            true: "rgba(253,64,94,255)",
-            false: "rgba(253,64,94,255)",
-          }}
-          value={toggleCheckBox}
-          onValueChange={(newValue) => setToggleCheckBox(newValue)}
-        />
-        <Text style={styles.txtTitle}>Remember me</Text>
+
+      <View style={{marginTop: 30}}>
+        <Button title={"Sign up"} onPress={handleSubmit(onSubmitForm)} />
       </View>
-      <Button title={"Sign in"} onPress={handleSubmit(onSubmitForm)} />
+      <SuccessDialog
+        isVisible={isSuccess}
+        title={"Great!\n Your account has been created successfully"}
+        titleButton={"Go to Home"}
+        onBackdropPress={hideSuccessDialog}
+      />
+      <FailedDialog
+        isVisible={isFailed}
+        title={"That email address is already in use!"}
+        titleButton={"Back"}
+        onPress={hideFailedDialog}
+        onBackdropPress={hideFailedDialog}
+      />
+      <LoadingDialog
+        isVisible={isLoading}
+        onBackdropPress={hideLoadingDialog}
+      />
     </>
   )
 }
@@ -116,17 +177,6 @@ const makeStyles = (colors) =>
     styleEmail: {marginTop: 5},
     stylePasswordHelper: {},
     styleEmailHelper: {},
-    txtTitle: {
-      fontFamily: "SourceSansPro-Bold",
-      color: colors.red,
-      marginLeft: 5,
-    },
-    boxRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginLeft: 10,
-      marginVertical: 5,
-    },
   })
 
 export default FormRegister

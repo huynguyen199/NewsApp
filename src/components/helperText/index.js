@@ -1,8 +1,9 @@
 import {View, Text, StyleSheet} from "react-native"
 import React from "react"
-import {Ionicons} from "../../common/icon"
+import {Ionicons} from "@common/icon"
 import {Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
+import fonts from "@assets/fonts"
 
 const HelperText = ({style, title, isVisible}) => {
   const {colors} = useTheme()
@@ -34,7 +35,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       marginLeft: 6,
       color: colors.red,
-      fontFamily: "SourceSansPro-Regular",
+      fontFamily: fonts.regular,
     },
     containerCircle: {
       backgroundColor: colors.red,

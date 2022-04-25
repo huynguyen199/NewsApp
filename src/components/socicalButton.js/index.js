@@ -1,6 +1,7 @@
 import {Text, Image, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
+import fonts from "@assets/fonts"
 
 const SocicalButton = ({onPress, containerStyle, uri}) => {
   const {colors} = useTheme()
@@ -28,8 +29,8 @@ const makeStyles = (colors) =>
     imageStyle: {width: 30, height: 30},
     txtTitle: {
       fontSize: 16,
-      color: "black",
-      fontFamily: "SourceSansPro-Bold",
+      color: colors.black,
+      fontFamily: fonts.bold,
       marginLeft: 10,
     },
     container: {

@@ -2,6 +2,7 @@ import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 import {Dimensions} from "react-native"
+import fonts from "@assets/fonts"
 
 const {height} = Dimensions.get("window")
 
@@ -19,12 +20,12 @@ const WithoutAccountButton = () => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     txtSignIn: {
-      fontFamily: "SourceSansPro-Bold",
-      color: "rgba(253,64,94,255)",
+      fontFamily: fonts.bold,
+      color: colors.lightRed,
     },
     txtTitle: {
-      fontFamily: "SourceSansPro-Regular",
-      color: "black",
+      fontFamily: fonts.regular,
+      color: colors.black,
     },
     container: {
       marginTop: height / 20 - 20,

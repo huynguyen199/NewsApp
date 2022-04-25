@@ -1,24 +1,32 @@
 import {View, Image, Text, StyleSheet} from "react-native"
 import React from "react"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import {Header, Icon} from "@rneui/themed"
-import SocialContainer from "./components/socialContainer"
-import WithoutAccountButton from "./components/withoutAccountButton"
+
 import FormRegister from "./components/register/formRegister"
 import {Dimensions} from "react-native"
+import SocialContainer from "./components/register/socialContainer"
+import fonts from "@assets/fonts"
 
 const {width, height} = Dimensions.get("window")
 const Register = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onBackSignin = () => {
+    navigation.goBack()
+  }
+
   return (
     <View style={styles.container}>
       <Header
         leftComponent={
           <Icon
-            // onPress={onGoBackHome}
+            onPress={onBackSignin}
             name={"arrow-back-outline"}
             type="ionicon"
+            containerStyle={styles.containerStyleIcon}
             color="rgba(253,64,94,255)"
             size={36}
           />
@@ -41,7 +49,7 @@ const Register = () => {
           <Text style={styles.txtOr}>or continue with</Text>
           <SocialContainer />
         </View>
-        <WithoutAccountButton />
+        {/* <WithoutAccountButton /> */}
       </View>
     </View>
   )
@@ -49,9 +57,10 @@ const Register = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    containerStyleIcon: {borderRadius: 30},
     boxFormLogin: {marginTop: 30},
     txtOr: {
-      fontFamily: "SourceSansPro-Regular",
+      fontFamily: fonts.regular,
       textAlign: "center",
       color: colors.black,
       marginBottom: width / 18,
@@ -61,15 +70,15 @@ const makeStyles = (colors) =>
     styleEmailHelper: {marginTop: 5},
     txtTitle: {
       fontSize: 24,
-      color: "black",
+      color: colors.black,
       marginTop: width / 10 - 10,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
     },
     logoTop: {width: 100, height: 100, marginTop: width / 10 - 40},
     styleLabel: {
       fontSize: 16,
       marginLeft: 10,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
     },
     boxLogo: {
       alignItems: "center",

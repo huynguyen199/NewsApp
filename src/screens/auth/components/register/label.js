@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
+import fonts from "@assets/fonts"
 
 const Label = ({title, style}) => {
   const {colors} = useTheme()
@@ -20,7 +21,7 @@ const makeStyles = (colors) =>
     styleLabel: {
       fontSize: 16,
       marginLeft: 10,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
       color: colors.black,
     },
   })

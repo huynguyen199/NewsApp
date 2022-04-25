@@ -2,9 +2,10 @@ import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import Modal from "react-native-modal"
 import {Icon} from "@rneui/themed"
-import {Ionicons} from "../../common/icon"
+import {Ionicons} from "@common/icon"
 import Button from "../button"
 import {useTheme} from "@rneui/themed"
+import fonts from "@assets/fonts"
 
 const ConfirmDialog = ({onBackdropPress, isVisible, onPress, title}) => {
   const {colors} = useTheme()
@@ -39,7 +40,7 @@ const makeStyles = (colors) =>
     txtBtnClose: {marginTop: 20, width: 130},
     txtTitle: {
       fontSize: 20,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
       textAlign: "center",
     },
     boxTitle: {marginHorizontal: 50},
@@ -48,7 +49,7 @@ const makeStyles = (colors) =>
     },
     container: {
       justifyContent: "center",
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       alignItems: "center",
       borderRadius: 20,
       padding: 40,

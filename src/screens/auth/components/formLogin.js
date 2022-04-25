@@ -1,32 +1,36 @@
 import {View, Text, StyleSheet} from "react-native"
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import Label from "./label"
-import HelperText from "../../../components/helperText"
+import HelperText from "@components/helperText"
 import {useTheme} from "@react-navigation/native"
-import Input from "../../../components/input"
-import Button from "../../../components/button"
+import Input from "@components/input"
+import Button from "@components/button"
 import EyeIcon from "./eyeIcon"
 import EyeOffIcon from "./eyeOffIcon"
-
 import CheckBox from "@react-native-community/checkbox"
 import {Controller, useForm} from "react-hook-form"
-import {emailContraints, passwordContraints} from "../../../common/validator"
+import {emailContraints, passwordContraints} from "@common/validator"
 import auth from "@react-native-firebase/auth"
-import useAuth from "../../../hooks/useAuth"
+import SuccessDialog from "@components/successDialog"
+import FailedDialog from "@components/failedDialog"
+import {getObject, storeObject} from "@utils/AsyncStore"
+import LoadingDialog from "@components/loadingDialog"
+import fonts from "@assets/fonts"
 
 const FormLogin = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isFailed, setIsFailed] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const {userInfo} = useAuth()
-  console.log(
-    "DEBUG: - file: formLogin.js - line 23 - FormLogin - userInfo",
-    userInfo,
-  )
+
   const {
     handleSubmit,
     control,
+    setValue,
     formState: {errors},
   } = useForm({
     defaultValues: {
@@ -35,25 +39,67 @@ const FormLogin = () => {
     },
   })
 
+  useEffect(() => {
+    fillData()
+  })
+
+  const fillData = async () => {
+    const user = await getObject("user")
+    setValue("email", user.email)
+    setValue("password", user.password)
+    setToggleCheckBox(Boolean(user))
+  }
+
+  const clearForm = () => {
+    setValue("email", "")
+    setValue("password", "")
+  }
+
+  const showLoadingDialog = () => {
+    setIsLoading(true)
+  }
+
+  const hideLoadingDialog = () => {
+    setIsLoading(false)
+  }
+
+  const showSuccessDialog = () => {
+    setIsSuccess(true)
+  }
+
+  const hideSuccessDialog = () => {
+    setIsSuccess(false)
+  }
+
+  const showFailedDialog = () => {
+    setIsFailed(true)
+  }
+
+  const hideFailedDialog = () => {
+    setIsFailed(false)
+  }
+
   const showPasswords = () => {
     setIsVisible(!isVisible)
   }
-  const onSubmitForm = () => {
+  const onSubmitForm = (data) => {
+    const {email, password} = data
+    showLoadingDialog()
     auth()
-      .signInWithEmailAndPassword("test1@gmail.com", "123456")
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
-        console.log("User account created & signed in!")
+        hideLoadingDialog()
+        clearForm()
+        showSuccessDialog()
+        if (toggleCheckBox) {
+          storeObject("user", data)
+        } else {
+          storeObject("user", null)
+        }
       })
       .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          console.log("That email address is already in use!")
-        }
-
-        if (error.code === "auth/invalid-email") {
-          console.log("That email address is invalid!")
-        }
-
-        console.error(error)
+        hideLoadingDialog()
+        showFailedDialog()
       })
   }
 
@@ -127,7 +173,24 @@ const FormLogin = () => {
         />
         <Text style={styles.txtTitle}>Remember me</Text>
       </View>
-      <Button title={"Sign in"} onPress={onSubmitForm} />
+      <Button title={"Sign in"} onPress={handleSubmit(onSubmitForm)} />
+      {/* Dialog */}
+      <SuccessDialog
+        isVisible={isSuccess}
+        title={"Logged in successfully"}
+        titleButton={"Go to Home"}
+        onBackdropPress={hideSuccessDialog}
+      />
+      <FailedDialog
+        isVisible={isFailed}
+        title={"Login failed"}
+        titleButton={"Go to Home"}
+        onBackdropPress={hideFailedDialog}
+      />
+      <LoadingDialog
+        isVisible={isLoading}
+        onBackdropPress={hideLoadingDialog}
+      />
     </>
   )
 }
@@ -142,7 +205,7 @@ const makeStyles = (colors) =>
     stylePasswordHelper: {},
     styleEmailHelper: {},
     txtTitle: {
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
       color: colors.red,
       marginLeft: 5,
     },

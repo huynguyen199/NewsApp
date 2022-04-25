@@ -1,7 +1,8 @@
-import {View, Text, ActivityIndicator} from "react-native"
+import {View, Text, ActivityIndicator, StyleSheet} from "react-native"
 import React from "react"
 import Modal from "react-native-modal"
 import {useTheme} from "@react-navigation/native"
+import fonts from "@assets/fonts"
 
 const LoadingDialog = ({onBackdropPress, isVisible}) => {
   const {colors} = useTheme()
@@ -23,7 +24,7 @@ const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {
       fontSize: 20,
-      fontFamily: "SourceSansPro-Bold",
+      fontFamily: fonts.bold,
       color: colors.lightRed,
       textAlign: "center",
     },
@@ -33,7 +34,7 @@ const makeStyles = (colors) =>
     },
     container: {
       justifyContent: "center",
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       alignItems: "center",
       borderRadius: 20,
       padding: 40,
