@@ -45,9 +45,11 @@ const FormLogin = () => {
 
   const fillData = async () => {
     const user = await getObject("user")
-    setValue("email", user.email)
-    setValue("password", user.password)
-    setToggleCheckBox(Boolean(user))
+    if (user) {
+      setValue("email", user.email)
+      setValue("password", user.password)
+      setToggleCheckBox(Boolean(user))
+    }
   }
 
   const clearForm = () => {
