@@ -1,6 +1,7 @@
-import {View, Text, StyleSheet, Image} from "react-native"
+import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
+import {Icon} from "@rneui/themed"
 import fonts from "@assets/fonts"
 
 const LeftComponent = () => {
@@ -8,19 +9,19 @@ const LeftComponent = () => {
   const styles = makeStyles(colors)
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.boxLogo}
-        source={{
-          uri: "https://www.patentlyapple.com/.a/6a0120a5580826970c01b7c8b154b7970b-pi",
-        }}
+      <Icon
+        // onPress={onGoBackHome}
+        name={"arrow-back-outline"}
+        type="ionicon"
+        color={colors.lightRed}
+        size={30}
       />
-      <Text style={styles.txtTitle}>News</Text>
+      <Text style={styles.txtTitle}>Choose Your Sources</Text>
     </View>
   )
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    boxLogo: {width: 40, height: 40},
     txtTitle: {
       color: colors.black,
       fontFamily: fonts.bold,

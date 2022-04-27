@@ -1,19 +1,17 @@
-import {View, Text} from "react-native"
 import React from "react"
 import {Icon, CheckBox as Check} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
+import {StyleSheet} from "react-native"
 
 const CheckBox = () => {
   const {colors} = useTheme()
+  const styles = makeStyles(colors)
   return (
     <>
       <Check
-        containerStyle={{
-          backgroundColor: null,
-          alignSelf: "flex-end",
-        }}
+        containerStyle={styles.containerStyle}
         checkedIcon={
-          <Icon name="checkbox" type="ionicon" color="red" size={20} />
+          <Icon name="checkbox" type="ionicon" color={colors.red} size={20} />
         }
         uncheckedIcon={
           <Icon
@@ -29,5 +27,12 @@ const CheckBox = () => {
     </>
   )
 }
+const makeStyles = (colors) =>
+  StyleSheet.create({
+    containerStyle: {
+      backgroundColor: null,
+      alignSelf: "flex-end",
+    },
+  })
 
 export default CheckBox

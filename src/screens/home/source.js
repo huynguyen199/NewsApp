@@ -4,11 +4,11 @@ import {Header, Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
 import SearchBar from "../../components/searchBar"
 import {Ionicons} from "../../common/icon"
-import LeftComponent from "./components/topic/leftComponent"
 import Button from "../../components/button"
-import TopicList from "./components/topic/topicList"
+import SourceList from "./components/source/sourceList"
+import LeftComponent from "./components/source/leftComponent"
 
-const Topic = () => {
+const Source = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -32,18 +32,17 @@ const Topic = () => {
             }
             containerStyle={styles.containerStyleSearch}
           />
-          <TopicList />
+          <SourceList />
         </View>
       </View>
       <View style={styles.boxBottom}>
-        <Button containerStyle={styles.containerStyleBtn} title="Next" />
+        <Button containerStyle={{marginHorizontal: 20}} title="Next" />
       </View>
     </View>
   )
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    containerStyleBtn: {marginHorizontal: 20},
     containerStyleSearch: {marginTop: 20},
     boxAlignHorizontal: {marginHorizontal: 10},
     boxBottom: {
@@ -64,4 +63,4 @@ const makeStyles = (colors) =>
     container: {flex: 1, backgroundColor: colors.white},
   })
 
-export default Topic
+export default Source

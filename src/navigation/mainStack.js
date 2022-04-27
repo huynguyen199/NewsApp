@@ -3,6 +3,7 @@ import {createStackNavigator} from "@react-navigation/stack"
 import {mainStack} from "../common/navigator"
 import HomeTabs from "./homeTabs"
 import Topic from "../screens/home/topic"
+import Source from "../screens/home/source"
 
 const Stack = createStackNavigator()
 
@@ -14,13 +15,19 @@ const MainStack = () => {
     >
       <Stack.Screen
         options={{headerShown: false}}
-        name={mainStack.topic}
-        component={Topic}
+        name={mainStack.homeTab}
+        component={HomeTabs}
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name={mainStack.homeTab}
-        component={HomeTabs}
+        name={mainStack.source}
+        component={Source}
+      />
+
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.topic}
+        component={Topic}
       />
     </Stack.Navigator>
   )

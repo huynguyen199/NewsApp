@@ -26,6 +26,7 @@ export const mainStack = {
   authStack: "AuthStack",
   detail: "DetailScreen",
   topic: "TopicScreen",
+  source: "SourceScreen",
 }
 
 export const rootSwitch = {

@@ -9,6 +9,9 @@ const Ionicons = {
   alertCircle: "alert-circle",
   warningOutline: "warning-outline",
   search: "search",
+  notifications: "notifications",
+  filter: "filter",
+  bookmarkOutline: "bookmark-outline",
 }
 const Fontisto = {
   heart: "heart",

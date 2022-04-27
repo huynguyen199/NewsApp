@@ -1,7 +1,6 @@
 import {View, TextInput, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
-import {color} from "@rneui/base"
 import fonts from "@assets/fonts"
 
 const Input = (props) => {
