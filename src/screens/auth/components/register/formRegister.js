@@ -143,7 +143,7 @@ const FormRegister = () => {
         style={styles.stylePasswordHelper}
       />
 
-      <View style={{marginTop: 30}}>
+      <View style={styles.boxButtonSignUp}>
         <Button title={"Sign up"} onPress={handleSubmit(onSubmitForm)} />
       </View>
       <SuccessDialog
@@ -169,6 +169,7 @@ const FormRegister = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    boxButtonSignUp: {marginTop: 30},
     inputPassword: {marginTop: 5},
     boxHelperPassword: {height: 30, marginTop: 3},
     boxHelperEmail: {height: 28, marginTop: 3},

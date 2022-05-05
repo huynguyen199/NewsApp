@@ -1,13 +1,17 @@
 import {View, StyleSheet, TouchableOpacity, Image} from "react-native"
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import CheckBox from "@react-native-community/checkbox"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const SourceItem = () => {
+const SourceItem = ({item}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const [checked, setChecked] = useState(false)
+
+  useEffect(() => {
+    setChecked(item.isChecked)
+  }, [item])
 
   const onToggleCheckbox = () => {
     setChecked(!checked)
@@ -31,7 +35,7 @@ const SourceItem = () => {
           <Image
             style={styles.imageLogo}
             source={{
-              uri: "https://seeklogo.com/images/B/bbc-news-logo-E3DECDA65A-seeklogo.com.png",
+              uri: item.image,
             }}
           />
           {/* <View style={styles.boxTextRow}>

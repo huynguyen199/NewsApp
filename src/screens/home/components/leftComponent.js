@@ -31,6 +31,7 @@ const makeStyles = (colors) =>
       flexDirection: "row",
       alignItems: "center",
       width: 300,
+      marginLeft: 10,
     },
   })
 

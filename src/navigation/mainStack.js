@@ -4,6 +4,7 @@ import {mainStack} from "../common/navigator"
 import HomeTabs from "./homeTabs"
 import Topic from "../screens/home/topic"
 import Source from "../screens/home/source"
+import Detail from "../screens/home/detail"
 
 const Stack = createStackNavigator()
 
@@ -17,6 +18,11 @@ const MainStack = () => {
         options={{headerShown: false}}
         name={mainStack.homeTab}
         component={HomeTabs}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.detail}
+        component={Detail}
       />
       <Stack.Screen
         options={{headerShown: false}}

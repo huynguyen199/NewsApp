@@ -12,6 +12,9 @@ const Ionicons = {
   notifications: "notifications",
   filter: "filter",
   bookmarkOutline: "bookmark-outline",
+  shareSocial: "share-social",
+  ellipsisVertical: "ellipsis-vertical",
+  back: "arrow-back",
 }
 const Fontisto = {
   heart: "heart",

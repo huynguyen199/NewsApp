@@ -1,16 +1,13 @@
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
+import React, {useContext} from "react"
 import {useTheme} from "@react-navigation/native"
 import fonts from "../../../assets/fonts"
+import {HomeContext} from "../../../context/home"
 
-const CategoryItem = ({
-  item,
-  onPress,
-  setSelectCategoryId,
-  selectCategoryId,
-}) => {
+const CategoryItem = ({item}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const {selectCategoryId, setSelectCategoryId} = useContext(HomeContext)
 
   const onToggleCategory = () => {
     setSelectCategoryId(item.id)
@@ -30,7 +27,7 @@ const CategoryItem = ({
               ? styles.txtTitle
               : styles.txtTitleOutline
           }>
-          {item.title}
+          {item.name}
         </Text>
       </View>
     </TouchableOpacity>

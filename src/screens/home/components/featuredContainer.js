@@ -1,27 +1,34 @@
 import {View, Text, ImageBackground, StyleSheet} from "react-native"
-import React from "react"
+import React, {memo} from "react"
 import Button from "../../../components/button"
 import fonts from "../../../assets/fonts"
-import {useTheme} from "@react-navigation/native"
-
-const FeaturedContainer = () => {
+import {useNavigation, useTheme} from "@react-navigation/native"
+import {mainStack} from "../../../common/navigator"
+const FeaturedContainer = ({articleFeatured}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onMoveDetail = () => {
+    navigation.navigate(mainStack.detail, {articleId: articleFeatured.id})
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.txtLabel}>Featured</Text>
       <ImageBackground
         source={{
-          uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlCeVhPcF0B061dWx6Y2p6ZshztnAoVQI59g&usqp=CAU",
+          uri: articleFeatured.urlToImage,
         }}
         resizeMode="cover"
         imageStyle={styles.imageStyle}
         style={styles.backgroundStyle}>
         <View style={styles.boxBottom}>
-          <Text style={styles.txtTitle}>sadssadsadaaaaaaaa</Text>
+          <Text style={styles.txtTitle}>{articleFeatured.title}</Text>
           <Button
             containerStyle={styles.containerStyleBtn}
             title={"Read now"}
+            onPress={onMoveDetail}
           />
         </View>
       </ImageBackground>
@@ -50,4 +57,4 @@ const makeStyles = (colors) =>
     container: {marginHorizontal: 10, marginTop: 10},
   })
 
-export default FeaturedContainer
+export default memo(FeaturedContainer)

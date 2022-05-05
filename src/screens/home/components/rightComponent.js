@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from "react-native"
+import {View, StyleSheet} from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
@@ -32,6 +32,7 @@ const makeStyles = (colors) =>
     container: {
       alignItems: "center",
       justifyContent: "center",
+      marginRight: 10,
     },
   })
 export default RightComponent

@@ -1,36 +1,62 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
+import React, {useEffect, useState} from "react"
 import fonts from "../../../assets/fonts"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import {Ionicons} from "../../../common/icon"
+import {findSourceById} from "../../../services/source"
 import {Icon} from "@rneui/themed"
+import {findCategoryById} from "../../../services/category"
+import {mainStack} from "../../../common/navigator"
 
-const ArticleItem = ({title}) => {
+const ArticleItem = ({item}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const [source, setSource] = useState({})
+  const [category, setCategory] = useState({})
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    handleItem()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      setCategory([])
+      setSource([])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleItem = async () => {
+    const dataSource = await findSourceById(item.sourceId)
+    const dataCategory = await findCategoryById(item.categoryId)
+    setCategory(dataCategory)
+    setSource(dataSource)
+  }
+
+  const onMoveDetail = () => {
+    navigation.navigate(mainStack.detail, {articleId: item.id})
+  }
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onMoveDetail}>
       <View style={styles.container}>
         <Image
           style={styles.imageLeft}
           source={{
-            uri: "https://static.foxnews.com/foxnews.com/content/uploads/2022/04/Elon-Musk-Twitter-staff.jpg",
+            uri: item.urlToImage,
           }}
         />
         <View style={styles.boxRight}>
-          <Text style={styles.txtTitle}>
-            Elon Musk is no saint, but much of the media is demonizing him
-          </Text>
+          <Text style={styles.txtTitle}>{item.title}</Text>
           <View style={styles.boxLogo}>
             <Image
               style={styles.imageLogo}
               source={{
-                uri: "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/BBC_News.svg/2560px-BBC_News.svg.png",
+                uri: source.image,
               }}
             />
-            <Text style={styles.txtBrand}>CNN</Text>
+            <Text style={styles.txtBrand}>{source.name}</Text>
             <View style={styles.boxCategory}>
-              <Text style={styles.txtCategory}>Healthy</Text>
+              <Text style={styles.txtCategory}>{category.name}</Text>
             </View>
           </View>
           <View style={styles.boxBottom}>
@@ -51,7 +77,7 @@ const makeStyles = (colors) =>
     boxBottom: {
       position: "absolute",
       bottom: 0,
-      right: 0,
+      right: -5,
     },
     txtCategory: {
       color: colors.lightRed,
@@ -62,7 +88,7 @@ const makeStyles = (colors) =>
       alignItems: "center",
       paddingHorizontal: 10,
       borderRadius: 20,
-      marginLeft: 10,
+      marginLeft: 5,
       backgroundColor: colors.white,
       borderWidth: 1,
       borderColor: colors.lightRed,

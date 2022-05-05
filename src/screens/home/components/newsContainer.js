@@ -1,23 +1,19 @@
 import {Text, StyleSheet} from "react-native"
-import React, {useState} from "react"
+import React from "react"
 import fonts from "../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 import CategoryList from "./categoryList"
 import ArticleList from "./articleList"
 
-const NewsContainer = () => {
+const NewsContainer = (props) => {
+  const {categoryList} = {...props}
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const [selectCategoryId, setSelectCategoryId] = useState(null)
-
   return (
     <>
       <Text style={styles.txtLabel}>News</Text>
-      <CategoryList
-        selectCategoryId={selectCategoryId}
-        setSelectCategoryId={setSelectCategoryId}
-      />
-      <ArticleList />
+      <CategoryList categoryList={categoryList} />
+      <ArticleList {...props} />
     </>
   )
 }

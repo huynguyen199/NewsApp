@@ -36,13 +36,14 @@ const Source = () => {
         </View>
       </View>
       <View style={styles.boxBottom}>
-        <Button containerStyle={{marginHorizontal: 20}} title="Next" />
+        <Button containerStyle={styles.containerButton} title="Next" />
       </View>
     </View>
   )
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
+    containerButton: {marginHorizontal: 20},
     containerStyleSearch: {marginTop: 20},
     boxAlignHorizontal: {marginHorizontal: 10},
     boxBottom: {

@@ -1,32 +1,28 @@
 import {FlatList, StyleSheet} from "react-native"
-import React from "react"
+import React, {useEffect, useState} from "react"
 
 import {useTheme} from "@react-navigation/native"
 import SourceItem from "./sourceItem"
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-]
+import {getALlSources} from "../../../../services/source"
 
 const SourceList = () => {
-  const renderItem = ({item}) => <SourceItem title={item.title} />
+  const renderItem = ({item}) => <SourceItem item={item} />
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const [sources, setSources] = useState([])
+
+  useEffect(() => {
+    fetchAllSources()
+  }, [])
+
+  const fetchAllSources = async () => {
+    const data = await getALlSources()
+    setSources(data)
+  }
 
   return (
     <FlatList
-      data={DATA}
+      data={sources}
       numColumns={2}
       renderItem={renderItem}
       contentContainerStyle={styles.contentContainerStyle}
