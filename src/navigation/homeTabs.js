@@ -5,6 +5,7 @@ import Home from "../screens/home/home"
 
 import {useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
+import Profile from "../screens/profile/profile"
 
 const Tab = createBottomTabNavigator()
 
@@ -14,8 +15,8 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: colors.lightRed,
-        tabBarInactiveTintColor: colors.white,
+        tabBarActiveTintColor: colors.red,
+        tabBarInactiveTintColor: colors.black,
         tabBarStyle: {
           height: 55,
         },
@@ -34,6 +35,17 @@ const HomeTabs = () => {
         }}
         name={homeTabs.home}
         component={Home}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: "profile",
+          tabBarIcon: ({color, size}) => (
+            <Icon name="newspaper-outline" type="ionicon" color={color} />
+          ),
+          headerShown: false,
+        }}
+        name={homeTabs.me}
+        component={Profile}
       />
     </Tab.Navigator>
   )

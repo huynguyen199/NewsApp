@@ -2,14 +2,29 @@ import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {Ionicons} from "../../common/icon"
+import {Icon} from "@rneui/themed"
 
-const Button = ({title, onPress, containerStyle}) => {
+const Button = ({title, onPress, containerStyle, textStyle, leftIcon}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.container, containerStyle]}>
-        <Text style={styles.txtTitle}>{title}</Text>
+        <View style={{flexDirection: "row"}}>
+          {/* <Text>das</Text> */}
+          {leftIcon && (
+            <Icon
+              name={leftIcon}
+              type="ionicon"
+              color={"red"}
+              solid={true}
+              size={20}
+              style={{marginRight: 5}}
+            />
+          )}
+          <Text style={[styles.txtTitle, textStyle]}>{title}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   )
