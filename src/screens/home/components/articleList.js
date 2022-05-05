@@ -14,7 +14,7 @@ const ArticleList = ({article, isLoadingFooter, onEndReachedArticle}) => {
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       onEndReached={onEndReachedArticle}
-      onEndReachedThreshold={1}
+      onEndReachedThreshold={0.1}
       // ListEmptyComponent={<Text>das</Text>}
       ListFooterComponent={() =>
         article.length !== 0 && isLoadingFooter && <ListFooterComponent />
