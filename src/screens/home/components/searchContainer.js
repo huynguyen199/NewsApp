@@ -1,8 +1,8 @@
 import {StyleSheet, View} from "react-native"
 import React from "react"
-import SearchBar from "../../../components/searchBar"
+import SearchBar from "@components/searchBar"
 import {Icon} from "@rneui/themed"
-import {Ionicons} from "../../../common/icon"
+import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
 
 const SearchContainer = () => {

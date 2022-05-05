@@ -1,9 +1,9 @@
 import {View, Text, ImageBackground, StyleSheet} from "react-native"
 import React, {memo} from "react"
-import Button from "../../../components/button"
-import fonts from "../../../assets/fonts"
+import Button from "@components/button"
+import fonts from "@assets/fonts"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {mainStack} from "../../../common/navigator"
+import {mainStack} from "@common/navigator"
 const FeaturedContainer = ({articleFeatured}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)

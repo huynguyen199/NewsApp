@@ -2,10 +2,10 @@ import {StyleSheet, View} from "react-native"
 import React from "react"
 import {Header, Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
-import SearchBar from "../../components/searchBar"
-import {Ionicons} from "../../common/icon"
+import SearchBar from "@components/searchBar"
+import {Ionicons} from "@common/icon"
 import LeftComponent from "./components/topic/leftComponent"
-import Button from "../../components/button"
+import Button from "@components/button"
 import TopicList from "./components/topic/topicList"
 
 const Topic = () => {

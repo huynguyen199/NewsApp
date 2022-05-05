@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
-import fonts from "../../../../assets/fonts"
+import fonts from "@assets/fonts"
 
 const ContentContainer = ({infoArticle}) => {
   const {colors} = useTheme()

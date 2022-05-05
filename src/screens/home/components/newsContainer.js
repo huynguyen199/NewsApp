@@ -1,6 +1,6 @@
 import {Text, StyleSheet} from "react-native"
 import React from "react"
-import fonts from "../../../assets/fonts"
+import fonts from "@assets/fonts"
 import {useTheme} from "@react-navigation/native"
 import CategoryList from "./categoryList"
 import ArticleList from "./articleList"

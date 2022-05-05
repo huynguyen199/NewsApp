@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 
 import {useTheme} from "@react-navigation/native"
 import SourceItem from "./sourceItem"
-import {getALlSources} from "../../../../services/source"
+import {getALlSources} from "@services/source"
 
 const SourceList = () => {
   const renderItem = ({item}) => <SourceItem item={item} />

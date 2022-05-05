@@ -1,12 +1,12 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
 import React, {useEffect, useState} from "react"
-import fonts from "../../../assets/fonts"
+import fonts from "@assets/fonts"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "../../../common/icon"
-import {findSourceById} from "../../../services/source"
+import {Ionicons} from "@common/icon"
+import {findSourceById} from "@services/source"
 import {Icon} from "@rneui/themed"
-import {findCategoryById} from "../../../services/category"
-import {mainStack} from "../../../common/navigator"
+import {findCategoryById} from "@services/category"
+import {mainStack} from "@common/navigator"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()

@@ -2,12 +2,17 @@ import {View, StyleSheet} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 
-const Header = ({leftComponent, rightComponent, centerComponent}) => {
+const Header = ({
+  leftComponent,
+  rightComponent,
+  centerComponent,
+  containerStyle,
+}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <View>{leftComponent}</View>
       <View>{centerComponent}</View>
       <View>{rightComponent}</View>

@@ -1,7 +1,7 @@
 import {StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
-import {Ionicons} from "../../../../common/icon"
+import {Ionicons} from "@common/icon"
 import {useNavigation, useTheme} from "@react-navigation/native"
 
 const LeftComponent = () => {

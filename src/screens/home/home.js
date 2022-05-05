@@ -3,16 +3,16 @@ import React, {useEffect, useState, useContext} from "react"
 import LeftComponent from "./components/leftComponent"
 import RightComponent from "./components/rightComponent"
 import NewsContainer from "./components/newsContainer"
-import VirtualizedView from "../../components/virtualizedView"
+import VirtualizedView from "@components/virtualizedView"
 import SearchContainer from "./components/searchContainer"
 import FeaturedContainer from "./components/featuredContainer"
 import firestore from "@react-native-firebase/firestore"
 
 import Loading from "./components/loading"
 import {HomeContext} from "../../context/home"
-import {getFirstOfSource} from "../../services/article"
-import {getALlCategory} from "../../services/category"
-import Header from "../../components/header"
+import {getFirstOfSource} from "@services/article"
+import {getALlCategory} from "@services/category"
+import Header from "@components/header"
 import {useTheme} from "@react-navigation/native"
 
 const articleCollection = firestore().collection("article")
@@ -71,13 +71,14 @@ const Home = () => {
   }
 
   const onEndReachedArticle = () => {
-    if (article.length > 2) {
-      setIsLoadingFooter(true)
-    }
     fetchArticle()
   }
 
   const fetchArticle = () => {
+    if (article.length > 2) {
+      setIsLoadingFooter(true)
+    }
+
     let query = articleCollection
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
@@ -119,10 +120,9 @@ const Home = () => {
       <View style={styles.container}>
         {/* <Header /> */}
         <Header
+          containerStyle={styles.containerStyleHeader}
           leftComponent={<LeftComponent />}
           rightComponent={<RightComponent />}
-          // containerStyle={{borderBottomWidth: 0, backgroundColor: "red"}}
-          // backgroundColor={"white"}
         />
 
         {/* form search */}
@@ -146,6 +146,7 @@ const Home = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    containerStyleHeader: {marginTop: 10},
     container: {flex: 1, backgroundColor: colors.white},
   })
 export default React.memo(Home)

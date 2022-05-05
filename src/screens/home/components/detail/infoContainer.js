@@ -1,13 +1,13 @@
 import {View, Text, Image, StyleSheet} from "react-native"
 import React, {useEffect, useState} from "react"
 import {useRoute, useTheme} from "@react-navigation/native"
-import fonts from "../../../../assets/fonts"
+import fonts from "@assets/fonts"
 import SourceContainer from "./sourceContainer"
 import ContentContainer from "./contentContainer"
 import TagList from "./tagList"
-import {findArticleById} from "../../../../services/article"
-import {findSourceById} from "../../../../services/source"
-import {findCategoryById} from "../../../../services/category"
+import {findArticleById} from "@services/article"
+import {findSourceById} from "@services/source"
+import {findCategoryById} from "@services/category"
 
 const InfoContainer = () => {
   const {colors} = useTheme()

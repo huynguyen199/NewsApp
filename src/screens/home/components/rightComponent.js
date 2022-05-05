@@ -2,7 +2,7 @@ import {View, StyleSheet} from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
-import {Ionicons} from "../../../common/icon"
+import {Ionicons} from "@common/icon"
 
 const RightComponent = () => {
   const {colors} = useTheme()

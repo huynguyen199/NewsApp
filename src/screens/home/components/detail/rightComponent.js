@@ -1,7 +1,7 @@
 import {View, StyleSheet} from "react-native"
 import React from "react"
-import IconButton from "../../../../components/iconButton"
-import {Ionicons} from "../../../../common/icon"
+import IconButton from "@components/iconButton"
+import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
 
 const RightComponent = () => {
