@@ -111,7 +111,7 @@ const makeStyles = (colors) =>
     containerStyleHeader: {marginTop: 10},
     containerStyleButton: {
       marginTop: 40,
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       borderWidth: 2,
       borderColor: colors.red,
     },
@@ -183,7 +183,7 @@ const makeStyles = (colors) =>
       marginTop: 20,
     },
     boxMargin: {marginHorizontal: 5},
-    container: {flex: 1, backgroundColor: "white"},
+    container: {flex: 1, backgroundColor: colors.white},
   })
 
 export default Profile

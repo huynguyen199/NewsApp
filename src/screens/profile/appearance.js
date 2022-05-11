@@ -1,4 +1,4 @@
-import {View, StyleSheet, Text, Switch} from "react-native"
+import {View, StyleSheet, Text, Switch, StatusBar} from "react-native"
 import React, {useContext} from "react"
 import Header from "@components/header"
 import fonts from "@assets/fonts"
@@ -17,6 +17,8 @@ const Appearance = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar animated={true} backgroundColor={colors.white} />
+
       <Header
         // containerStyle={{marginTop: 10}}
         leftComponent={<LeftComponent />}

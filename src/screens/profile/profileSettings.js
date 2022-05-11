@@ -114,7 +114,7 @@ const makeStyles = (colors) =>
     yesStyleBtn: {width: 170},
     btnCancel: {
       width: 170,
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       borderWidth: 2,
       borderColor: colors.lightRed,
     },
@@ -139,7 +139,7 @@ const makeStyles = (colors) =>
     containerHorizontal: {
       marginHorizontal: 10,
     },
-    container: {flex: 1, backgroundColor: "white"},
+    container: {flex: 1, backgroundColor: colors.white},
   })
 
 export default ProfileSettings

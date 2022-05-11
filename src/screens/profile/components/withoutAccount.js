@@ -100,10 +100,10 @@ const makeStyles = (colors) =>
       borderColor: colors.lightRed,
     },
     boxBtnRow: {flexDirection: "row", marginTop: 30},
-    container: {backgroundColor: "white", flex: 1},
+    container: {backgroundColor: colors.white, flex: 1},
     containerStyleButton: {
       marginTop: 40,
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       borderWidth: 2,
       borderColor: colors.red,
     },
@@ -112,7 +112,11 @@ const makeStyles = (colors) =>
       fontFamily: fonts.regular,
       color: "black",
     },
-    txtNumOfFollowing: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
+    txtNumOfFollowing: {
+      fontFamily: fonts.bold,
+      fontSize: 24,
+      color: colors.black,
+    },
     boxRight: {
       flex: 1,
       justifyContent: "center",

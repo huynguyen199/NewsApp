@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from "react-native"
 import React, {useEffect, useState} from "react"
 import Header from "@components/header"
@@ -149,6 +150,8 @@ const EditProfile = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar animated={true} backgroundColor={colors.white} />
+
       <Header leftComponent={<LeftComponent />} />
       <ScrollView>
         <View style={styles.boxMargin}>
