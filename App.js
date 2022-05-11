@@ -2,11 +2,11 @@ import React, {useState} from "react"
 import {NavigationContainer} from "@react-navigation/native"
 import Router from "./src/navigation/rootSwitch"
 import {darkColor, lightColor} from "./src/common/color"
-import {Appearance} from "react-native"
+import {Appearance, StatusBar} from "react-native"
 
 import {GoogleSignin} from "@react-native-google-signin/google-signin"
 import {HomeContext} from "./src/context/home"
-
+import {Host, Portal} from "react-native-portalize"
 GoogleSignin.configure({
   scopes: ["https://www.googleapis.com/auth/drive.readonly"], // [Android] what API you want to access on behalf of the user, default is email and profile
   webClientId:
@@ -16,6 +16,8 @@ GoogleSignin.configure({
 
 const App = () => {
   const [colorScheme, setColorScheme] = useState("")
+  const [darkScheme, setDarkScheme] = useState(false)
+
   const [selectCategoryId, setSelectCategoryId] = useState("all")
 
   Appearance.addChangeListener((mode) => {
@@ -24,9 +26,21 @@ const App = () => {
 
   return (
     <NavigationContainer
-      theme={colorScheme === "dark" ? darkColor : lightColor}>
-      <HomeContext.Provider value={{selectCategoryId, setSelectCategoryId}}>
-        <Router />
+      theme={darkScheme || colorScheme === "dark" ? darkColor : lightColor}>
+      <HomeContext.Provider
+        value={{
+          selectCategoryId,
+          setSelectCategoryId,
+          darkScheme,
+          setDarkScheme,
+        }}>
+        <Host>
+          <StatusBar
+            animated={true}
+            backgroundColor={darkScheme ? "black" : "white"}
+          />
+          <Router />
+        </Host>
       </HomeContext.Provider>
     </NavigationContainer>
   )

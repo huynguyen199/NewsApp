@@ -5,12 +5,12 @@ import {Icon} from "@rneui/themed"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const HelperText = ({style, title, isVisible}) => {
+const HelperText = ({style, title, isVisible, containerStyle}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   return (
-    <>
+    <View style={containerStyle}>
       {isVisible && (
         <View style={[styles.container, style]}>
           <View style={styles.boxRow}>
@@ -26,7 +26,7 @@ const HelperText = ({style, title, isVisible}) => {
           </View>
         </View>
       )}
-    </>
+    </View>
   )
 }
 

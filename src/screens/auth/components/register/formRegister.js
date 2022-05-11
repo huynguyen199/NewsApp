@@ -1,6 +1,6 @@
 import {View, StyleSheet} from "react-native"
 import React, {useState} from "react"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import EyeOffIcon from "./eyeOffIcon"
 import {Controller, useForm} from "react-hook-form"
 import HelperText from "@components/helperText"
@@ -13,13 +13,20 @@ import auth from "@react-native-firebase/auth"
 import SuccessDialog from "@components/successDialog"
 import FailedDialog from "@components/failedDialog"
 import LoadingDialog from "@components/loadingDialog"
+import {createUser, findUserById} from "@services/user"
+import useAuth from "@hooks/useAuth"
+import {mainStack} from "@common/navigator"
 
 const FormRegister = () => {
   const [isVisible, setIsVisible] = useState(true)
   const {colors} = useTheme()
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [isFailed, setIsFailed] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const {userInfo} = useAuth()
+  const navigation = useNavigation()
+  const [dialog, setDialog] = useState({
+    isSuccess: false,
+    isFailed: false,
+    isLoading: false,
+  })
 
   const styles = makeStyles(colors)
   const {
@@ -40,27 +47,31 @@ const FormRegister = () => {
   }
 
   const showLoadingDialog = () => {
-    setIsLoading(true)
+    // setIsLoading(true)
+    setDialog((prev) => ({...prev, isLoading: true}))
   }
 
   const hideLoadingDialog = () => {
-    setIsLoading(false)
+    // setIsLoading(false)
+    setDialog((prev) => ({...prev, isLoading: false}))
   }
 
   const showSuccessDialog = () => {
-    setIsSuccess(true)
+    // setIsSuccess(true)
+    setDialog((prev) => ({...prev, isSuccess: true}))
   }
 
   const hideSuccessDialog = () => {
-    setIsSuccess(false)
+    setDialog((prev) => ({...prev, isSuccess: false}))
   }
 
   const showFailedDialog = () => {
-    setIsFailed(true)
+    // setIsFailed(true)
+    setDialog((prev) => ({...prev, isFailed: true}))
   }
 
   const hideFailedDialog = () => {
-    setIsFailed(false)
+    setDialog((prev) => ({...prev, isFailed: false}))
   }
 
   const showPasswords = () => {
@@ -71,10 +82,12 @@ const FormRegister = () => {
     showLoadingDialog()
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(async (res) => {
         hideLoadingDialog()
         clearForm()
         showSuccessDialog()
+        const providerData = res.user.providerData[0]
+        createNewUserWithData(providerData)
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
@@ -82,6 +95,34 @@ const FormRegister = () => {
         }
         hideLoadingDialog()
       })
+  }
+
+  const createNewUserWithData = (data) => {
+    const user = {
+      id: data.uid,
+      fullName: data.displayName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      photoUrl: data.photoURL,
+      interest: [],
+      source: [],
+      about: null,
+      website: null,
+    }
+    createUser(user)
+  }
+
+  const onMoveHome = async () => {
+    // console.log("test")
+    // navigation.navigate(mainStack.source)
+    hideSuccessDialog()
+    const providerData = userInfo._user.providerData[0]
+    const user = await findUserById(providerData.uid)
+
+    if (user.interest.length === 0) {
+      return navigation.navigate(mainStack.source)
+    }
+    return navigation.navigate(mainStack.homeTab)
   }
 
   return (
@@ -103,14 +144,11 @@ const FormRegister = () => {
           rules={emailContraints}
         />
       </View>
-      {/* <View style={styles.boxHelperEmail}> */}
       <HelperText
         isVisible={errors.email && errors.email.message}
         title={errors.email && errors.email.message}
         style={styles.styleEmailHelper}
       />
-      {/* </View> */}
-
       <View>
         <Label title={"Password"} />
         <Controller
@@ -136,7 +174,6 @@ const FormRegister = () => {
           rules={passwordContraints}
         />
       </View>
-      {/* <View style={styles.boxHelperPassword}> */}
       <HelperText
         isVisible={errors.password && errors.password.message}
         title={errors.password && errors.password.message}
@@ -147,20 +184,21 @@ const FormRegister = () => {
         <Button title={"Sign up"} onPress={handleSubmit(onSubmitForm)} />
       </View>
       <SuccessDialog
-        isVisible={isSuccess}
+        isVisible={dialog.isSuccess}
         title={"Great!\n Your account has been created successfully"}
         titleButton={"Go to Home"}
+        onPress={onMoveHome}
         onBackdropPress={hideSuccessDialog}
       />
       <FailedDialog
-        isVisible={isFailed}
+        isVisible={dialog.isFailed}
         title={"That email address is already in use!"}
         titleButton={"Back"}
         onPress={hideFailedDialog}
         onBackdropPress={hideFailedDialog}
       />
       <LoadingDialog
-        isVisible={isLoading}
+        isVisible={dialog.isLoading}
         onBackdropPress={hideLoadingDialog}
       />
     </>

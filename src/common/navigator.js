@@ -27,6 +27,9 @@ export const mainStack = {
   detail: "DetailScreen",
   topic: "TopicScreen",
   source: "SourceScreen",
+  profileSettings: "ProfileSettingsScreen",
+  editProfile: "EditProfileScreen",
+  appearance: "AppearanceScreen",
 }
 
 export const rootSwitch = {

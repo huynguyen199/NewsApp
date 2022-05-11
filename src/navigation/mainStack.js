@@ -1,10 +1,13 @@
 import React from "react"
 import {createStackNavigator} from "@react-navigation/stack"
-import {mainStack} from "../common/navigator"
+import {mainStack} from "@common/navigator"
 import HomeTabs from "./homeTabs"
-import Topic from "../screens/home/topic"
-import Source from "../screens/home/source"
-import Detail from "../screens/home/detail"
+import Topic from "@screens/home/topic"
+import Source from "@screens/home/source"
+import Detail from "@screens/home/detail"
+import ProfileSettings from "@screens/profile/profileSettings"
+import EditProfile from "@screens/profile/editProfile"
+import Appearance from "@screens/profile/appearance"
 
 const Stack = createStackNavigator()
 
@@ -29,11 +32,26 @@ const MainStack = () => {
         name={mainStack.source}
         component={Source}
       />
-
       <Stack.Screen
         options={{headerShown: false}}
         name={mainStack.topic}
         component={Topic}
+      />
+      {/* profile */}
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.profileSettings}
+        component={ProfileSettings}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.editProfile}
+        component={EditProfile}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.appearance}
+        component={Appearance}
       />
     </Stack.Navigator>
   )

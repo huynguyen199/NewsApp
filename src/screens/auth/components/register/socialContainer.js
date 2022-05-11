@@ -3,14 +3,21 @@ import React from "react"
 
 import {AccessToken, LoginManager} from "react-native-fbsdk-next"
 import {GoogleSignin} from "@react-native-google-signin/google-signin"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import auth from "@react-native-firebase/auth"
 import SocicalButton from "@components/socicalButton.js/index.js"
 import Toast from "@common/toast.js"
+import {
+  createUser,
+  findUserById,
+  checkUserExistByUid,
+} from "../../../../services/user"
+import {mainStack} from "../../../../common/navigator"
 
 const SocialContainer = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
 
   async function onGoogleButtonPress() {
     // Get the users ID token
@@ -22,8 +29,9 @@ const SocialContainer = () => {
     // Sign-in the user with the credential
     return auth()
       .signInWithCredential(googleCredential)
-      .then(() => {
-        Toast.show("login with facebook successful")
+      .then(async (res) => {
+        Toast.show("login with google successful")
+        await checkUserAndSignIn(res)
       })
   }
 
@@ -54,9 +62,41 @@ const SocialContainer = () => {
     // Sign-in the user with the credential
     return auth()
       .signInWithCredential(facebookCredential)
-      .then(() => {
+      .then(async (res) => {
         Toast.show("login with facebook successful")
+
+        await checkUserAndSignIn(res)
       })
+  }
+
+  const checkUserAndSignIn = async (res) => {
+    const providerData = res.user.providerData[0]
+    const isExistUser = await checkUserExistByUid(providerData.uid)
+    if (isExistUser === false) {
+      return createNewUserWithData(providerData)
+    }
+    const user = await findUserById(providerData.uid)
+    if (user.interest.length === 0) {
+      return navigation.navigate(mainStack.source)
+    }
+    navigation.navigate(mainStack.homeTab)
+  }
+
+  const createNewUserWithData = (data) => {
+    // const data = {test1: "csa", test2: "sac"}
+    const user = {
+      id: data.uid,
+      fullname: data.displayName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      photoUrl: data.photoURL,
+      interest: [],
+      source: [],
+      about: null,
+      website: null,
+    }
+    createUser(user)
+    // updateUser(data)
   }
 
   return (

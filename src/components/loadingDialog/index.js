@@ -8,7 +8,11 @@ const LoadingDialog = ({onBackdropPress, isVisible}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
-    <Modal onBackdropPress={onBackdropPress} isVisible={isVisible}>
+    <Modal
+      animationInTiming={100}
+      animationOutTiming={100}
+      onBackdropPress={onBackdropPress}
+      isVisible={isVisible}>
       <View style={styles.container}>
         <View style={styles.boxIcon}>
           <ActivityIndicator size={50} color={colors.lightRed} />

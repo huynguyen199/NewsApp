@@ -18,6 +18,12 @@ const Ionicons = {
   settings: "settings-sharp",
   pencil: "pencil",
   globe: "globe-outline",
+  chevronForward: "chevron-forward-outline",
+  person: "person",
+  lockClosed: "lock-closed",
+  eyeFilled: "eye",
+  logoutOutline: "log-out-outline",
+  people: "people",
 }
 const Fontisto = {
   heart: "heart",

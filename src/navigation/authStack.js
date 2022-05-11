@@ -1,8 +1,8 @@
 import React from "react"
-import {authStack} from "../common/navigator"
+import {authStack} from "@common/navigator"
 import {createStackNavigator} from "@react-navigation/stack"
-import Login from "../screens/auth/login"
-import Register from "../screens/auth/register"
+import Login from "@screens/auth/login"
+import Register from "@screens/auth/register"
 
 const Stack = createStackNavigator()
 

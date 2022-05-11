@@ -1,69 +1,105 @@
-import {View, Text, StyleSheet, ImageBackground, Image} from "react-native"
-import React from "react"
+import {View, Text, StyleSheet, ImageBackground} from "react-native"
+import React, {useCallback, useState} from "react"
 import Header from "@components/header"
 import LeftComponent from "./components/leftComponent"
 import RightComponent from "./components/rightComponent"
-import {useTheme} from "@react-navigation/native"
+import {useFocusEffect, useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 import Button from "@components/button"
-import {Divider} from "@rneui/themed"
+import {Divider, Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
+import WithoutAccount from "./components/withoutAccount"
+import Loading from "./components/loading"
+import {findUserById} from "../../services/user"
+import useAuth from "../../hooks/useAuth"
+import {Material} from "../../common/icon"
 
-const image = {uri: "https://reactjs.org/logo-og.png"}
 const Profile = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const [profile, setProfile] = useState({})
+  const [loading, setLoading] = useState(true)
+  const {userInfo} = useAuth()
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchUser()
+      return () => {
+        setProfile({})
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userInfo]),
+  )
+
+  const fetchUser = async () => {
+    if (userInfo) {
+      const providerData = userInfo._user.providerData[0]
+      const user = await findUserById(providerData.uid)
+      setLoading(false)
+      setProfile(user)
+    }
+  }
+
+  if (userInfo === null) {
+    return <WithoutAccount />
+  }
+
+  if (loading) {
+    return <Loading />
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.boxMargin}>
         <Header
-          containerStyle={{marginTop: 10}}
+          containerStyle={styles.containerStyleHeader}
           leftComponent={<LeftComponent />}
           rightComponent={<RightComponent />}
         />
         <View style={styles.boxInfo}>
           <ImageBackground
-            source={image}
+            source={{
+              uri:
+                profile?.photoUrl ??
+                "https://espclarity.com/wp-content/uploads/2021/07/3rd-member.png",
+            }}
             imageStyle={styles.imageStyle}
             style={styles.styleBackground}>
-            <Image
-              style={styles.imageChildStyle}
-              source={{
-                uri: "https://reactnative.dev/img/tiny_logo.png",
-              }}
-            />
+            <View style={styles.imageChildStyle}>
+              <Icon
+                reverse
+                name={Material.edit}
+                type="material"
+                size={12}
+                color={colors.lightRed}
+              />
+            </View>
           </ImageBackground>
-          <Text style={styles.txtTitle}>My Name</Text>
-          <Text style={styles.styleContent}>
-            dsasadddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-          </Text>
+          <Text style={styles.txtTitle}>{profile?.fullName ?? ""}</Text>
+          <Text style={styles.styleContent}>{profile?.about ?? ""}</Text>
         </View>
-        {/* info  profile */}
         <View style={styles.boxRowProfile}>
           <View style={styles.leftProfile}>
-            <View>
-              <Text style={styles.txtNumberNews}>dsa</Text>
-              <Text style={styles.txtNews}>news</Text>
-            </View>
+            <Text style={styles.txtNumberNews}>0</Text>
+            <Text style={styles.txtNews}>news</Text>
           </View>
 
           <View style={styles.boxCenter}>
-            <Text style={styles.txtNumberFollower}>dsa</Text>
-            <Text style={styles.txtFollower}>news</Text>
+            <Text style={styles.txtNumberFollower}>0</Text>
+            <Text style={styles.txtFollower}>Follower</Text>
           </View>
           <View style={styles.boxRight}>
-            <Text style={styles.txtNumOfFollowing}>dsa</Text>
-            <Text style={styles.txtFollowing}>news</Text>
+            <Text style={styles.txtNumOfFollowing}>0</Text>
+            <Text style={styles.txtFollowing}>Follwing</Text>
           </View>
         </View>
-        <Divider style={{marginTop: 20}} />
+        <Divider style={styles.styleDivider} />
         <Button
           title="Website"
           leftIcon={Ionicons.globe}
           containerStyle={styles.containerStyleButton}
           textStyle={{color: colors.lightRed}}
         />
-        {/* info  profile */}
       </View>
     </View>
   )
@@ -71,6 +107,8 @@ const Profile = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    styleDivider: {marginTop: 20},
+    containerStyleHeader: {marginTop: 10},
     containerStyleButton: {
       marginTop: 40,
       backgroundColor: "white",
@@ -103,7 +141,7 @@ const makeStyles = (colors) =>
       borderRightWidth: 1,
       borderColor: colors.lightGrey,
     },
-    txtNews: {marginTop: 10, fontFamily: fonts.regular},
+    txtNews: {marginTop: 10, fontFamily: fonts.regular, color: colors.black},
     txtNumberNews: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
     leftProfile: {
       flex: 1,
@@ -128,13 +166,14 @@ const makeStyles = (colors) =>
       color: "black",
       fontFamily: fonts.bold,
       fontSize: 24,
+      marginTop: 20,
     },
     imageChildStyle: {
       width: 20,
       height: 20,
       position: "absolute",
-      bottom: 5,
-      right: 5,
+      bottom: 10,
+      right: 10,
     },
     imageStyle: {borderRadius: 130 / 2},
     styleBackground: {width: 130, height: 130},

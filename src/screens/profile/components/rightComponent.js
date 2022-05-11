@@ -1,12 +1,19 @@
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import {Ionicons, FontAwesome} from "@common/icon"
+import {mainStack} from "../../../common/navigator"
 
 const RightComponent = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onMoveProfileSettings = () => {
+    navigation.navigate(mainStack.profileSettings)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.boxEdit}>
@@ -18,27 +25,28 @@ const RightComponent = () => {
           size={20}
         />
       </View>
-      <View
-        style={{
-          backgroundColor: "rgba(252, 50, 50, 0.09)",
-          padding: 10,
-          borderRadius: 5,
-          marginLeft: 10,
-        }}>
-        <Icon
-          // onPress={onGoBackHome}
-          name={Ionicons.settings}
-          type="ionicon"
-          color={colors.lightRed}
-          size={20}
-        />
-      </View>
+      <TouchableOpacity onPress={onMoveProfileSettings}>
+        <View style={styles.boxSettings}>
+          <Icon
+            name={Ionicons.settings}
+            type="ionicon"
+            color={colors.lightRed}
+            size={20}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    boxSettings: {
+      backgroundColor: "rgba(252, 50, 50, 0.09)",
+      padding: 10,
+      borderRadius: 5,
+      marginLeft: 10,
+    },
     boxEdit: {
       backgroundColor: "rgba(252, 50, 50, 0.09)",
       padding: 10,

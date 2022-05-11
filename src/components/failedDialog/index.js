@@ -11,7 +11,11 @@ const FailedDialog = ({onBackdropPress, isVisible, onPress, title}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
-    <Modal onBackdropPress={onBackdropPress} isVisible={isVisible}>
+    <Modal
+      animationInTiming={100}
+      animationOutTiming={100}
+      onBackdropPress={onBackdropPress}
+      isVisible={isVisible}>
       <View style={styles.container}>
         <View style={styles.boxIcon}>
           <Icon
@@ -43,7 +47,7 @@ const makeStyles = (colors) =>
       color: colors.lightRed,
       textAlign: "center",
     },
-    boxTitle: {marginHorizontal: 50},
+    boxTitle: {marginHorizontal: 50, width: 220},
     boxIcon: {
       paddingVertical: 10,
     },
