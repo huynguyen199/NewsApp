@@ -19,7 +19,7 @@ const Loading = () => {
         {/* box Header */}
         <View style={styles.boxRowHeader}>
           <PlaceholderLine width={80} height={40} />
-          <PlaceholderLine style={{marginLeft: 20}} width={10} height={40} />
+          <PlaceholderLine style={styles.styleLine} width={10} height={40} />
         </View>
         {/* featured */}
         <View style={styles.featuredContainer}>
@@ -75,6 +75,7 @@ const Loading = () => {
   )
 }
 const styles = StyleSheet.create({
+  styleLine: {marginLeft: 20},
   boxImageBanner: {
     height: 200,
     width: "90%",

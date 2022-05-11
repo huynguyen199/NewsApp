@@ -1,20 +1,15 @@
 import {View, StyleSheet, TouchableOpacity, Image} from "react-native"
-import React, {useEffect, useState} from "react"
+import React from "react"
 import CheckBox from "@react-native-community/checkbox"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const SourceItem = ({item}) => {
+const SourceItem = ({item, handleCheckbox}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const [checked, setChecked] = useState(false)
-
-  useEffect(() => {
-    setChecked(item.isChecked)
-  }, [item])
 
   const onToggleCheckbox = () => {
-    setChecked(!checked)
+    handleCheckbox(item.id)
   }
 
   return (
@@ -22,7 +17,7 @@ const SourceItem = ({item}) => {
       <View style={styles.container}>
         <View
           style={
-            checked ? styles.styleBackgroundHover : styles.styleBackground
+            item.checked ? styles.styleBackgroundHover : styles.styleBackground
           }>
           <CheckBox
             style={styles.styleCheckBox}
@@ -30,7 +25,7 @@ const SourceItem = ({item}) => {
               true: colors.lightRed,
               false: colors.lightRed,
             }}
-            value={checked}
+            value={item.checked}
           />
           <Image
             style={styles.imageLogo}

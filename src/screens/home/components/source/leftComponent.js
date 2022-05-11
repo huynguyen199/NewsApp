@@ -1,14 +1,21 @@
-import {View, Text, StyleSheet} from "react-native"
+import {Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
-import {useTheme} from "@react-navigation/native"
+import {rootSwitch} from "@common/navigator"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
 import fonts from "@assets/fonts"
 
 const LeftComponent = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onBackAuth = () => {
+    navigation.navigate(rootSwitch.auth)
+  }
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onBackAuth} style={styles.container}>
       <Icon
         // onPress={onGoBackHome}
         name={"arrow-back-outline"}
@@ -17,7 +24,7 @@ const LeftComponent = () => {
         size={30}
       />
       <Text style={styles.txtTitle}>Choose Your Sources</Text>
-    </View>
+    </TouchableOpacity>
   )
 }
 const makeStyles = (colors) =>

@@ -17,7 +17,6 @@ const ArticleItem = ({item}) => {
 
   useEffect(() => {
     handleItem()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       setCategory([])
       setSource([])

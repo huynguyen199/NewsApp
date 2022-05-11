@@ -5,28 +5,31 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native"
-import React, {useState} from "react"
+import React from "react"
 import CheckBox from "@react-native-community/checkbox"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const TopicItem = () => {
+const TopicItem = ({item, handleCheckbox}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const [checked, setChecked] = useState(false)
+  // const [checked, setChecked] = useState(item.checked)
 
   const onToggleCheckbox = () => {
-    setChecked(!checked)
+    // setChecked(!checked)
+    handleCheckbox(item.id)
   }
 
   return (
     <TouchableOpacity onPress={onToggleCheckbox}>
       <View style={styles.container}>
         <ImageBackground
-          imageStyle={checked ? styles.imageStyle : styles.imageStyleNoBorder}
+          imageStyle={
+            item.checked ? styles.imageStyle : styles.imageStyleNoBorder
+          }
           style={styles.styleBackground}
           source={{
-            uri: "https://www.pictureframesexpress.co.uk/blog/wp-content/uploads/2020/05/7-Tips-to-Finding-Art-Inspiration-Header-1024x649.jpg",
+            uri: item.image,
           }}>
           <CheckBox
             style={styles.styleCheckBox}
@@ -34,7 +37,7 @@ const TopicItem = () => {
               true: colors.lightRed,
               false: colors.lightRed,
             }}
-            value={checked}
+            value={item.checked}
           />
           <View style={styles.boxTextRow}>
             <Text style={styles.txtTitle}>Art</Text>

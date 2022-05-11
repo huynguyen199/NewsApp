@@ -6,11 +6,20 @@ import fonts from "@assets/fonts"
 const ContentContainer = ({infoArticle}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const content = infoArticle?.content?.replaceAll("\\n", "\n\n")
-  // const content = "ds"
+
+  const formatTextBreakline = (text) => {
+    if (text) {
+      const result = text.split("\\n").join("\n\n")
+      return result
+    }
+    return null
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.txtTitle}>{content}</Text>
+      <Text style={styles.txtTitle}>
+        {formatTextBreakline(infoArticle.content)}
+      </Text>
     </View>
   )
 }
