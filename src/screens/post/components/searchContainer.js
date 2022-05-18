@@ -5,12 +5,21 @@ import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
 
-const SearchContainer = ({search, setSearch}) => {
+const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   const onChangeSearch = (text) => {
     setSearch(text)
+    let newsData = [...duplicateNews]
+    newsData = newsData.filter((item) =>
+      item.title.toLowerCase().includes(text.toLowerCase()),
+    )
+    console.log(
+      "DEBUG: - file: searchContainer.js - line 18 - onChangeSearch - newsData",
+      newsData,
+    )
+    setNews(newsData)
   }
 
   return (

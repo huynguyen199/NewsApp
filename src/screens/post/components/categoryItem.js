@@ -8,6 +8,7 @@ const CategoryItem = ({
   selectCategoryId,
   setSelectCategoryId,
   setNews,
+  setDuplicateNews,
   setLastDocument,
 }) => {
   const {colors} = useTheme()
@@ -16,6 +17,7 @@ const CategoryItem = ({
   const onToggleCategory = () => {
     setSelectCategoryId(item.id)
     setNews([])
+    setDuplicateNews([])
     setLastDocument()
   }
 

@@ -14,11 +14,14 @@ const ListHeaderComponent = ({
   setSelectCategoryId,
   search,
   setSearch,
+  setDuplicateNews,
+  duplicateNews,
 }) => {
   const renderCategoryItem = ({item}) => (
     <CategoryItem
       selectCategoryId={selectCategoryId}
       setNews={setNews}
+      setDuplicateNews={setDuplicateNews}
       setSelectCategoryId={setSelectCategoryId}
       item={item}
       setLastDocument={setLastDocument}
@@ -32,7 +35,12 @@ const ListHeaderComponent = ({
         leftComponent={<LeftComponent />}
         rightComponent={<RightComponent />}
       />
-      <SearchContainer search={search} setSearch={setSearch} />
+      <SearchContainer
+        duplicateNews={duplicateNews}
+        setNews={setNews}
+        search={search}
+        setSearch={setSearch}
+      />
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}> */}
       <View style={styles.container}>
         <FlatList
@@ -43,6 +51,7 @@ const ListHeaderComponent = ({
             <CategoryItem
               selectCategoryId={selectCategoryId}
               setNews={setNews}
+              setDuplicateNews={setDuplicateNews}
               setLastDocument={setLastDocument}
               setSelectCategoryId={setSelectCategoryId}
               item={{name: "All", id: "all"}}

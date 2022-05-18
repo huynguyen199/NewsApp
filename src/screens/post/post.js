@@ -26,6 +26,11 @@ const Post = () => {
   const [lastDocument, setLastDocument] = useState()
   const [search, setSearch] = useState("")
   const [news, setNews] = useState([])
+  const [duplicateNews, setDuplicateNews] = useState([])
+  console.log(
+    "DEBUG: - file: post.js - line 30 - Post - duplicateNews",
+    duplicateNews,
+  )
   const [isLoadingFooter, setIsLoadingFooter] = useState(false)
   const [selectedArticleId, setSelectedArticleId] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -82,10 +87,20 @@ const Post = () => {
   }, 500)
 
   const onChangeCategory = useCallback((categoryId) => {
+    changeNewsWhileSearch()
     fetchNewsAfterTime(categoryId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  _
+
+  const changeNewsWhileSearch = () => {
+    if (search.length > 0) {
+      let newsData = [...duplicateNews]
+      newsData = newsData.filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase()),
+      )
+      setNews(newsData)
+    }
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -94,6 +109,7 @@ const Post = () => {
       return () => {
         setCategories([])
         setNews([])
+        setDuplicateNews([])
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
@@ -166,6 +182,7 @@ const Post = () => {
     newsData.push(...data)
     newsData.sort((a, b) => b.publishedAt - a.publishedAt)
     setNews(newsData)
+    setDuplicateNews(newsData)
   }
 
   const onEndReachedNews = () => {
@@ -189,6 +206,7 @@ const Post = () => {
         let newsData = [...news]
         newsData = newsData.filter((item) => item.id !== selectedArticleId)
         setNews(newsData)
+        setDuplicateNews(newsData)
         hideLoading()
       })
     }, 1000)
@@ -219,6 +237,8 @@ const Post = () => {
             search={search}
             setSearch={setSearch}
             setNews={setNews}
+            duplicateNews={duplicateNews}
+            setDuplicateNews={setDuplicateNews}
             setLastDocument={setLastDocument}
           />
         }
