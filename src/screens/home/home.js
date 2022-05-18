@@ -87,9 +87,13 @@ const Home = () => {
       .limit(3)
       .get()
       .then((querySnapshot) => {
+        if (article.length > 2) {
+          setIsLoadingFooter(querySnapshot.docs.length !== 0)
+        }
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
         }
+
         setLoading(false)
         setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
         makeArticleData(querySnapshot.docs)

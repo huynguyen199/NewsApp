@@ -19,10 +19,10 @@ const DATA = [
 ]
 
 const TopicList = () => {
-  const renderItem = ({item}) => <TopicItem title={item.title} />
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
+  const renderItem = ({item}) => <TopicItem title={item.title} />
   return (
     <FlatList
       data={DATA}

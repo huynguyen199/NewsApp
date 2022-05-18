@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import React, {useContext} from "react"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
-import {HomeContext} from "../../../context/home"
+import {HomeContext} from "@context/home"
 
 const CategoryItem = ({item}) => {
   const {colors} = useTheme()

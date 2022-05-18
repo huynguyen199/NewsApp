@@ -6,10 +6,11 @@ import SourceItem from "./sourceItem"
 import {getALlSources} from "@services/source"
 
 const SourceList = () => {
-  const renderItem = ({item}) => <SourceItem item={item} />
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const [sources, setSources] = useState([])
+
+  const renderItem = ({item}) => <SourceItem item={item} />
 
   useEffect(() => {
     fetchAllSources()
