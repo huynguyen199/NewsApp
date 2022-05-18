@@ -75,10 +75,6 @@ const Home = () => {
   }
 
   const fetchArticle = () => {
-    if (article.length > 2) {
-      setIsLoadingFooter(true)
-    }
-
     let query = articleCollection
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
@@ -92,6 +88,8 @@ const Home = () => {
         }
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
+        } else {
+          setIsLoadingFooter(true)
         }
 
         setLoading(false)
