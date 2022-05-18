@@ -17,6 +17,7 @@ import Lottie from "lottie-react-native"
 import assets from "@assets"
 import {findUserById} from "@services/user"
 import {isEmpty} from "@utils/method"
+import _ from "lodash"
 
 const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
   const {colors} = useTheme()
@@ -82,7 +83,7 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
               : item.title}
           </Text>
           <View style={styles.boxLogo}>
-            {isEmpty(source) && isEmpty(category) ? (
+            {_.isEmpty(source) && _.isEmpty(category) ? (
               <ActivityIndicator size={20} color={colors.lightRed} />
             ) : (
               <>
