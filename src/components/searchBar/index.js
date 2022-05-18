@@ -3,7 +3,7 @@ import React from "react"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const Input = (props) => {
+const SearchBar = (props) => {
   const {onChangeText, value, containerStyle, rightComponent} = props
   const {colors} = useTheme()
   const styles = makeStyles(colors)
@@ -37,11 +37,9 @@ const makeStyles = (colors) =>
       color: colors.black,
     },
     container: {
-      backgroundColor: colors.white,
+      backgroundColor: colors.ghostWhite,
       borderRadius: 30,
-      borderWidth: 2,
-      borderColor: colors.lightRed,
       flexDirection: "row",
     },
   })
-export default Input
+export default SearchBar

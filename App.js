@@ -5,6 +5,7 @@ import {darkColor, lightColor} from "./src/common/color"
 import {Appearance} from "react-native"
 
 import {GoogleSignin} from "@react-native-google-signin/google-signin"
+import {HomeContext} from "./src/context/home"
 
 GoogleSignin.configure({
   scopes: ["https://www.googleapis.com/auth/drive.readonly"], // [Android] what API you want to access on behalf of the user, default is email and profile
@@ -15,6 +16,7 @@ GoogleSignin.configure({
 
 const App = () => {
   const [colorScheme, setColorScheme] = useState("")
+  const [selectCategoryId, setSelectCategoryId] = useState("all")
 
   Appearance.addChangeListener((mode) => {
     setColorScheme(mode.colorScheme)
@@ -23,7 +25,9 @@ const App = () => {
   return (
     <NavigationContainer
       theme={colorScheme === "dark" ? darkColor : lightColor}>
-      <Router />
+      <HomeContext.Provider value={{selectCategoryId, setSelectCategoryId}}>
+        <Router />
+      </HomeContext.Provider>
     </NavigationContainer>
   )
 }

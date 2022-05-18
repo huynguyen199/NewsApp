@@ -1,8 +1,7 @@
-import {View, Text, StyleSheet} from "react-native"
+import {View, StyleSheet} from "react-native"
 import React, {useState} from "react"
 import {useTheme} from "@react-navigation/native"
 import EyeOffIcon from "./eyeOffIcon"
-import CheckBox from "@react-native-community/checkbox"
 import {Controller, useForm} from "react-hook-form"
 import HelperText from "@components/helperText"
 import Button from "@components/button"
@@ -144,7 +143,7 @@ const FormRegister = () => {
         style={styles.stylePasswordHelper}
       />
 
-      <View style={{marginTop: 30}}>
+      <View style={styles.boxButtonSignUp}>
         <Button title={"Sign up"} onPress={handleSubmit(onSubmitForm)} />
       </View>
       <SuccessDialog
@@ -170,6 +169,7 @@ const FormRegister = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    boxButtonSignUp: {marginTop: 30},
     inputPassword: {marginTop: 5},
     boxHelperPassword: {height: 30, marginTop: 3},
     boxHelperEmail: {height: 28, marginTop: 3},

@@ -25,11 +25,8 @@ export const mainStack = {
   homeTab: "HomeTab",
   authStack: "AuthStack",
   detail: "DetailScreen",
-  post: "PostScreen",
-  city: "CityScreen",
-  district: "DistrictScreen",
-  ward: "WardScreen",
-  settingProfile: "SettingProfileScreen",
+  topic: "TopicScreen",
+  source: "SourceScreen",
 }
 
 export const rootSwitch = {

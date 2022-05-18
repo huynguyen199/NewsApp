@@ -8,7 +8,7 @@ import {Dimensions} from "react-native"
 import SocialContainer from "./components/register/socialContainer"
 import fonts from "@assets/fonts"
 
-const {width, height} = Dimensions.get("window")
+const {width} = Dimensions.get("window")
 const Register = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)

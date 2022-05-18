@@ -8,6 +8,13 @@ const Ionicons = {
   checkMarkOutline: "checkmark-circle-outline",
   alertCircle: "alert-circle",
   warningOutline: "warning-outline",
+  search: "search",
+  notifications: "notifications",
+  filter: "filter",
+  bookmarkOutline: "bookmark-outline",
+  shareSocial: "share-social",
+  ellipsisVertical: "ellipsis-vertical",
+  back: "arrow-back",
 }
 const Fontisto = {
   heart: "heart",

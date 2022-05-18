@@ -9,7 +9,7 @@ const Stack = createStackNavigator()
 const RootStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/* <Stack.Screen name={rootSwitch.main} component={MainStack} /> */}
+      <Stack.Screen name={rootSwitch.main} component={MainStack} />
       <Stack.Screen name={rootSwitch.auth} component={AuthStack} />
     </Stack.Navigator>
   )
