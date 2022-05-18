@@ -60,9 +60,6 @@ const EditProfile = () => {
 
   useEffect(() => {
     fetchUser()
-    return () => {
-      setProfile({})
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo])
 
