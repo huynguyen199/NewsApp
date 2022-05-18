@@ -2,13 +2,15 @@ import {View, Text, StyleSheet} from "react-native"
 import React, {useEffect, useState} from "react"
 import Label from "./label"
 import HelperText from "@components/helperText"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import Input from "@components/input"
 import Button from "@components/button"
 import EyeIcon from "./eyeIcon"
 import EyeOffIcon from "./eyeOffIcon"
 import CheckBox from "@react-native-community/checkbox"
 import {Controller, useForm} from "react-hook-form"
+import {mainStack} from "@common/navigator"
+import useAuth from "@hooks/useAuth"
 import {emailContraints, passwordContraints} from "@common/validator"
 import auth from "@react-native-firebase/auth"
 import SuccessDialog from "@components/successDialog"
@@ -16,16 +18,21 @@ import FailedDialog from "@components/failedDialog"
 import {getObject, storeObject} from "@utils/AsyncStore"
 import LoadingDialog from "@components/loadingDialog"
 import fonts from "@assets/fonts"
+import {findUserById} from "@services/user"
 
 const FormLogin = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [isFailed, setIsFailed] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-
+  const [dialog, setDialog] = useState({
+    isSuccess: false,
+    isFailed: false,
+    isLoading: false,
+  })
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const {userInfo} = useAuth()
+
+  const navigation = useNavigation()
 
   const {
     handleSubmit,
@@ -41,7 +48,8 @@ const FormLogin = () => {
 
   useEffect(() => {
     fillData()
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const fillData = async () => {
     const user = await getObject("user")
@@ -58,27 +66,31 @@ const FormLogin = () => {
   }
 
   const showLoadingDialog = () => {
-    setIsLoading(true)
+    // setIsLoading(true)
+    setDialog((prev) => ({...prev, isLoading: true}))
   }
 
   const hideLoadingDialog = () => {
-    setIsLoading(false)
+    // setIsLoading(false)
+    setDialog((prev) => ({...prev, isLoading: false}))
   }
 
   const showSuccessDialog = () => {
-    setIsSuccess(true)
+    // setIsSuccess(true)
+    setDialog((prev) => ({...prev, isSuccess: true}))
   }
 
   const hideSuccessDialog = () => {
-    setIsSuccess(false)
+    setDialog((prev) => ({...prev, isSuccess: false}))
   }
 
   const showFailedDialog = () => {
-    setIsFailed(true)
+    // setIsFailed(true)
+    setDialog((prev) => ({...prev, isFailed: true}))
   }
 
   const hideFailedDialog = () => {
-    setIsFailed(false)
+    setDialog((prev) => ({...prev, isFailed: false}))
   }
 
   const showPasswords = () => {
@@ -89,7 +101,7 @@ const FormLogin = () => {
     showLoadingDialog()
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((res) => {
         hideLoadingDialog()
         clearForm()
         showSuccessDialog()
@@ -103,6 +115,17 @@ const FormLogin = () => {
         hideLoadingDialog()
         showFailedDialog()
       })
+  }
+
+  const onMoveHome = async () => {
+    hideSuccessDialog()
+    const providerData = userInfo._user.providerData[0]
+    const user = await findUserById(providerData.uid)
+
+    if (user.interest.length === 0) {
+      return navigation.navigate(mainStack.source)
+    }
+    return navigation.navigate(mainStack.homeTab)
   }
 
   return (
@@ -124,14 +147,11 @@ const FormLogin = () => {
           rules={emailContraints}
         />
       </View>
-      {/* <View style={styles.boxHelperEmail}> */}
       <HelperText
         isVisible={errors.email && errors.email.message}
         title={errors.email && errors.email.message}
         style={styles.styleEmailHelper}
       />
-      {/* </View> */}
-
       <View>
         <Label title={"Password"} />
         <Controller
@@ -157,13 +177,11 @@ const FormLogin = () => {
           rules={passwordContraints}
         />
       </View>
-      {/* <View style={styles.boxHelperPassword}> */}
       <HelperText
         isVisible={errors.password && errors.password.message}
         title={errors.password && errors.password.message}
         style={styles.stylePasswordHelper}
       />
-      {/* </View> */}
       <View style={styles.boxRow}>
         <CheckBox
           tintColors={{
@@ -178,19 +196,20 @@ const FormLogin = () => {
       <Button title={"Sign in"} onPress={handleSubmit(onSubmitForm)} />
       {/* Dialog */}
       <SuccessDialog
-        isVisible={isSuccess}
+        isVisible={dialog.isSuccess}
         title={"Logged in successfully"}
         titleButton={"Go to Home"}
+        onPress={onMoveHome}
         onBackdropPress={hideSuccessDialog}
       />
       <FailedDialog
-        isVisible={isFailed}
+        isVisible={dialog.isFailed}
         title={"Login failed"}
         titleButton={"Go to Home"}
         onBackdropPress={hideFailedDialog}
       />
       <LoadingDialog
-        isVisible={isLoading}
+        isVisible={dialog.isLoading}
         onBackdropPress={hideLoadingDialog}
       />
     </>

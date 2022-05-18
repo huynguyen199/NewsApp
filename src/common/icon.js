@@ -15,6 +15,15 @@ const Ionicons = {
   shareSocial: "share-social",
   ellipsisVertical: "ellipsis-vertical",
   back: "arrow-back",
+  settings: "settings-sharp",
+  pencil: "pencil",
+  globe: "globe-outline",
+  chevronForward: "chevron-forward-outline",
+  person: "person",
+  lockClosed: "lock-closed",
+  eyeFilled: "eye",
+  logoutOutline: "log-out-outline",
+  people: "people",
 }
 const Fontisto = {
   heart: "heart",
@@ -26,5 +35,8 @@ const Material = {
   addAPhoto: "add-a-photo",
   edit: "edit",
 }
+const FontAwesome = {
+  pencil: "pencil",
+}
 
-export {Ionicons, Fontisto, Material}
+export {Ionicons, Fontisto, Material, FontAwesome}

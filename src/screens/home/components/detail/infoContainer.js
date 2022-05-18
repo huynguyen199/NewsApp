@@ -15,20 +15,26 @@ const InfoContainer = () => {
   const route = useRoute()
   const {articleId} = route.params
   const [infoArticle, setInfoArticle] = useState({})
-
   const [time, setTime] = useState(null)
   const [sources, setSources] = useState({})
   const [category, setCategory] = useState({})
 
   useEffect(() => {
     onReceiveArticleId()
-    onFetchSources()
+    // onFetchSources()
+    return () => {
+      setTime(null)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId])
 
   useEffect(() => {
     onFetchSources()
     onFetchCategory()
+    return () => {
+      setSources({})
+      setCategory({})
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoArticle])
 

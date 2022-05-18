@@ -15,7 +15,7 @@ const Detail = () => {
         leftComponent={<LeftComponent />}
         rightComponent={<RightComponent />}
         containerStyle={styles.containerStyleHeader}
-        backgroundColor={"white"}
+        backgroundColor={colors.white}
       />
       <ScrollView>
         <InfoContainer />

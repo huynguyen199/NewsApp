@@ -7,6 +7,7 @@ import FormRegister from "./components/register/formRegister"
 import {Dimensions} from "react-native"
 import SocialContainer from "./components/register/socialContainer"
 import fonts from "@assets/fonts"
+import {authStack} from "@common/navigator"
 
 const {width} = Dimensions.get("window")
 const Register = () => {
@@ -15,7 +16,7 @@ const Register = () => {
   const navigation = useNavigation()
 
   const onBackSignin = () => {
-    navigation.goBack()
+    navigation.navigate(authStack.login)
   }
 
   return (

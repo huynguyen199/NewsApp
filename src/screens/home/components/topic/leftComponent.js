@@ -1,14 +1,20 @@
-import {View, Text, StyleSheet} from "react-native"
+import {Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
 import fonts from "@assets/fonts"
 
 const LeftComponent = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onBackSource = () => {
+    navigation.goBack()
+  }
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onBackSource} style={styles.container}>
       <Icon
         // onPress={onGoBackHome}
         name={"arrow-back-outline"}
@@ -17,9 +23,10 @@ const LeftComponent = () => {
         size={30}
       />
       <Text style={styles.txtTitle}>Choose Your Topics</Text>
-    </View>
+    </TouchableOpacity>
   )
 }
+
 const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {

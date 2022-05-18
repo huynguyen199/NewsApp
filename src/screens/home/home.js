@@ -134,7 +134,6 @@ const Home = () => {
         {/* news list */}
         <NewsContainer
           categoryList={categoryList}
-          setCategoryList={setCategoryList}
           article={article}
           duplicateArticle={duplicateArticle}
           lastDocument={lastDocument}

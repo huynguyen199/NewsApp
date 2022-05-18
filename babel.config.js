@@ -31,6 +31,7 @@ module.exports = {
           "@services": "./src/services",
           "@assets": "./src/assets",
           "@hooks": "./src/hooks",
+          "@context": "./src/context",
         },
       },
     ],

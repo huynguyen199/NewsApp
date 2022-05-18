@@ -1,29 +1,37 @@
-import {View, Image, Text, StyleSheet} from "react-native"
+import {View, Image, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
 import {Header, Icon} from "@rneui/themed"
 import FormLogin from "./components/formLogin"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
 import {Dimensions} from "react-native"
 import fonts from "@assets/fonts"
+import {mainStack} from "../../common/navigator"
 
 const {width} = Dimensions.get("window")
 const Login = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onBackHome = () => {
+    navigation.navigate(mainStack.homeTab)
+  }
 
   return (
     <View style={styles.container}>
       <Header
         leftComponent={
-          <Icon
-            // onPress={onGoBackHome}
-            name={"arrow-back-outline"}
-            type="ionicon"
-            color={colors.lightRed}
-            size={36}
-          />
+          <TouchableOpacity onPress={onBackHome}>
+            <Icon
+              // onPress={onGoBackHome}
+              name={"arrow-back-outline"}
+              type="ionicon"
+              color={colors.lightRed}
+              size={36}
+            />
+          </TouchableOpacity>
         }
         backgroundColor={colors.white}
       />
