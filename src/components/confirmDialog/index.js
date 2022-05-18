@@ -4,14 +4,24 @@ import Modal from "react-native-modal"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import Button from "../button"
-import {useTheme} from "@rneui/themed"
 import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
-const ConfirmDialog = ({onBackdropPress, isVisible, onPress, title}) => {
+const ConfirmDialog = ({
+  onBackdropPress,
+  isVisible,
+  title,
+  onAccept,
+  onReject,
+}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
-    <Modal onBackdropPress={onBackdropPress} isVisible={isVisible}>
+    <Modal
+      animationInTiming={100}
+      animationOutTiming={100}
+      onBackdropPress={onBackdropPress}
+      isVisible={isVisible}>
       <View style={styles.container}>
         <View style={styles.topIcon}>
           <Icon
@@ -25,11 +35,20 @@ const ConfirmDialog = ({onBackdropPress, isVisible, onPress, title}) => {
         <View style={styles.boxTitle}>
           <Text style={styles.txtTitle}>{title}</Text>
         </View>
-        <Button
-          onPress={onPress}
-          containerStyle={styles.txtBtnClose}
-          title="Back"
-        />
+
+        <View style={styles.boxRow}>
+          <Button
+            onPress={onReject}
+            containerStyle={styles.txtBtnClose}
+            title="No"
+          />
+          <Button
+            onPress={onAccept}
+            textStyle={styles.txtStyleYes}
+            containerStyle={styles.txtBtnYes}
+            title="Yes"
+          />
+        </View>
       </View>
     </Modal>
   )
@@ -37,7 +56,25 @@ const ConfirmDialog = ({onBackdropPress, isVisible, onPress, title}) => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtBtnClose: {marginTop: 20, width: 130},
+    boxRow: {flexDirection: "row"},
+    txtStyleYes: {
+      color: colors.lightRed,
+    },
+    txtBtnClose: {
+      marginTop: 20,
+      width: 130,
+      marginRight: 5,
+      borderWidth: 1,
+      borderColor: colors.lightRed,
+    },
+    txtBtnYes: {
+      marginTop: 20,
+      width: 130,
+      marginLeft: 5,
+      backgroundColor: "white",
+      borderWidth: 1,
+      borderColor: colors.lightRed,
+    },
     txtTitle: {
       fontSize: 20,
       fontFamily: fonts.bold,

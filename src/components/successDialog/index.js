@@ -1,11 +1,11 @@
 import {View, Text, StyleSheet, Dimensions} from "react-native"
-import React from "react"
+import React, {useRef} from "react"
 import Modal from "react-native-modal"
-import {Icon} from "@rneui/themed"
-import {Ionicons} from "@common/icon"
 import Button from "../button"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import Lottie from "lottie-react-native"
+import assets from "@assets"
 
 const {width} = Dimensions.get("window")
 
@@ -16,6 +16,8 @@ const SuccessDialog = ({
   isVisible,
   onPress,
 }) => {
+  const successRef = useRef(null)
+
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -26,14 +28,15 @@ const SuccessDialog = ({
       isVisible={isVisible}>
       <View style={styles.container}>
         <View style={styles.boxIcon}>
-          <Icon
-            name={Ionicons.checkMarkFilled}
-            type="ionicon"
-            color="rgba(253,64,94,255)"
-            solid={true}
-            size={100}
+          <Lottie
+            ref={successRef}
+            style={styles.lottieStyle}
+            source={assets.lottieFiles.success}
+            autoPlay={true}
+            loop={false}
           />
         </View>
+
         <View style={styles.boxTitle}>
           <Text style={styles.txtTitle}>
             {/* Great! Your account has been created successfully. */}
@@ -52,6 +55,10 @@ const SuccessDialog = ({
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    lottieStyle: {
+      width: 150,
+      height: 150,
+    },
     containerStyleBtn: {marginTop: 20, width: width / 1.7},
     txtTitle: {
       fontSize: 20,
@@ -62,6 +69,8 @@ const makeStyles = (colors) =>
     boxTitle: {marginHorizontal: 20, marginVertical: 5},
     boxIcon: {
       paddingVertical: 10,
+      width: 150,
+      height: 150,
     },
     container: {
       justifyContent: "center",

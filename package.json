@@ -37,6 +37,7 @@
     "@react-navigation/stack": "^6.2.1",
     "@rneui/base": "^4.0.0-rc.1",
     "@rneui/themed": "^4.0.0-rc.1",
+    "lottie-react-native": "^5.1.2",
     "react": "17.0.2",
     "react-hook-form": "^7.30.0",
     "react-native": "0.68.1",
@@ -64,6 +65,7 @@
     "husky": "^4.3.8",
     "jest": "^26.6.3",
     "lint-staged": "^12.3.8",
+    "lodash": "^4.17.21",
     "metro-react-native-babel-preset": "^0.67.0",
     "prettier": "^2.6.2",
     "react-test-renderer": "17.0.2"

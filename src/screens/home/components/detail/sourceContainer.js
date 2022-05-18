@@ -6,17 +6,20 @@ import {useTheme} from "@react-navigation/native"
 const SourceContainer = ({sources}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+
   return (
     <View style={styles.container}>
       <Image
         style={styles.imageSource}
         source={{
-          uri: sources.image,
+          uri: sources.image ?? sources.photoUrl,
         }}
       />
       <View style={styles.boxRowSource}>
         <View style={styles.boxText}>
-          <Text style={styles.txtTitle}>{sources.name}</Text>
+          <Text style={styles.txtTitle}>
+            {sources.name ?? sources.fullName}
+          </Text>
           <Text style={styles.txtDayAgo}>5 days ago</Text>
         </View>
       </View>

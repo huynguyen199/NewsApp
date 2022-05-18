@@ -17,8 +17,7 @@ export const homeTabs = {
   me: "ProfileStack",
   home: "HomeStack",
   news: "NewsStack",
-  createNews: "CreateNewsStack",
-  notify: "NotifyStack",
+  myNews: "MyNewsStack",
 }
 
 export const mainStack = {
@@ -30,6 +29,7 @@ export const mainStack = {
   profileSettings: "ProfileSettingsScreen",
   editProfile: "EditProfileScreen",
   appearance: "AppearanceScreen",
+  createNews: "CreateNewsScreen",
 }
 
 export const rootSwitch = {

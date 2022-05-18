@@ -6,6 +6,7 @@ import Home from "../screens/home/home"
 import {useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
 import Profile from "../screens/profile/profile"
+import Post from "../screens/post/post"
 
 const Tab = createBottomTabNavigator()
 
@@ -38,7 +39,18 @@ const HomeTabs = () => {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: "profile",
+          tabBarLabel: "My News",
+          tabBarIcon: ({color, size}) => (
+            <Icon name="newspaper-outline" type="ionicon" color={color} />
+          ),
+          headerShown: false,
+        }}
+        name={homeTabs.myNews}
+        component={Post}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: "Profile",
           tabBarIcon: ({color, size}) => (
             <Icon name="newspaper-outline" type="ionicon" color={color} />
           ),

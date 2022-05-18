@@ -51,3 +51,24 @@ export const passwordContraints = {
     message: "Please enter at least 6 characters",
   },
 }
+
+export const titleContraints = {
+  required: {
+    value: true,
+    message: "Pleasse fill in the required",
+  },
+}
+
+export const contentContraints = {
+  required: {
+    value: true,
+    message: "Pleasse fill in the required",
+  },
+}
+
+export const categoryContraints = {
+  required: {
+    value: true,
+    message: "Pleasse fill in the required",
+  },
+}

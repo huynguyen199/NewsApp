@@ -5,31 +5,42 @@ import fonts from "@assets/fonts"
 import SourceContainer from "./sourceContainer"
 import ContentContainer from "./contentContainer"
 import TagList from "./tagList"
+import {findPostById} from "../../../../services/post"
 import {findArticleById} from "@services/article"
 import {findSourceById} from "@services/source"
 import {findCategoryById} from "@services/category"
+import {findUserById} from "../../../../services/user"
 
 const InfoContainer = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const route = useRoute()
-  const {articleId} = route.params
+  const {articleId, postId} = route.params
   const [infoArticle, setInfoArticle] = useState({})
   const [time, setTime] = useState(null)
   const [sources, setSources] = useState({})
   const [category, setCategory] = useState({})
 
   useEffect(() => {
-    onReceiveArticleId()
+    if (articleId) {
+      onReceiveArticleId()
+    } else if (postId) {
+      onReceivePostId()
+    }
     // onFetchSources()
     return () => {
       setTime(null)
+      setInfoArticle({})
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId])
 
   useEffect(() => {
-    onFetchSources()
+    if (articleId) {
+      onFetchSources()
+    } else if (postId) {
+      onFetchUserById()
+    }
     onFetchCategory()
     return () => {
       setSources({})
@@ -37,6 +48,14 @@ const InfoContainer = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoArticle])
+
+  const onReceivePostId = async () => {
+    const result = await findPostById(postId)
+    setInfoArticle(result)
+    const timeRelease = result.publishedAt.toDate()
+    const date = new Date(timeRelease)
+    setTime(date.toDateString())
+  }
 
   const onReceiveArticleId = async () => {
     const result = await findArticleById(articleId)
@@ -49,6 +68,13 @@ const InfoContainer = () => {
   const onFetchSources = async () => {
     if (infoArticle.sourceId) {
       const result = await findSourceById(infoArticle.sourceId)
+      setSources(result)
+    }
+  }
+
+  const onFetchUserById = async () => {
+    if (infoArticle.userId) {
+      const result = await findUserById(infoArticle.userId)
       setSources(result)
     }
   }
