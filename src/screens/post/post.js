@@ -24,6 +24,7 @@ const postCollection = firestore().collection("post")
 const Post = () => {
   const [categories, setCategories] = useState([])
   const [lastDocument, setLastDocument] = useState()
+  const [search, setSearch] = useState("")
   const [news, setNews] = useState([])
   const [isLoadingFooter, setIsLoadingFooter] = useState(false)
   const [selectedArticleId, setSelectedArticleId] = useState(null)
@@ -104,42 +105,52 @@ const Post = () => {
   }
 
   function fetchNews(id) {
-    let query = postCollection // sort the data
+    let query = postCollection
+
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument) // fetch data following the last document accessed
     }
+
     if (id === "all") {
-      query
-        .limit(3)
-        .get()
-        .then((querySnapshot) => {
-          if (news.length > 2) {
-            setIsLoadingFooter(querySnapshot.docs.length !== 0)
-          }
-          if (querySnapshot.docs.length === 0) {
-            return setIsLoadingFooter(false)
-          }
-          setLoading(false)
-          setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
-          makeNewsData(querySnapshot.docs)
-        })
+      getAllPost(query)
     } else {
-      query
-        .limit(3)
-        .where("categoryId", "==", id)
-        .get()
-        .then((querySnapshot) => {
-          if (news.length > 2) {
-            setIsLoadingFooter(querySnapshot.docs.length !== 0)
-          }
-          if (querySnapshot.docs.length === 0) {
-            return setIsLoadingFooter(false)
-          }
-          setLoading(false)
-          setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
-          makeNewsData(querySnapshot.docs)
-        })
+      getPostByCategoryId(query, id)
     }
+  }
+
+  const getPostByCategoryId = (query, id) => {
+    query
+      .limit(3)
+      .where("categoryId", "==", id)
+      .get()
+      .then((querySnapshot) => {
+        if (news.length > 2) {
+          setIsLoadingFooter(querySnapshot.docs.length !== 0)
+        }
+        if (querySnapshot.docs.length === 0) {
+          return setIsLoadingFooter(false)
+        }
+        setLoading(false)
+        setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
+        makeNewsData(querySnapshot.docs)
+      })
+  }
+
+  const getAllPost = (query) => {
+    query
+      .limit(3)
+      .get()
+      .then((querySnapshot) => {
+        if (news.length > 2) {
+          setIsLoadingFooter(querySnapshot.docs.length !== 0)
+        }
+        if (querySnapshot.docs.length === 0) {
+          return setIsLoadingFooter(false)
+        }
+        setLoading(false)
+        setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
+        makeNewsData(querySnapshot.docs)
+      })
   }
 
   const makeNewsData = (docs) => {
@@ -205,6 +216,8 @@ const Post = () => {
             selectCategoryId={selectCategoryId}
             setSelectCategoryId={setSelectCategoryId}
             categories={categories}
+            search={search}
+            setSearch={setSearch}
             setNews={setNews}
             setLastDocument={setLastDocument}
           />

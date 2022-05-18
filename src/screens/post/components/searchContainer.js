@@ -5,13 +5,20 @@ import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
 
-const SearchContainer = () => {
+const SearchContainer = ({search, setSearch}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+
+  const onChangeSearch = (text) => {
+    setSearch(text)
+  }
+
   return (
     <View style={styles.container}>
       <SearchBar
         placeholder="Search"
+        value={search}
+        onChangeText={onChangeSearch}
         containerStyle={styles.containerStyleSearch}
       />
       <View style={styles.boxIcon}>

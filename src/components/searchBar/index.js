@@ -4,18 +4,13 @@ import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
 const SearchBar = (props) => {
-  const {onChangeText, value, containerStyle, rightComponent} = props
+  const {containerStyle, rightComponent} = props
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.leftBox}>
-        <TextInput
-          onChangeText={onChangeText}
-          value={value}
-          style={styles.styleInput}
-          {...props}
-        />
+        <TextInput style={styles.styleInput} {...props} />
       </View>
       <View style={styles.rightBox}>{rightComponent}</View>
     </View>

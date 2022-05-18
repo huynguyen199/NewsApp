@@ -12,6 +12,8 @@ const ListHeaderComponent = ({
   setNews,
   setLastDocument,
   setSelectCategoryId,
+  search,
+  setSearch,
 }) => {
   const renderCategoryItem = ({item}) => (
     <CategoryItem
@@ -30,7 +32,7 @@ const ListHeaderComponent = ({
         leftComponent={<LeftComponent />}
         rightComponent={<RightComponent />}
       />
-      <SearchContainer />
+      <SearchContainer search={search} setSearch={setSearch} />
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}> */}
       <View style={styles.container}>
         <FlatList
