@@ -27,10 +27,6 @@ const Post = () => {
   const [search, setSearch] = useState("")
   const [news, setNews] = useState([])
   const [duplicateNews, setDuplicateNews] = useState([])
-  console.log(
-    "DEBUG: - file: post.js - line 30 - Post - duplicateNews",
-    duplicateNews,
-  )
   const [isLoadingFooter, setIsLoadingFooter] = useState(false)
   const [selectedArticleId, setSelectedArticleId] = useState(null)
   const [loading, setLoading] = useState(true)

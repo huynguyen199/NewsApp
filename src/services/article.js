@@ -17,6 +17,24 @@ export const getFirstOfSource = async () => {
   return data
 }
 
+export const findArticleByTitle = async (search) => {
+  let data = []
+
+  const querySearch = await firestore()
+    .collection("article")
+    .where("title", ">=", search.toUpperCase())
+    .where("title", "<=", search.toLowerCase() + "\uf8ff")
+    .get()
+
+  querySearch.forEach((documentSnapshot) => {
+    data.push({
+      ...documentSnapshot.data(),
+      id: documentSnapshot.id,
+    })
+  })
+  return data
+}
+
 export const findArticleById = async (id) => {
   const querySnapshot = await firestore()
     .collection("article")

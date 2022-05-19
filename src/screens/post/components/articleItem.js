@@ -16,7 +16,6 @@ import {mainStack} from "@common/navigator"
 import Lottie from "lottie-react-native"
 import assets from "@assets"
 import {findUserById} from "@services/user"
-import {isEmpty} from "@utils/method"
 import _ from "lodash"
 
 const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {

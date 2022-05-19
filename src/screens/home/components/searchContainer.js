@@ -1,16 +1,24 @@
-import {StyleSheet, View} from "react-native"
+import {StyleSheet, TouchableOpacity, View} from "react-native"
 import React from "react"
 import SearchBar from "@components/searchBar"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
+import {mainStack} from "../../../common/navigator"
 
 const SearchContainer = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onMoveSearch = () => {
+    navigation.navigate(mainStack.search)
+  }
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onMoveSearch} style={styles.container}>
       <SearchBar
+        editable={false}
         placeholder="Search"
         containerStyle={styles.containerStyleSearch}
       />
@@ -22,7 +30,7 @@ const SearchContainer = () => {
           size={20}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 const makeStyles = (colors) =>

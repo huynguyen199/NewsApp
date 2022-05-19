@@ -1,30 +1,26 @@
-import {StyleSheet, View} from "react-native"
+import {StyleSheet, TouchableOpacity, View} from "react-native"
 import React from "react"
 import SearchBar from "@components/searchBar"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useTheme} from "@react-navigation/native"
+import {useNavigation, useTheme} from "@react-navigation/native"
+import {mainStack} from "../../../../common/navigator"
 
-const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
+const SearchContainer = ({titleSearch}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
 
-  const onChangeSearch = (text) => {
-    setSearch(text)
-    let newsData = [...duplicateNews]
-    newsData = newsData.filter((item) =>
-      item.title.toLowerCase().includes(text.toLowerCase()),
-    )
-
-    setNews(newsData)
+  const onMoveSearch = () => {
+    navigation.navigate(mainStack.search)
   }
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onMoveSearch} style={styles.container}>
       <SearchBar
+        value={titleSearch}
+        editable={false}
         placeholder="Search"
-        value={search}
-        onChangeText={onChangeSearch}
         containerStyle={styles.containerStyleSearch}
       />
       <View style={styles.boxIcon}>
@@ -35,7 +31,7 @@ const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
           size={20}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 const makeStyles = (colors) =>
