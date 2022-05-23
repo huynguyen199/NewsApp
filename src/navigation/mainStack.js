@@ -8,6 +8,7 @@ import Detail from "@screens/home/detail"
 import ProfileSettings from "@screens/profile/profileSettings"
 import EditProfile from "@screens/profile/editProfile"
 import Appearance from "@screens/profile/appearance"
+import CreateNews from "@screens/post/createNews"
 
 const Stack = createStackNavigator()
 
@@ -52,6 +53,12 @@ const MainStack = () => {
         options={{headerShown: false}}
         name={mainStack.appearance}
         component={Appearance}
+      />
+      {/* my news */}
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.createNews}
+        component={CreateNews}
       />
     </Stack.Navigator>
   )

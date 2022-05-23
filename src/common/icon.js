@@ -24,6 +24,11 @@ const Ionicons = {
   eyeFilled: "eye",
   logoutOutline: "log-out-outline",
   people: "people",
+  addOutline: "add-outline",
+  caretDown: "caret-down-outline",
+  closeCircle: "close-circle-outline",
+  ellipsisHorizontal: "ellipsis-horizontal",
+  delete: "trash",
 }
 const Fontisto = {
   heart: "heart",
@@ -34,6 +39,7 @@ const Fontisto = {
 const Material = {
   addAPhoto: "add-a-photo",
   edit: "edit",
+  add: "add",
 }
 const FontAwesome = {
   pencil: "pencil",

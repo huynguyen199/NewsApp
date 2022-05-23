@@ -16,6 +16,7 @@ const ProfileSettings = () => {
   const logoutModalizeRef = useRef(null)
   const navigation = useNavigation()
   const styles = makeStyles(colors)
+
   const showLogoutModal = () => {
     logoutModalizeRef.current?.open()
   }

@@ -1,13 +1,19 @@
 import {View, Text, StyleSheet} from "react-native"
 import React from "react"
 import Modal from "react-native-modal"
-import {Icon} from "@rneui/themed"
-import {Ionicons} from "@common/icon"
 import Button from "../button"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import Lottie from "lottie-react-native"
+import assets from "../../assets"
 
-const FailedDialog = ({onBackdropPress, isVisible, onPress, title}) => {
+const FailedDialog = ({
+  onBackdropPress,
+  isVisible,
+  onPress,
+  title,
+  containerStyle,
+}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -16,14 +22,13 @@ const FailedDialog = ({onBackdropPress, isVisible, onPress, title}) => {
       animationOutTiming={100}
       onBackdropPress={onBackdropPress}
       isVisible={isVisible}>
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <View style={styles.boxIcon}>
-          <Icon
-            name={Ionicons.alertCircle}
-            type="ionicon"
-            color="rgba(253,64,94,255)"
-            solid={true}
-            size={100}
+          <Lottie
+            style={styles.lottieStyle}
+            source={assets.lottieFiles.warning}
+            autoPlay={true}
+            loop={false}
           />
         </View>
         <View style={styles.boxTitle}>
@@ -40,6 +45,10 @@ const FailedDialog = ({onBackdropPress, isVisible, onPress, title}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
+    lottieStyle: {
+      width: 150,
+      height: 150,
+    },
     containerStyleBtn: {marginTop: 20, width: 130},
     txtTitle: {
       fontSize: 20,
