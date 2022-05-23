@@ -52,7 +52,7 @@ const TagsContainer = ({control, errors, tags, setTags}) => {
         style={styles.listStyle}
         showsHorizontalScrollIndicator={false}>
         {tags.map((item, i) => (
-          <TagItem key={i} item={item} tags={tags} setTags={setTags} />
+          <TagItem key={item} item={item} tags={tags} setTags={setTags} />
         ))}
       </ScrollView>
     </View>

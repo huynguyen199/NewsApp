@@ -5,11 +5,11 @@ import fonts from "@assets/fonts"
 import SourceContainer from "./sourceContainer"
 import ContentContainer from "./contentContainer"
 import TagList from "./tagList"
-import {findPostById} from "../../../../services/post"
+import {findPostById} from "@services/post"
 import {findArticleById} from "@services/article"
 import {findSourceById} from "@services/source"
 import {findCategoryById} from "@services/category"
-import {findUserById} from "../../../../services/user"
+import {findUserById} from "@services/user"
 
 const InfoContainer = () => {
   const {colors} = useTheme()
@@ -27,11 +27,6 @@ const InfoContainer = () => {
     } else if (postId) {
       onReceivePostId()
     }
-    // onFetchSources()
-    return () => {
-      setTime(null)
-      setInfoArticle({})
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId])
 
@@ -42,10 +37,7 @@ const InfoContainer = () => {
       onFetchUserById()
     }
     onFetchCategory()
-    return () => {
-      setSources({})
-      setCategory({})
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoArticle])
 
