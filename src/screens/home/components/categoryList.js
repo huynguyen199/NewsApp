@@ -1,13 +1,25 @@
 import {FlatList} from "react-native"
-import React, {memo} from "react"
+import React from "react"
 import CategoryItem from "./categoryItem"
 
-const CategoryList = ({categoryList}) => {
-  const renderItem = ({item}) => <CategoryItem item={item} />
+const CategoryList = ({categoryList, setArticle, setLastDocument}) => {
+  const renderItem = ({item}) => (
+    <CategoryItem
+      setArticle={setArticle}
+      setLastDocument={setLastDocument}
+      item={item}
+    />
+  )
   return (
     <FlatList
       data={categoryList}
-      ListHeaderComponent={<CategoryItem item={{name: "All", id: "all"}} />}
+      ListHeaderComponent={
+        <CategoryItem
+          setArticle={setArticle}
+          setLastDocument={setLastDocument}
+          item={{name: "All", id: "all"}}
+        />
+      }
       horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={renderItem}
@@ -16,4 +28,4 @@ const CategoryList = ({categoryList}) => {
   )
 }
 
-export default memo(CategoryList)
+export default CategoryList

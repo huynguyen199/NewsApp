@@ -2,35 +2,46 @@ import React from "react"
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
 import {homeTabs} from "../common/navigator"
 import Home from "../screens/home/home"
-
 import {useTheme} from "@react-navigation/native"
-import {Icon} from "@rneui/themed"
 import Profile from "../screens/profile/profile"
 import Post from "../screens/post/post"
+import {Ionicons} from "../common/icon"
+import TabBarButton from "./components/tabBarButton"
 
 const Tab = createBottomTabNavigator()
+
+const screenOptions = (colors) => ({
+  tabBarActiveTintColor: colors.lightRed,
+  tabBarInactiveTintColor: colors.ghostRed,
+  tabBarStyle: {
+    height: 60,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: "transparent",
+    borderRightWidth: 0.1,
+    borderLeftWidth: 0.1,
+    borderColor: "whiteSmoke",
+  },
+  tabBarItemStyle: {
+    borderRadius: 20,
+  },
+  tabBarLabelStyle: {
+    fontSize: 14,
+    margin: 0,
+  },
+  tabBarShowLabel: false,
+})
 
 const HomeTabs = () => {
   const {colors} = useTheme()
 
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: colors.red,
-        tabBarInactiveTintColor: colors.black,
-        tabBarStyle: {
-          height: 55,
-        },
-        tabBarLabelStyle: {
-          fontSize: 14,
-          margin: 0,
-        },
-      }}>
+    <Tab.Navigator screenOptions={screenOptions(colors)}>
       <Tab.Screen
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: "My News",
           tabBarIcon: ({color, size}) => (
-            <Icon name="newspaper-outline" type="ionicon" color={color} />
+            <TabBarButton name={Ionicons.homeSharp} color={color} />
           ),
           headerShown: false,
         }}
@@ -41,7 +52,7 @@ const HomeTabs = () => {
         options={{
           tabBarLabel: "My News",
           tabBarIcon: ({color, size}) => (
-            <Icon name="newspaper-outline" type="ionicon" color={color} />
+            <TabBarButton name={Ionicons.menu} color={color} />
           ),
           headerShown: false,
         }}
@@ -52,7 +63,7 @@ const HomeTabs = () => {
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({color, size}) => (
-            <Icon name="newspaper-outline" type="ionicon" color={color} />
+            <TabBarButton name={Ionicons.person} color={color} />
           ),
           headerShown: false,
         }}

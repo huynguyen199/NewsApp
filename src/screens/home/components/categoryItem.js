@@ -4,13 +4,15 @@ import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 import {HomeContext} from "@context/home"
 
-const CategoryItem = ({item}) => {
+const CategoryItem = ({item, setArticle, setLastDocument}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const {selectCategoryId, setSelectCategoryId} = useContext(HomeContext)
 
   const onToggleCategory = () => {
     setSelectCategoryId(item.id)
+    setArticle([])
+    setLastDocument()
   }
 
   return (
