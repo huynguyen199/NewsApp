@@ -1,35 +1,15 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React, {useEffect, useState} from "react"
+import React from "react"
 import fonts from "@assets/fonts"
 import {useNavigation, useTheme} from "@react-navigation/native"
 import {Ionicons} from "@common/icon"
-import {findSourceById} from "@services/source"
 import {Icon} from "@rneui/themed"
-import {findCategoryById} from "@services/category"
 import {mainStack} from "@common/navigator"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const [source, setSource] = useState({})
-  const [category, setCategory] = useState({})
   const navigation = useNavigation()
-
-  useEffect(() => {
-    handleItem()
-    return () => {
-      setCategory([])
-      setSource([])
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const handleItem = async () => {
-    const dataSource = await findSourceById(item.sourceId)
-    const dataCategory = await findCategoryById(item.categoryId)
-    setCategory(dataCategory)
-    setSource(dataSource)
-  }
 
   const onMoveDetail = () => {
     navigation.navigate(mainStack.detail, {articleId: item.id})
@@ -45,17 +25,25 @@ const ArticleItem = ({item}) => {
           }}
         />
         <View style={styles.boxRight}>
-          <Text style={styles.txtTitle}>{item.title}</Text>
+          <Text style={styles.txtTitle}>
+            {item.title.length > 20
+              ? item.title.substring(0, 40) + "..."
+              : item.title}
+          </Text>
           <View style={styles.boxLogo}>
             <Image
               style={styles.imageLogo}
               source={{
-                uri: source.image,
+                uri: item.source.image,
               }}
             />
-            <Text style={styles.txtBrand}>{source.name}</Text>
+            <Text style={styles.txtBrand}>{item.source.name}</Text>
             <View style={styles.boxCategory}>
-              <Text style={styles.txtCategory}>{category.name}</Text>
+              <Text style={styles.txtCategory}>
+                {item.category.name.length > 10
+                  ? item.category.name.substring(0, 8) + "..."
+                  : item.category.name}
+              </Text>
             </View>
           </View>
           <View style={styles.boxBottom}>

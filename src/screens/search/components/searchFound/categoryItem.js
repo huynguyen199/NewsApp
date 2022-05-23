@@ -3,12 +3,18 @@ import React from "react"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const CategoryItem = ({item, selectCategoryId, setSelectCategoryId}) => {
+const CategoryItem = ({
+  item,
+  selectCategoryId,
+  setSelectCategoryId,
+  clearArticle,
+}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   const onToggleCategory = () => {
     setSelectCategoryId(item.id)
+    clearArticle()
   }
 
   return (

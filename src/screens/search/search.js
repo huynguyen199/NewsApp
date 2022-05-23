@@ -1,12 +1,13 @@
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet, StatusBar} from "react-native"
 import React, {useCallback, useState} from "react"
 import {useFocusEffect, useTheme} from "@react-navigation/native"
-import {Header} from "@rneui/themed"
+// import {Header} from "@rneui/themed"
 import LeftComponent from "./components/leftComponent"
 import RightComponent from "./components/rightComponent"
 import SearchList from "./components/searchList"
 import {getObject} from "../../utils/AsyncStore"
 import SearchHistory from "./components/searchHistory"
+import Header from "../../components/header"
 
 const Search = () => {
   const {colors} = useTheme()
@@ -21,12 +22,13 @@ const Search = () => {
   )
 
   const getSearchHistory = async () => {
-    const data = await getObject("history")
+    const data = (await getObject("history")) ?? []
     setHistory(data)
   }
 
   return (
     <View style={styles.container}>
+      <StatusBar animated={true} backgroundColor={colors.white} />
       <Header
         leftComponent={<LeftComponent search={search} setSearch={setSearch} />}
         rightComponent={<RightComponent search={search} />}
@@ -45,7 +47,7 @@ const Search = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
-    containerStyleHeader: {borderBottomWidth: 0},
+    containerStyleHeader: {borderBottomWidth: 0, margin: 10},
     container: {flex: 1, backgroundColor: colors.white},
   })
 

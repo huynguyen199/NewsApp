@@ -7,11 +7,13 @@ const CategoryList = ({
   categoryList,
   selectCategoryId,
   setSelectCategoryId,
+  clearArticle,
 }) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const renderItem = ({item}) => (
     <CategoryItem
+      clearArticle={clearArticle}
       selectCategoryId={selectCategoryId}
       setSelectCategoryId={setSelectCategoryId}
       item={item}
@@ -23,6 +25,7 @@ const CategoryList = ({
         data={categoryList}
         ListHeaderComponent={
           <CategoryItem
+            clearArticle={clearArticle}
             selectCategoryId={selectCategoryId}
             setSelectCategoryId={setSelectCategoryId}
             item={{name: "All", id: "all"}}

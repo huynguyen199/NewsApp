@@ -38,7 +38,7 @@ const SearchHistory = ({history, setHistory}) => {
       <ScrollView>
         <View style={styles.boxHistoryList}>
           {history.map((item, index) => (
-            <SearchHistoryItem item={item} key={index} />
+            <SearchHistoryItem item={item} key={item + index} />
           ))}
         </View>
       </ScrollView>
