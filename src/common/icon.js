@@ -29,6 +29,9 @@ const Ionicons = {
   closeCircle: "close-circle-outline",
   ellipsisHorizontal: "ellipsis-horizontal",
   delete: "trash",
+  trendingUp: "trending-up-outline",
+  homeSharp: "home-sharp",
+  menu: "menu",
 }
 const Fontisto = {
   heart: "heart",

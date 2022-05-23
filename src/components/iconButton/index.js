@@ -1,21 +1,23 @@
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
 
-const IconButton = ({name, style}) => {
+const IconButton = ({name, style, onPress, color}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
-    <View style={[styles.boxNotify, style]}>
-      <Icon
-        // onPress={onGoBackHome}
-        name={name}
-        type="ionicon"
-        color={colors.lightRed}
-        size={20}
-      />
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styles.boxNotify, style]}>
+        <Icon
+          // onPress={onGoBackHome}
+          name={name}
+          type="ionicon"
+          color={color ?? colors.lightRed}
+          size={20}
+        />
+      </View>
+    </TouchableOpacity>
   )
 }
 

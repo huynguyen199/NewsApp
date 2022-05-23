@@ -1,4 +1,4 @@
-import {View, Text, Image, StyleSheet} from "react-native"
+import {View, Text, Image, StyleSheet, Dimensions} from "react-native"
 import React, {useEffect, useState} from "react"
 import {useRoute, useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
@@ -10,8 +10,11 @@ import {findArticleById} from "@services/article"
 import {findSourceById} from "@services/source"
 import {findCategoryById} from "@services/category"
 import {findUserById} from "@services/user"
+import WebView from "react-native-webview"
+import Loading from "@components/loading"
+const {width, height} = Dimensions.get("window")
 
-const InfoContainer = () => {
+const InfoContainer = ({loading, setLoading}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const route = useRoute()
@@ -55,6 +58,7 @@ const InfoContainer = () => {
     const timeRelease = result.publishedAt.toDate()
     const date = new Date(timeRelease)
     setTime(date.toDateString())
+    setLoading(false)
   }
 
   const onFetchSources = async () => {
@@ -75,7 +79,22 @@ const InfoContainer = () => {
     if (infoArticle.categoryId) {
       const result = await findCategoryById(infoArticle.categoryId)
       setCategory(result)
+      setLoading(false)
     }
+  }
+
+  if (loading) {
+    return <Loading />
+  }
+
+  if (articleId) {
+    return (
+      <WebView
+        startInLoadingState={true}
+        source={{uri: infoArticle.url}}
+        style={{width: width, height: height}}
+      />
+    )
   }
 
   return (
