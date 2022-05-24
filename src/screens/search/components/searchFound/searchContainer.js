@@ -4,7 +4,7 @@ import SearchBar from "@components/searchBar"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {mainStack} from "../../../../common/navigator"
+import {mainStack} from "@common/navigator"
 
 const SearchContainer = ({titleSearch}) => {
   const {colors} = useTheme()

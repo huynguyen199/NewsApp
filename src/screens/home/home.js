@@ -162,7 +162,8 @@ const Home = () => {
   }
 
   const fetchArticle = () => {
-    let query = articleCollection
+    let query = articleCollection.orderBy("publishedAt", "desc")
+
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
     }

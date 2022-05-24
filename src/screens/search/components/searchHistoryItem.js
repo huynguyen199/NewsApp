@@ -1,9 +1,9 @@
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import fonts from "../../../assets/fonts"
-import {mainStack} from "../../../common/navigator"
-import {getObject, storeObject} from "../../../utils/AsyncStore"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
+import {getObject, storeObject} from "@utils/AsyncStore"
 
 const SearchHistoryItem = ({item}) => {
   const {colors} = useTheme()

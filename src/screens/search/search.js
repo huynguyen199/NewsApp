@@ -5,9 +5,9 @@ import {useFocusEffect, useTheme} from "@react-navigation/native"
 import LeftComponent from "./components/leftComponent"
 import RightComponent from "./components/rightComponent"
 import SearchList from "./components/searchList"
-import {getObject} from "../../utils/AsyncStore"
+import {getObject} from "@utils/AsyncStore"
 import SearchHistory from "./components/searchHistory"
-import Header from "../../components/header"
+import Header from "@components/header"
 
 const Search = () => {
   const {colors} = useTheme()

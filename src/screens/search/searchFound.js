@@ -1,3 +1,4 @@
+//components
 import {View, StyleSheet, FlatList} from "react-native"
 import React, {useCallback, useEffect, useState} from "react"
 import Header from "@components/header"
@@ -7,12 +8,13 @@ import SearchContainer from "./components/searchFound/searchContainer"
 import CategoryList from "./components/searchFound/categoryList"
 import ArticleItem from "./components/searchFound/articleItem"
 import ListFooterComponent from "./components/searchFound/listFooterComponent"
-import {getALlCategory} from "../../services/category"
 import SearchResultContainer from "./components/searchFound/searchResultContainer"
 import ListEmptyComponent from "./components/searchFound/listEmptyComponent"
-import {getALlSources} from "../../services/source"
-import {articleCollection} from "@services/article"
 import _ from "lodash"
+//services
+import {getALlCategory} from "@services/category"
+import {getALlSources} from "@services/source"
+import {articleCollection} from "@services/article"
 
 const SearchFound = () => {
   const {colors} = useTheme()

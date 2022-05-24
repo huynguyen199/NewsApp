@@ -71,7 +71,7 @@ const makeStyles = (colors) =>
       marginTop: 20,
       width: 130,
       marginLeft: 5,
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       borderWidth: 1,
       borderColor: colors.lightRed,
     },

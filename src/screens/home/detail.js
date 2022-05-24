@@ -1,4 +1,4 @@
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet, StatusBar} from "react-native"
 import React, {useState} from "react"
 import {useTheme} from "@react-navigation/native"
 import LeftComponent from "./components/detail/leftComponent"
@@ -12,6 +12,7 @@ const Detail = () => {
   const [loading, setLoading] = useState(true)
   return (
     <View style={styles.container}>
+      <StatusBar animated={true} backgroundColor={colors.white} />
       <Header
         leftComponent={<LeftComponent />}
         rightComponent={<RightComponent />}
