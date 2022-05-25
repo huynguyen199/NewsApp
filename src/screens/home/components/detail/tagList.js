@@ -3,12 +3,14 @@ import React from "react"
 import {useTheme} from "@react-navigation/native"
 import TagItem from "./tagItem"
 
-const TagList = () => {
+const TagList = ({tags}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
     <View style={styles.container}>
-      <TagItem />
+      {tags.map((tag) => (
+        <TagItem key={tag} title={tag} />
+      ))}
     </View>
   )
 }

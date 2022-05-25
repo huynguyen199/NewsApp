@@ -1,4 +1,4 @@
-import {RefreshControl, StyleSheet, View} from "react-native"
+import {RefreshControl, StatusBar, StyleSheet, View} from "react-native"
 import React, {useEffect, useState, useContext, useCallback} from "react"
 import firestore from "@react-native-firebase/firestore"
 import Loading from "./components/loading"
@@ -239,6 +239,8 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar animated={true} backgroundColor={colors.white} />
+
       <ArticleList
         refreshControl={
           <RefreshControl

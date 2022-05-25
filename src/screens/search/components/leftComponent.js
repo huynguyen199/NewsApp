@@ -27,7 +27,7 @@ const LeftComponent = ({search, setSearch}) => {
   }
 
   const saveHistory = async () => {
-    let data = await getObject("history")
+    let data = (await getObject("history")) ?? []
     data = data.filter((history) => history !== search)
     data.unshift(search)
     storeObject("history", data)

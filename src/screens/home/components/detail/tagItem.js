@@ -3,12 +3,12 @@ import React from "react"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
 
-const TagItem = () => {
+const TagItem = ({title}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
     <View style={styles.container}>
-      <Text style={styles.txtTitle}>#saddsa</Text>
+      <Text style={styles.txtTitle}>{"#" + title}</Text>
     </View>
   )
 }

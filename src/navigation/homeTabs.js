@@ -37,32 +37,7 @@ const HomeTabs = () => {
   const {colors} = useTheme()
 
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: colors.lightRed,
-        tabBarInactiveTintColor: colors.ghostRed,
-
-        tabBarStyle: {
-          height: 68,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          shadowColor: "transparent",
-          borderRightWidth: 0.1,
-          borderLeftWidth: 0.1,
-          borderColor: "whiteSmoke",
-          backgroundColor: colors.white,
-          // marginTop: -20,
-        },
-        tabBarItemStyle: {
-          borderRadius: 20,
-        },
-        tabBarLabelStyle: {
-          fontSize: 14,
-          margin: 0,
-        },
-
-        tabBarShowLabel: false,
-      }}>
+    <Tab.Navigator screenOptions={screenOptions(colors)}>
       <Tab.Screen
         options={{
           tabBarLabel: "My News",
