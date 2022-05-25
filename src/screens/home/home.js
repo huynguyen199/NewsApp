@@ -7,12 +7,12 @@ import {getFirstOfSource} from "@services/article"
 import {getALlCategory} from "@services/category"
 import {useTheme} from "@react-navigation/native"
 import _ from "lodash"
-import {addArticle, getAllArtcile} from "../../services/article"
-import {randomIntFromInterval} from "../../utils/method"
-import fonts from "../../assets/fonts"
+import {addArticle, getAllArtcile} from "@services/article"
+import {randomIntFromInterval, wait} from "@utils/method"
+import fonts from "@assets/fonts"
 import ArticleList from "./components/articleList"
 import GeneralContainer from "./components/generalContainer"
-import {getALlSources} from "../../services/source"
+import {getALlSources} from "@services/source"
 
 const articleCollection = firestore().collection("article")
 const url =
@@ -171,6 +171,9 @@ const Home = () => {
       .limit(6)
       .get()
       .then((querySnapshot) => {
+        if (article.length > 2) {
+          setIsLoadingFooter(querySnapshot.docs.length !== 0)
+        }
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
         }
@@ -228,10 +231,6 @@ const Home = () => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout))
-  }
 
   if (loading) {
     return <Loading />

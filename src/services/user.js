@@ -34,9 +34,7 @@ export const updateUser = async (id, data) => {
     .collection("user")
     .doc(id)
     .update(data)
-    .then(() => {
-      console.log("User updated!")
-    })
+    .then(() => {})
 }
 
 export const checkUserExistByUid = async (uid) => {
@@ -53,7 +51,5 @@ export const createUser = async (data) => {
     .collection("user")
     .doc(data.id)
     .set(data)
-    .then(() => {
-      console.log("User added!")
-    })
+    .then(() => {})
 }

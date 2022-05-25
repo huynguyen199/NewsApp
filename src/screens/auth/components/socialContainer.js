@@ -6,12 +6,8 @@ import {useNavigation, useTheme} from "@react-navigation/native"
 import auth from "@react-native-firebase/auth"
 import {LoginManager, AccessToken} from "react-native-fbsdk-next"
 import Toast from "@common/toast.js"
-import {
-  findUserById,
-  createUser,
-  checkUserExistByUid,
-} from "../../../services/user"
-import {mainStack} from "../../../common/navigator"
+import {findUserById, createUser, checkUserExistByUid} from "@services/user"
+import {mainStack} from "@common/navigator"
 
 const SocialContainer = () => {
   const {colors} = useTheme()
