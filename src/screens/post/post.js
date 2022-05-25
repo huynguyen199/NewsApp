@@ -12,19 +12,20 @@ import Loading from "./components/loading"
 import {Modalize} from "react-native-modalize"
 import {Ionicons, Material} from "@common/icon"
 import SelectItem from "./components/selectItem"
-import {getALlCategory} from "@services/category"
 import firestore from "@react-native-firebase/firestore"
 import ListFooterComponent from "./components/listFooterComponent"
 import {mainStack} from "@common/navigator"
-import {deletePost} from "@services/post"
 import ConfirmDialog from "@components/confirmDialog"
 import LoadingDialog from "@components/loadingDialog"
 import ListEmptyComponent from "./components/listEmptyComponent"
 import ListHeaderComponent from "./components/listHeaderComponent"
 import _ from "lodash"
-import {getAllUser} from "../../services/user"
 import auth from "@react-native-firebase/auth"
 import WithoutAccount from "./components/withoutAccount"
+//service
+import {getALlCategory} from "@services/category"
+import {deletePost} from "@services/post"
+import {getAllUser} from "../../services/user"
 
 const {height} = Dimensions.get("window")
 

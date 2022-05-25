@@ -22,7 +22,6 @@ import {launchImageLibrary} from "react-native-image-picker"
 import LoadingDialog from "@components/loadingDialog"
 import {homeTabs} from "@common/navigator"
 // Services
-
 import {findCategoryById, getALlCategory} from "@services/category"
 import {getImageByFileName, uploadImageByUri} from "@services/image"
 import {addPost, findPostById, updatePost} from "@services/post"
