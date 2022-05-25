@@ -9,13 +9,20 @@ import ProfileSettings from "@screens/profile/profileSettings"
 import EditProfile from "@screens/profile/editProfile"
 import Appearance from "@screens/profile/appearance"
 import CreateNews from "@screens/post/createNews"
+import Search from "../screens/search/search"
+import {CardStyleInterpolators} from "@react-navigation/stack"
+import SearchFound from "../screens/search/searchFound"
 
 const Stack = createStackNavigator()
 
 const MainStack = () => {
   return (
     <Stack.Navigator
-      screenOptions={{gestureEnabled: false}}
+      screenOptions={{
+        gestureEnabled: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+
       // initialRouteName={mainStack.homeTab}
     >
       <Stack.Screen
@@ -59,6 +66,17 @@ const MainStack = () => {
         options={{headerShown: false}}
         name={mainStack.createNews}
         component={CreateNews}
+      />
+      {/* search */}
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.search}
+        component={Search}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.searchFound}
+        component={SearchFound}
       />
     </Stack.Navigator>
   )

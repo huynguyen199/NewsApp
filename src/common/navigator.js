@@ -30,6 +30,8 @@ export const mainStack = {
   editProfile: "EditProfileScreen",
   appearance: "AppearanceScreen",
   createNews: "CreateNewsScreen",
+  search: "SearchScreen",
+  searchFound: "SearchFoundScreen",
 }
 
 export const rootSwitch = {
