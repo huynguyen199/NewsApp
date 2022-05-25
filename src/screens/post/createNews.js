@@ -1,3 +1,4 @@
+// Components
 import {View, Text, ScrollView, Dimensions, StyleSheet} from "react-native"
 import React, {useEffect, useRef, useState} from "react"
 import Header from "@components/header"
@@ -18,11 +19,12 @@ import FailedDialog from "@components/failedDialog"
 import TopicItem from "./components/createNews/topicItem"
 import {Modalize} from "react-native-modalize"
 import {launchImageLibrary} from "react-native-image-picker"
+import LoadingDialog from "@components/loadingDialog"
+import {homeTabs} from "@common/navigator"
+// Services
 import {findCategoryById, getALlCategory} from "@services/category"
 import {getImageByFileName, uploadImageByUri} from "@services/image"
 import {addPost, findPostById, updatePost} from "@services/post"
-import LoadingDialog from "@components/loadingDialog"
-import {homeTabs} from "@common/navigator"
 
 const {width, height} = Dimensions.get("window")
 
@@ -105,13 +107,7 @@ const CreateNews = () => {
   }
 
   const onSubmitForm = async (data) => {
-    if (articleId) {
-      updateNews(data)
-    } else {
-      await postNews(data)
-    }
-
-    // addPost()
+    articleId ? updateNews(data) : await postNews(data)
   }
 
   const updateNews = async (data) => {
@@ -130,27 +126,26 @@ const CreateNews = () => {
         hideLoading()
         showSuccess()
       })
-    } else {
-      const photoUrl = await uploadImage()
-      if (photoUrl) {
-        showLoading()
-        const newsData = {
-          content: data.content,
-          tags: tags,
-          title: data.title,
-          urlToImage: photoUrl,
-          publishedAt: new Date(),
-          userId: "102460885791282",
-          categoryId: selectCategory.id,
-        }
-        return updatePost(articleId, newsData).then(() => {
-          hideLoading()
-          showSuccess()
-        })
-      } else {
-        hideLoading()
-        return showPhotoFailed()
+    }
+    const photoUrl = await uploadImage()
+    if (photoUrl) {
+      showLoading()
+      const newsData = {
+        content: data.content,
+        tags: tags,
+        title: data.title,
+        urlToImage: photoUrl,
+        publishedAt: new Date(),
+        userId: "102460885791282",
+        categoryId: selectCategory.id,
       }
+      return updatePost(articleId, newsData).then(() => {
+        hideLoading()
+        showSuccess()
+      })
+    } else {
+      hideLoading()
+      return showPhotoFailed()
     }
   }
 

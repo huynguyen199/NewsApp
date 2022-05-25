@@ -30,10 +30,6 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
   useEffect(() => {
     fetchUserById()
     fetchCategoryById()
-    return () => {
-      setSource({})
-      setCategory({})
-    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item])

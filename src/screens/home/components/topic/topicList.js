@@ -4,12 +4,12 @@ import TopicItem from "./topicItem"
 import {useTheme} from "@react-navigation/native"
 
 const TopicList = ({category, handleCheckbox}) => {
-  const renderItem = ({item}) => (
-    <TopicItem handleCheckbox={handleCheckbox} item={item} />
-  )
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
+  const renderItem = ({item}) => (
+    <TopicItem handleCheckbox={handleCheckbox} item={item} />
+  )
   return (
     <FlatList
       data={category}

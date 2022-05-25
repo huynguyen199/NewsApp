@@ -102,11 +102,6 @@ const Post = () => {
     useCallback(() => {
       onFetchCategory()
       fetchNews(selectCategoryId)
-      return () => {
-        setCategories([])
-        setNews([])
-        setDuplicateNews([])
-      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   )
@@ -120,7 +115,7 @@ const Post = () => {
     let query = postCollection
 
     if (lastDocument !== undefined) {
-      query = query.startAfter(lastDocument) // fetch data following the last document accessed
+      query = query.startAfter(lastDocument)
     }
 
     if (id === "all") {
@@ -207,6 +202,11 @@ const Post = () => {
       })
     }, 1000)
   }
+  const clearArticle = () => {
+    setNews([])
+    setDuplicateNews([])
+    setLastDocument()
+  }
 
   const onRejectDeletePost = () => {
     hideConfirm()
@@ -227,6 +227,7 @@ const Post = () => {
         }
         ListHeaderComponent={
           <ListHeaderComponent
+            clearArticle={clearArticle}
             selectCategoryId={selectCategoryId}
             setSelectCategoryId={setSelectCategoryId}
             categories={categories}
@@ -234,8 +235,6 @@ const Post = () => {
             setSearch={setSearch}
             setNews={setNews}
             duplicateNews={duplicateNews}
-            setDuplicateNews={setDuplicateNews}
-            setLastDocument={setLastDocument}
           />
         }
         data={news}

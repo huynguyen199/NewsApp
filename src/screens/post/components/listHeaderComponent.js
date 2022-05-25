@@ -10,21 +10,18 @@ const ListHeaderComponent = ({
   categories,
   selectCategoryId,
   setNews,
-  setLastDocument,
   setSelectCategoryId,
   search,
   setSearch,
-  setDuplicateNews,
   duplicateNews,
+  clearArticle,
 }) => {
   const renderCategoryItem = ({item}) => (
     <CategoryItem
       selectCategoryId={selectCategoryId}
-      setNews={setNews}
-      setDuplicateNews={setDuplicateNews}
       setSelectCategoryId={setSelectCategoryId}
       item={item}
-      setLastDocument={setLastDocument}
+      clearArticle={clearArticle}
     />
   )
 
@@ -50,10 +47,8 @@ const ListHeaderComponent = ({
           ListHeaderComponent={
             <CategoryItem
               selectCategoryId={selectCategoryId}
-              setNews={setNews}
-              setDuplicateNews={setDuplicateNews}
-              setLastDocument={setLastDocument}
               setSelectCategoryId={setSelectCategoryId}
+              clearArticle={clearArticle}
               item={{name: "All", id: "all"}}
             />
           }

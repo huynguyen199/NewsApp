@@ -82,7 +82,7 @@ const FormRegister = () => {
     showLoadingDialog()
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(async (res) => {
+      .then((res) => {
         hideLoadingDialog()
         clearForm()
         showSuccessDialog()
@@ -113,8 +113,6 @@ const FormRegister = () => {
   }
 
   const onMoveHome = async () => {
-    // console.log("test")
-    // navigation.navigate(mainStack.source)
     hideSuccessDialog()
     const providerData = userInfo._user.providerData[0]
     const user = await findUserById(providerData.uid)

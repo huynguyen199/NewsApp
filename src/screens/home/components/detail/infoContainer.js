@@ -5,7 +5,7 @@ import fonts from "@assets/fonts"
 import SourceContainer from "./sourceContainer"
 import ContentContainer from "./contentContainer"
 import TagList from "./tagList"
-import {findPostById} from "../../../../services/post"
+import {findPostById} from "@services/post"
 import {findArticleById} from "@services/article"
 import {findSourceById} from "@services/source"
 import {findCategoryById} from "@services/category"
@@ -30,7 +30,6 @@ const InfoContainer = ({loading, setLoading}) => {
     } else if (postId) {
       onReceivePostId()
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId])
 
@@ -41,10 +40,7 @@ const InfoContainer = ({loading, setLoading}) => {
       onFetchUserById()
     }
     onFetchCategory()
-    return () => {
-      setSources({})
-      setCategory({})
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoArticle])
 
