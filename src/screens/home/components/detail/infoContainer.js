@@ -9,9 +9,9 @@ import {findPostById} from "@services/post"
 import {findArticleById} from "@services/article"
 import {findSourceById} from "@services/source"
 import {findCategoryById} from "@services/category"
-import {findUserById} from "../../../../services/user"
+import {findUserById} from "@services/user"
 import WebView from "react-native-webview"
-import Loading from "../../../../components/loading"
+import Loading from "@components/loading"
 const {width, height} = Dimensions.get("window")
 
 const InfoContainer = ({loading, setLoading}) => {

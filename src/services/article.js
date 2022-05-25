@@ -1,12 +1,12 @@
 import firestore, {firebase} from "@react-native-firebase/firestore"
 
+export const articleCollection = firestore().collection("article")
+
 export const addArticle = (data) => {
   firestore()
     .collection("article")
     .add(data)
-    .then(() => {
-      console.log("article added!")
-    })
+    .then(() => {})
 }
 
 export const getAllArtcile = async () => {

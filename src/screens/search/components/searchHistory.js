@@ -7,11 +7,11 @@ import {
 } from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
-import {Ionicons} from "../../../common/icon"
+import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
-import fonts from "../../../assets/fonts"
+import fonts from "@assets/fonts"
 import SearchHistoryItem from "./searchHistoryItem"
-import {storeObject} from "../../../utils/AsyncStore"
+import {storeObject} from "@utils/AsyncStore"
 
 const SearchHistory = ({history, setHistory}) => {
   const {colors} = useTheme()
@@ -38,7 +38,7 @@ const SearchHistory = ({history, setHistory}) => {
       <ScrollView>
         <View style={styles.boxHistoryList}>
           {history.map((item, index) => (
-            <SearchHistoryItem item={item} key={index} />
+            <SearchHistoryItem item={item} key={item + index} />
           ))}
         </View>
       </ScrollView>

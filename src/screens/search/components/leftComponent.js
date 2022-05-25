@@ -27,8 +27,9 @@ const LeftComponent = ({search, setSearch}) => {
   }
 
   const saveHistory = async () => {
-    const data = await getObject("history")
-    data.push(search)
+    let data = await getObject("history")
+    data = data.filter((history) => history !== search)
+    data.unshift(search)
     storeObject("history", data)
   }
 
@@ -43,6 +44,7 @@ const LeftComponent = ({search, setSearch}) => {
         />
         <SearchBar
           value={search}
+          autoFocus
           onSubmitEditing={onSubmitText}
           onChangeText={onChangeSearch}
           containerStyle={styles.searchContainerStyle}

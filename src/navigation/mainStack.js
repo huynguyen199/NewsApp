@@ -12,22 +12,25 @@ import CreateNews from "@screens/post/createNews"
 import Search from "../screens/search/search"
 import {CardStyleInterpolators} from "@react-navigation/stack"
 import SearchFound from "../screens/search/searchFound"
+import {useTheme} from "@react-navigation/native"
 
 const Stack = createStackNavigator()
 
 const MainStack = () => {
+  const {colors} = useTheme()
+
   return (
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-      }}
-
-      // initialRouteName={mainStack.homeTab}
-    >
+      }}>
       <Stack.Screen
         options={{
           headerShown: false,
+          cardStyle: {
+            backgroundColor: colors.white,
+          },
         }}
         name={mainStack.homeTab}
         component={HomeTabs}
