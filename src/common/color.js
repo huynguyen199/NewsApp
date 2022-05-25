@@ -33,6 +33,7 @@ const lightColor = {
     blue: "#6495ed",
     red: "#ff0000",
     lightRed: "rgb(255, 45, 85)",
+    ghostRed: "rgba(252, 50, 50, 0.09)",
     yellow: "#ffff00",
     greenYellow: "#adff2f",
     green: "#008000",

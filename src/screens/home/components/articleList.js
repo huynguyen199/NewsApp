@@ -3,10 +3,22 @@ import React from "react"
 import ArticleItem from "./articleItem"
 
 import ListFooterComponent from "./listFooterComponent"
+import ListEmpty from "./listEmpty"
 
-const ArticleList = ({article, isLoadingFooter, onEndReachedArticle}) => {
-  const renderItem = ({item, index}) =>
-    index !== 0 && <ArticleItem item={item} />
+const ArticleList = ({
+  article,
+  isLoadingFooter,
+  onEndReachedArticle,
+  children,
+  articleFeatured,
+  refreshControl,
+}) => {
+  const renderItem = ({item, index}) => {
+    const articleIndex = article.findIndex(
+      (articleItem) => articleItem.id === articleFeatured.id,
+    )
+    return index !== articleIndex && <ArticleItem item={item} />
+  }
 
   return (
     <FlatList
@@ -14,8 +26,10 @@ const ArticleList = ({article, isLoadingFooter, onEndReachedArticle}) => {
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       onEndReached={onEndReachedArticle}
+      refreshControl={refreshControl}
       onEndReachedThreshold={0.1}
-      // ListEmptyComponent={<Text>das</Text>}
+      ListHeaderComponent={<>{children}</>}
+      ListEmptyComponent={ListEmpty}
       ListFooterComponent={() =>
         article.length !== 0 && isLoadingFooter && <ListFooterComponent />
       }

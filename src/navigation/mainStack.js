@@ -26,7 +26,9 @@ const MainStack = () => {
       // initialRouteName={mainStack.homeTab}
     >
       <Stack.Screen
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
         name={mainStack.homeTab}
         component={HomeTabs}
       />
