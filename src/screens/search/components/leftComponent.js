@@ -34,29 +34,41 @@ const LeftComponent = ({search, setSearch}) => {
   }
 
   return (
-    <TouchableOpacity onPress={onBackHome} style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.boxRow}>
-        <Icon
-          name={Ionicons.back}
-          type="ionicon"
-          color={colors.lightRed}
-          size={30}
-        />
+        <TouchableOpacity onPress={onBackHome}>
+          <Icon
+            name={Ionicons.back}
+            type="ionicon"
+            color={colors.lightRed}
+            size={30}
+          />
+        </TouchableOpacity>
         <SearchBar
           value={search}
-          autoFocus
+          rightComponent={
+            <Icon
+              name={Ionicons.search}
+              type="ionicon"
+              solid={true}
+              size={20}
+            />
+          }
+          style={styles.searchStyle}
+          autoFocus={true}
           onSubmitEditing={onSubmitText}
           onChangeText={onChangeSearch}
           containerStyle={styles.searchContainerStyle}
           placeholder="Search"
         />
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    searchContainerStyle: {width: width / 1.4, marginLeft: 10},
+    searchStyle: {color: "black"},
+    searchContainerStyle: {width: width / 1.2, marginLeft: 10},
     boxRow: {flexDirection: "row", height: 46, alignItems: "center"},
     container: {
       alignItems: "center",

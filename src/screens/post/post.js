@@ -243,6 +243,7 @@ const Post = () => {
           setIsLoadingFooter(querySnapshot.docs.length !== 0)
         }
         if (querySnapshot.docs.length === 0) {
+          setLoading(false)
           return setIsLoadingFooter(false)
         }
         setLoading(false)

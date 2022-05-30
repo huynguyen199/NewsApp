@@ -1,20 +1,17 @@
 import {RefreshControl, StatusBar, StyleSheet, View} from "react-native"
-import React, {useEffect, useState, useContext, useCallback} from "react"
-import firestore from "@react-native-firebase/firestore"
+import React, {useEffect, useState, useContext} from "react"
 import Loading from "./components/loading"
 import {HomeContext} from "../../context/home"
 import {getFirstOfSource} from "@services/article"
 import {getALlCategory} from "@services/category"
 import {useTheme} from "@react-navigation/native"
-import _ from "lodash"
-import {addArticle, getAllArtcile} from "@services/article"
+import {addArticle, getAllArtcile, articleCollection} from "@services/article"
 import {randomIntFromInterval, wait} from "@utils/method"
 import fonts from "@assets/fonts"
 import ArticleList from "./components/articleList"
 import GeneralContainer from "./components/generalContainer"
 import {getALlSources} from "@services/source"
 
-const articleCollection = firestore().collection("article")
 const url =
   "https://newsapi.org/v2/top-headlines?apiKey=660c8bf81757424b9f90f8d7f2e41740&sources=abc-news,cnn,nbc-news,cbs-news,usa-today"
 
@@ -93,27 +90,19 @@ const Home = () => {
     })
   }
 
-  let fetchNewByCategoryIdAfterTime = _.debounce((categoryId) => {
-    fetchArticleByCategoryId(categoryId)
-  }, 500)
-  let fetchAllNewAfterTime = _.debounce(() => {
-    fetchArticle()
-  }, 500)
-
   useEffect(() => {
     onChangeFilterCategory(selectCategoryId)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectCategoryId])
 
-  const onChangeFilterCategory = useCallback((categoryId) => {
+  const onChangeFilterCategory = (categoryId) => {
     if (categoryId === "all") {
-      return fetchAllNewAfterTime()
+      return fetchArticle()
     } else {
-      return fetchNewByCategoryIdAfterTime(categoryId)
+      return fetchArticleByCategoryId(categoryId)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }
 
   useEffect(() => {
     handleCategoryList()
@@ -147,10 +136,10 @@ const Home = () => {
       query = query.startAfter(lastDocument)
     }
     query
-      .limit(6)
+      .limit(10)
       .where("categoryId", "==", id)
-      .get()
-      .then((querySnapshot) => {
+      // .get()
+      .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
         }
@@ -168,9 +157,9 @@ const Home = () => {
       query = query.startAfter(lastDocument)
     }
     query
-      .limit(6)
-      .get()
-      .then((querySnapshot) => {
+      .limit(10)
+      // .get()
+      .onSnapshot((querySnapshot) => {
         if (article.length > 2) {
           setIsLoadingFooter(querySnapshot.docs.length !== 0)
         }
@@ -218,6 +207,7 @@ const Home = () => {
   }
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
+    setLoading(true)
     wait(2000).then(() => {
       setArticle([])
       setLastDocument()
@@ -226,7 +216,7 @@ const Home = () => {
       } else {
         fetchArticleByCategoryId(selectCategoryId)
       }
-
+      handleFirstOfSource()
       setRefreshing(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -259,16 +249,6 @@ const Home = () => {
           categoryList={categoryList}
         />
       </ArticleList>
-
-      {/* <NewsContainer
-          categoryList={categoryList}
-          article={article}
-          duplicateArticle={duplicateArticle}
-          lastDocument={lastDocument}
-          isLoadingFooter={isLoadingFooter}
-          onEndReachedArticle={onEndReachedArticle}
-          articleFeatured={articleFeatured}
-        /> */}
     </View>
   )
 }

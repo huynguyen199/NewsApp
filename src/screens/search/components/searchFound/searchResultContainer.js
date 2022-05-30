@@ -23,6 +23,7 @@ const makeStyles = (colors) =>
       marginHorizontal: 10,
       marginTop: 15,
       alignItems: "center",
+      paddingBottom: 5,
     },
   })
 

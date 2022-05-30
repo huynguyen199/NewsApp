@@ -18,6 +18,7 @@ export const homeTabs = {
   home: "HomeStack",
   news: "NewsStack",
   myNews: "MyNewsStack",
+  bookmark: "BookmarkStack",
 }
 
 export const mainStack = {

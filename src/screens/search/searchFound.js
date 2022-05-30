@@ -10,7 +10,6 @@ import ArticleItem from "./components/searchFound/articleItem"
 import ListFooterComponent from "./components/searchFound/listFooterComponent"
 import SearchResultContainer from "./components/searchFound/searchResultContainer"
 import ListEmptyComponent from "./components/searchFound/listEmptyComponent"
-import _ from "lodash"
 //services
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
@@ -40,19 +39,12 @@ const SearchFound = () => {
 
   const onSelectCategory = useCallback((categoryId) => {
     if (categoryId === "all") {
-      return fetchAllNewAfterTime()
+      return fetchArticle()
     } else {
-      return fetchNewByCategoryIdAfterTime(categoryId)
+      return fetchArticleByCategoryId(categoryId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  let fetchNewByCategoryIdAfterTime = _.debounce((categoryId) => {
-    fetchArticleByCategoryId(categoryId)
-  }, 500)
-  let fetchAllNewAfterTime = _.debounce(() => {
-    fetchArticle()
-  }, 500)
 
   const getCategoryList = async () => {
     const result = await getALlCategory()
@@ -73,7 +65,7 @@ const SearchFound = () => {
       .get()
       .then((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
-          return setIsLoadingFooter(false)
+          return
         }
         setIsLoadingFooter(article.length !== 0)
 
@@ -93,8 +85,7 @@ const SearchFound = () => {
       .endAt(titleSearch + "\uf8ff")
       .where("categoryId", "==", id)
       .limit(6)
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
         }

@@ -41,7 +41,7 @@ const makeStyles = (colors) =>
     containerStyleBtn: {width: 140, height: 50, marginTop: 10},
     boxBottom: {margin: 20},
     txtTitle: {
-      color: colors.white,
+      color: "white",
       fontFamily: fonts.bold,
       fontSize: 20,
     },

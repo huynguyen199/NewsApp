@@ -17,6 +17,7 @@ const darkColor = {
     greenYellow: "#adff2f",
     green: "#008000",
     lightGrey: "#d3d3d3",
+    whiteSmoke: "#f5f5f5",
   },
 }
 

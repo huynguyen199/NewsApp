@@ -46,7 +46,10 @@ const SearchItem = ({search, item}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     iconStyle: {marginRight: 10},
-    hightlightStyle: {color: "black", width: "90%"},
+    hightlightStyle: {
+      color: colors.black,
+      width: "90%",
+    },
     txtHightlight: {fontWeight: "bold"},
     container: {
       flexDirection: "row",

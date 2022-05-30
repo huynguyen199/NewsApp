@@ -1,11 +1,10 @@
-import {View, FlatList, StyleSheet, Text} from "react-native"
+import {View, FlatList, StyleSheet} from "react-native"
 import React from "react"
 import CategoryItem from "./categoryItem"
 import Header from "@components/header"
 import SearchContainer from "./searchContainer"
 import LeftComponent from "./leftComponent"
 import RightComponent from "./rightComponent"
-import auth from "@react-native-firebase/auth"
 
 const ListHeaderComponent = ({
   categories,
