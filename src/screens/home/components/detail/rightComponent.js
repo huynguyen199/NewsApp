@@ -19,17 +19,19 @@ const RightComponent = () => {
 
   useEffect(() => {
     const handleBookmark = async () => {
-      if (auth().currentUser) {
-        const user = await auth().currentUser.providerData[0]
-        firestore()
-          .collection("bookmark")
-          .where("id", "==", articleId)
-          .where("userId", "==", user.uid)
-          .onSnapshot((querySnapshot) => {
-            if (querySnapshot.docs.length > 0) {
-              setIsBookmark(true)
-            }
-          })
+      if (articleId) {
+        if (auth().currentUser) {
+          const user = await auth().currentUser.providerData[0]
+          firestore()
+            .collection("bookmark")
+            .where("id", "==", articleId)
+            .where("userId", "==", user.uid)
+            .onSnapshot((querySnapshot) => {
+              if (querySnapshot.docs.length > 0) {
+                setIsBookmark(true)
+              }
+            })
+        }
       }
     }
     handleBookmark()
@@ -60,7 +62,7 @@ const RightComponent = () => {
     } catch (error) {}
   }
 
-  const ontoggleBookmark = async () => {
+  const onToggleBookmark = async () => {
     if (auth().currentUser) {
       const user = await auth().currentUser.providerData[0]
       if (isBookmark) {
@@ -96,11 +98,13 @@ const RightComponent = () => {
   return (
     <View style={styles.container}>
       <IconButton onPress={onShare} name={Ionicons.shareSocial} />
-      <IconButton
-        name={isBookmark ? Ionicons.bookmark : Ionicons.bookmarkOutline}
-        style={styles.styleBookmark}
-        onPress={ontoggleBookmark}
-      />
+      {articleId && (
+        <IconButton
+          name={isBookmark ? Ionicons.bookmark : Ionicons.bookmarkOutline}
+          style={styles.styleBookmark}
+          onPress={onToggleBookmark}
+        />
+      )}
     </View>
   )
 }

@@ -1,21 +1,25 @@
 import {StyleSheet, View} from "react-native"
 import React, {useEffect, useState} from "react"
-import {Header, Icon} from "@rneui/themed"
+import {Icon} from "@rneui/themed"
 import {useNavigation, useTheme} from "@react-navigation/native"
 import SearchBar from "@components/searchBar"
 import {Ionicons} from "@common/icon"
 import LeftComponent from "./components/topic/leftComponent"
 import Button from "@components/button"
 import TopicList from "./components/topic/topicList"
-import {getALlCategory} from "../../services/category"
-import {findUserById, updateUser} from "../../services/user"
-import useAuth from "../../hooks/useAuth"
-import {mainStack} from "../../common/navigator"
+import useAuth from "@hooks/useAuth"
+import {mainStack} from "@common/navigator"
+import Header from "@components/header"
+//services
+import {getALlCategory} from "@services/category"
+import {findUserById, updateUser} from "@services/user"
 
 const Topic = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const [category, setCategory] = useState([])
+  const [categoryFilter, setCategoryFilter] = useState([])
+  const [search, setSearch] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const {userInfo} = useAuth()
   const navigation = useNavigation()
@@ -36,6 +40,7 @@ const Topic = () => {
     const isChecked = data[index].checked
     data[index].checked = !isChecked
     setCategory(data)
+    setCategoryFilter(data)
   }
 
   const fetchCategory = async () => {
@@ -45,6 +50,7 @@ const Topic = () => {
     const arr = insertColumnObjectList(result)
 
     setCategory(arr)
+    setCategoryFilter(arr)
   }
 
   const insertColumnObjectList = (result) => {
@@ -69,6 +75,20 @@ const Topic = () => {
     updateUser(user.id, {interest: data})
   }
 
+  const onSearchTopic = (text) => {
+    setSearch(text)
+    const resultSearch = categoryFilter.filter((item) => {
+      console.log(
+        "DEBUG: - file: topic.js - line 78 - resultSearch - item",
+        item,
+      )
+
+      return item.name.toLowerCase().includes(text.toLowerCase())
+    })
+
+    setCategory(resultSearch)
+  }
+
   return (
     <View style={styles.container}>
       <Header
@@ -79,6 +99,8 @@ const Topic = () => {
         <View style={styles.boxAlignHorizontal}>
           <SearchBar
             placeholder={"Search"}
+            value={search}
+            onChangeText={onSearchTopic}
             rightComponent={
               <Icon
                 // onPress={onGoBackHome}

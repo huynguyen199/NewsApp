@@ -1,13 +1,14 @@
-import {View, Image, Text, StyleSheet} from "react-native"
+import {View, Image, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Header, Icon} from "@rneui/themed"
-
+import {Icon} from "@rneui/themed"
 import FormRegister from "./components/register/formRegister"
 import {Dimensions} from "react-native"
 import SocialContainer from "./components/register/socialContainer"
 import fonts from "@assets/fonts"
 import {authStack} from "@common/navigator"
+import Header from "@components/header"
+import {Ionicons} from "@common/icon"
 
 const {width} = Dimensions.get("window")
 const Register = () => {
@@ -15,7 +16,7 @@ const Register = () => {
   const styles = makeStyles(colors)
   const navigation = useNavigation()
 
-  const onBackSignin = () => {
+  const onBackSignIn = () => {
     navigation.navigate(authStack.login)
   }
 
@@ -23,14 +24,15 @@ const Register = () => {
     <View style={styles.container}>
       <Header
         leftComponent={
-          <Icon
-            onPress={onBackSignin}
-            name={"arrow-back-outline"}
-            type="ionicon"
-            containerStyle={styles.containerStyleIcon}
-            color="rgba(253,64,94,255)"
-            size={36}
-          />
+          <TouchableOpacity style={styles.btnBackStyle} onPress={onBackSignIn}>
+            <Icon
+              name={Ionicons.arrowBack}
+              type="ionicon"
+              containerStyle={styles.containerStyleIcon}
+              color="rgba(253,64,94,255)"
+              size={36}
+            />
+          </TouchableOpacity>
         }
         backgroundColor={colors.white}
       />
@@ -58,6 +60,7 @@ const Register = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    btnBackStyle: {marginLeft: 5},
     containerStyleIcon: {borderRadius: 30},
     boxFormLogin: {marginTop: 30},
     txtOr: {

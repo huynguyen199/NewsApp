@@ -35,6 +35,7 @@ const SearchItem = ({search, item}) => {
       <Icon
         name={Ionicons.trendingUp}
         type="ionicon"
+        color={colors.black}
         solid={true}
         style={styles.iconStyle}
         size={20}

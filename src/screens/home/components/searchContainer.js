@@ -21,6 +21,7 @@ const SearchContainer = () => {
         <SearchBar
           editable={false}
           placeholder="Search"
+          placeholderTextColor={"grey"}
           rightComponent={
             <Icon
               name={Ionicons.search}

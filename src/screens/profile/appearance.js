@@ -28,8 +28,8 @@ const Appearance = () => {
         <View style={styles.boxRow}>
           <Text style={styles.txtTitle}>Dark Mode</Text>
           <Switch
-            trackColor={{false: colors.grey, true: colors.red}}
-            thumbColor={colors.white}
+            trackColor={{false: colors.grey, true: colors.lightRed}}
+            thumbColor={colors.lightRed}
             onValueChange={toggleSwitch}
             value={darkScheme}
           />
@@ -48,7 +48,7 @@ const makeStyles = (colors) =>
       justifyContent: "space-between",
       marginTop: 20,
     },
-    container: {flex: 1, marginTop: 30, backgroundColor: "white"},
+    container: {flex: 1, backgroundColor: colors.white},
     imageChildStyle: {
       width: 20,
       height: 20,

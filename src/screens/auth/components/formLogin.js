@@ -206,6 +206,7 @@ const FormLogin = () => {
         isVisible={dialog.isFailed}
         title={"Login failed"}
         titleButton={"Go to Home"}
+        onPress={hideFailedDialog}
         onBackdropPress={hideFailedDialog}
       />
       <LoadingDialog

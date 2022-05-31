@@ -24,6 +24,7 @@ const PhoneContainer = ({control, errors}) => {
             containerStyle={styles.inputContainerStyle}
             keyboardType={"number-pad"}
             value={value}
+            placeholderTextColor={colors.grey}
             onChangeText={onChange}
           />
         )}
@@ -46,6 +47,7 @@ const makeStyles = (colors) =>
       fontFamily: fonts.bold,
       fontSize: 16,
       marginLeft: 20,
+      color: colors.black,
     },
     inputContainerStyle: {marginTop: 5},
   })

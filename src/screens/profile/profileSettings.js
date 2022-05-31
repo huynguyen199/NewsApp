@@ -1,7 +1,7 @@
 import {View, Text, ScrollView, StyleSheet} from "react-native"
 import React, {useRef} from "react"
 import {Ionicons} from "@common/icon"
-import {Header, Icon} from "@rneui/themed"
+import {Icon} from "@rneui/themed"
 import {useNavigation, useTheme} from "@react-navigation/native"
 import fonts from "../../assets/fonts"
 import LeftComponent from "./components/profileSettings/leftComponent"
@@ -10,6 +10,7 @@ import {Modalize} from "react-native-modalize"
 import Button from "@components/button"
 import {mainStack} from "@common/navigator"
 import auth from "@react-native-firebase/auth"
+import Header from "../../components/header"
 
 const ProfileSettings = () => {
   const {colors} = useTheme()
@@ -115,7 +116,7 @@ const makeStyles = (colors) =>
     yesStyleBtn: {width: 170},
     btnCancel: {
       width: 170,
-      backgroundColor: colors.white,
+      backgroundColor: "white",
       borderWidth: 2,
       borderColor: colors.lightRed,
     },
@@ -136,6 +137,7 @@ const makeStyles = (colors) =>
     modalContainer: {
       alignItems: "center",
       height: 200,
+      backgroundColor: "white",
     },
     containerHorizontal: {
       marginHorizontal: 10,

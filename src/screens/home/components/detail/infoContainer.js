@@ -1,4 +1,11 @@
-import {View, Text, Image, StyleSheet, Dimensions} from "react-native"
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+} from "react-native"
 import React, {useEffect, useState} from "react"
 import {useRoute, useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
@@ -98,7 +105,7 @@ const InfoContainer = ({loading, setLoading}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Image
         style={styles.imgBanner}
         source={{
@@ -121,7 +128,7 @@ const InfoContainer = ({loading, setLoading}) => {
       {/* tags list */}
 
       <TagList tags={infoArticle.tags} />
-    </View>
+    </ScrollView>
   )
 }
 

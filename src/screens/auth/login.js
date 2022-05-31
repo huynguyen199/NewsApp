@@ -1,13 +1,15 @@
 import {View, Image, Text, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Header, Icon} from "@rneui/themed"
+import {Icon} from "@rneui/themed"
 import FormLogin from "./components/formLogin"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
 import {Dimensions} from "react-native"
+import {Ionicons} from "@common/icon"
 import fonts from "@assets/fonts"
-import {mainStack} from "../../common/navigator"
+import {mainStack} from "@common/navigator"
+import Header from "@components/header"
 
 const {width} = Dimensions.get("window")
 const Login = () => {
@@ -23,10 +25,12 @@ const Login = () => {
     <View style={styles.container}>
       <Header
         leftComponent={
-          <TouchableOpacity onPress={onBackHome}>
+          <TouchableOpacity
+            style={styles.touchableIconStyle}
+            onPress={onBackHome}>
             <Icon
               // onPress={onGoBackHome}
-              name={"arrow-back-outline"}
+              name={Ionicons.arrowBack}
               type="ionicon"
               color={colors.lightRed}
               size={36}
@@ -59,6 +63,7 @@ const Login = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    touchableIconStyle: {marginLeft: 5},
     boxFormLogin: {marginTop: 20},
     txtOr: {
       fontFamily: fonts.regular,

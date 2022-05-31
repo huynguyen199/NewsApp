@@ -2,8 +2,8 @@ import {View, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
 import {Icon} from "@rneui/themed"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons, FontAwesome} from "@common/icon"
-import {mainStack} from "../../../common/navigator"
+import {Ionicons} from "@common/icon"
+import {mainStack} from "@common/navigator"
 
 const RightComponent = () => {
   const {colors} = useTheme()
@@ -16,15 +16,6 @@ const RightComponent = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.boxEdit}>
-        <Icon
-          // onPress={onGoBackHome}
-          name={FontAwesome.pencil}
-          type="font-awesome"
-          color={colors.lightRed}
-          size={20}
-        />
-      </View>
       <TouchableOpacity onPress={onMoveProfileSettings}>
         <View style={styles.boxSettings}>
           <Icon
@@ -57,7 +48,6 @@ const makeStyles = (colors) =>
       justifyContent: "center",
       marginRight: 10,
       flexDirection: "row",
-      marginLeft: -100,
     },
   })
 export default RightComponent

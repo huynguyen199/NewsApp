@@ -22,6 +22,7 @@ const WebsiteContainer = ({control, errors}) => {
             value={value}
             onChangeText={onChange}
             placeholder={"Website"}
+            placeholderTextColor={colors.grey}
             containerStyle={styles.inputContainerStyle}
           />
         )}
@@ -44,6 +45,7 @@ const makeStyles = (colors) =>
       fontFamily: fonts.bold,
       fontSize: 16,
       marginLeft: 20,
+      color: colors.black,
     },
   })
 

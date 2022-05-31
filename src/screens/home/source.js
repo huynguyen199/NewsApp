@@ -1,6 +1,6 @@
 import {StyleSheet, View} from "react-native"
 import React, {useEffect, useState} from "react"
-import {Header, Icon} from "@rneui/themed"
+import {Icon} from "@rneui/themed"
 import {useNavigation, useTheme} from "@react-navigation/native"
 import SearchBar from "@components/searchBar"
 import {Ionicons} from "@common/icon"
@@ -11,6 +11,7 @@ import {mainStack} from "@common/navigator"
 import {getALlSources} from "@services/source"
 import {updateUser, findUserById} from "@services/user"
 import useAuth from "@hooks/useAuth"
+import Header from "@components/header"
 
 const Source = () => {
   const {colors} = useTheme()
@@ -19,6 +20,8 @@ const Source = () => {
   const [sources, setSources] = useState([])
   const [disabled, setDisabled] = useState(false)
   const {userInfo} = useAuth()
+  const [categoryFilter, setCategoryFilter] = useState([])
+  const [search, setSearch] = useState(null)
 
   useEffect(() => {
     fetchAllSources()
@@ -36,6 +39,7 @@ const Source = () => {
     const arr = insertColumnObjectList(result)
 
     setSources(arr)
+    setCategoryFilter(arr)
   }
 
   const handleCheckbox = (id) => {
@@ -44,6 +48,7 @@ const Source = () => {
     const isChecked = data[index].checked
     data[index].checked = !isChecked
     setSources(data)
+    setCategoryFilter(data)
   }
 
   const insertColumnObjectList = (result) => {
@@ -69,6 +74,15 @@ const Source = () => {
     // console.log(data)
   }
 
+  const onSearchSources = (text) => {
+    setSearch(text)
+    const resultSearch = categoryFilter.filter((item) => {
+      return item.name.toLowerCase().includes(text.toLowerCase())
+    })
+
+    setSources(resultSearch)
+  }
+
   return (
     <View style={styles.container}>
       <Header
@@ -78,6 +92,8 @@ const Source = () => {
       <View style={styles.boxHeader}>
         <View style={styles.boxAlignHorizontal}>
           <SearchBar
+            value={search}
+            onChangeText={onSearchSources}
             placeholder={"Search"}
             rightComponent={
               <Icon

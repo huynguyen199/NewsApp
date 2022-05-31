@@ -40,7 +40,7 @@ const TopicItem = ({item, handleCheckbox}) => {
             value={item.checked}
           />
           <View style={styles.boxTextRow}>
-            <Text style={styles.txtTitle}>Art</Text>
+            <Text style={styles.txtTitle}>{item.name}</Text>
           </View>
         </ImageBackground>
       </View>

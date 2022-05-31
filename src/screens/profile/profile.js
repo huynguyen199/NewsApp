@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, ImageBackground} from "react-native"
+import {View, Text, StyleSheet, ImageBackground, Linking} from "react-native"
 import React, {useCallback, useState} from "react"
 import Header from "@components/header"
 import LeftComponent from "./components/leftComponent"
@@ -10,26 +10,38 @@ import {Divider, Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import WithoutAccount from "./components/withoutAccount"
 import Loading from "./components/loading"
-import {findUserById} from "../../services/user"
-import useAuth from "../../hooks/useAuth"
-import {Material} from "../../common/icon"
+import {findUserById} from "@services/user"
+import useAuth from "@hooks/useAuth"
+import {Material} from "@common/icon"
+import {findPostByUserId} from "@services/post"
 
 const Profile = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const [profile, setProfile] = useState({})
+  const [countPost, setCountPost] = useState(0)
   const [loading, setLoading] = useState(true)
   const {userInfo} = useAuth()
 
   useFocusEffect(
     useCallback(() => {
       fetchUser()
-      return () => {
-        setProfile({})
-      }
+      fetchCountPost()
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userInfo]),
   )
+
+  const fetchCountPost = async () => {
+    // const userId = profile.id
+    // const user = await findUserById(userId)
+    if (userInfo) {
+      const providerData = userInfo._user.providerData[0]
+      const user = await findUserById(providerData.uid)
+      const post = await findPostByUserId(user.id)
+      setCountPost(post.length)
+    }
+  }
 
   const fetchUser = async () => {
     if (userInfo) {
@@ -37,6 +49,19 @@ const Profile = () => {
       const user = await findUserById(providerData.uid)
       setLoading(false)
       setProfile(user)
+    }
+  }
+
+  const onOpenWebsite = async () => {
+    const url = profile.website
+    if (!url) return
+
+    const supported = await Linking.canOpenURL(url)
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(url)
     }
   }
 
@@ -80,7 +105,7 @@ const Profile = () => {
         </View>
         <View style={styles.boxRowProfile}>
           <View style={styles.leftProfile}>
-            <Text style={styles.txtNumberNews}>0</Text>
+            <Text style={styles.txtNumberNews}>{countPost}</Text>
             <Text style={styles.txtNews}>news</Text>
           </View>
 
@@ -95,6 +120,7 @@ const Profile = () => {
         </View>
         <Divider style={styles.styleDivider} />
         <Button
+          onPress={onOpenWebsite}
           title="Website"
           leftIcon={Ionicons.globe}
           containerStyle={styles.containerStyleButton}
@@ -118,7 +144,7 @@ const makeStyles = (colors) =>
     txtFollowing: {
       marginTop: 10,
       fontFamily: fonts.regular,
-      color: "black",
+      color: colors.black,
     },
     txtNumOfFollowing: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
     boxRight: {
@@ -130,9 +156,13 @@ const makeStyles = (colors) =>
     txtFollower: {
       marginTop: 10,
       fontFamily: fonts.regular,
-      color: "black",
+      color: colors.black,
     },
-    txtNumberFollower: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
+    txtNumberFollower: {
+      fontFamily: fonts.bold,
+      fontSize: 24,
+      color: colors.black,
+    },
     boxCenter: {
       flex: 1,
       justifyContent: "center",
@@ -142,7 +172,7 @@ const makeStyles = (colors) =>
       borderColor: colors.lightGrey,
     },
     txtNews: {marginTop: 10, fontFamily: fonts.regular, color: colors.black},
-    txtNumberNews: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
+    txtNumberNews: {fontFamily: fonts.bold, fontSize: 24, color: colors.black},
     leftProfile: {
       flex: 1,
       justifyContent: "center",
@@ -163,7 +193,7 @@ const makeStyles = (colors) =>
       fontFamily: fonts.regular,
     },
     txtTitle: {
-      color: "black",
+      color: colors.black,
       fontFamily: fonts.bold,
       fontSize: 24,
       marginTop: 20,

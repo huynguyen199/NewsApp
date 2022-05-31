@@ -4,6 +4,7 @@ import SearchBar from "@components/searchBar"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
+import fonts from "@assets/fonts"
 
 const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
   const {colors} = useTheme()
@@ -25,7 +26,9 @@ const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
   return (
     <View style={styles.container}>
       <SearchBar
+        style={styles.searchBarStyle}
         placeholder="Search"
+        placeholderTextColor={"grey"}
         value={search}
         onChangeText={onChangeSearch}
         hasClearButton
@@ -45,7 +48,8 @@ const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    containerStyleSearch: {flex: 1},
+    searchBarStyle: {color: "black", fontFamily: fonts.bold},
+    containerStyleSearch: {flex: 1, paddingHorizontal: 10},
     boxIcon: {
       backgroundColor: "rgba(252, 50, 50, 0.09)",
       padding: 10,
