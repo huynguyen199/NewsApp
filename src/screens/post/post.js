@@ -140,6 +140,7 @@ const Post = () => {
   )
 
   const onFetchCategory = async () => {
+    setSelectCategoryId("all")
     const data = await getALlCategory()
     setCategories(data)
   }
@@ -172,9 +173,8 @@ const Post = () => {
           .where("userId", "==", user.uid)
           .where("title", ">=", wordSearch)
           .where("title", "<=", wordSearch + "\uf8ff")
-          .limit(6)
-          .get()
-          .then((querySnapshot) => {
+          .limit(10)
+          .onSnapshot((querySnapshot) => {
             if (news.length > 2) {
               setIsLoadingFooter(querySnapshot.docs.length !== 0)
             }
@@ -190,9 +190,8 @@ const Post = () => {
           .where("title", ">=", wordSearch)
           .where("title", "<=", wordSearch + "\uf8ff")
           .where("categoryId", "==", id)
-          .limit(6)
-          .get()
-          .then((querySnapshot) => {
+          .limit(10)
+          .onSnapshot((querySnapshot) => {
             if (news.length > 2) {
               setIsLoadingFooter(querySnapshot.docs.length !== 0)
             }
@@ -211,8 +210,7 @@ const Post = () => {
       .where("userId", "==", user.uid)
       .where("categoryId", "==", id)
       .limit(6)
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         if (news.length > 2) {
           setIsLoadingFooter(querySnapshot.docs.length !== 0)
         }
@@ -236,9 +234,8 @@ const Post = () => {
 
     query
       .where("userId", "==", userId)
-      .limit(6)
-      .get()
-      .then((querySnapshot) => {
+      .limit(10)
+      .onSnapshot((querySnapshot) => {
         if (news.length > 2) {
           setIsLoadingFooter(querySnapshot.docs.length !== 0)
         }

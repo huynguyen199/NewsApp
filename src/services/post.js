@@ -44,3 +44,20 @@ export const findPostById = async (id) => {
   })
   return article
 }
+
+export const findPostByUserId = async (id) => {
+  const article = []
+  const querySnapshot = await firestore()
+    .collection("post")
+    .where("userId", "==", id)
+    .get()
+
+  querySnapshot.forEach((documentSnapshot) => {
+    article.push({
+      id: documentSnapshot.id,
+      ...documentSnapshot.data(),
+    })
+  })
+
+  return article
+}

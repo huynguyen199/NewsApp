@@ -20,8 +20,6 @@ const screenOptions = (colors) => ({
   tabBarInactiveTintColor: colors.ghostRed,
   tabBarStyle: {
     height: 60,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     shadowColor: "transparent",
     borderRightWidth: 0.1,
     borderLeftWidth: 0.1,

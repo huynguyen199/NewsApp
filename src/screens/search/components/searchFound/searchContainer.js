@@ -20,6 +20,7 @@ const SearchContainer = ({titleSearch}) => {
       <SearchBar
         value={titleSearch}
         editable={false}
+        style={styles.searchStyle}
         placeholder="Search"
         containerStyle={styles.containerStyleSearch}
       />
@@ -36,6 +37,7 @@ const SearchContainer = ({titleSearch}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
+    searchStyle: {color: "black"},
     containerStyleSearch: {flex: 1},
     boxIcon: {
       backgroundColor: "rgba(252, 50, 50, 0.09)",

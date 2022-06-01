@@ -205,7 +205,7 @@ const makeStyles = (colors) =>
     buttonContainerStyle: {marginBottom: 20},
     styleDividerVertical: {marginVertical: 30},
     boxMargin: {marginHorizontal: 10},
-    container: {flex: 1, marginTop: 30, backgroundColor: colors.white},
+    container: {flex: 1, backgroundColor: colors.white},
     imageChildStyle: {
       width: 20,
       height: 20,

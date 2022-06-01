@@ -33,6 +33,7 @@ const Ionicons = {
   homeSharp: "home-sharp",
   menu: "menu",
   bookmark: "bookmark",
+  arrowBack: "arrow-back-outline",
 }
 const Fontisto = {
   heart: "heart",

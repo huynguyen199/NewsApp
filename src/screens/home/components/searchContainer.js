@@ -21,6 +21,7 @@ const SearchContainer = () => {
         <SearchBar
           editable={false}
           placeholder="Search"
+          placeholderTextColor={"grey"}
           rightComponent={
             <Icon
               name={Ionicons.search}
@@ -59,8 +60,8 @@ const makeStyles = (colors) =>
       flexDirection: "row",
       // width: "100%",
       alignItems: "center",
-      marginTop: 10,
       marginHorizontal: 10,
+      marginTop: 5,
     },
   })
 

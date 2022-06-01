@@ -6,6 +6,7 @@ import {useNavigation, useTheme} from "@react-navigation/native"
 import SearchBar from "@components/searchBar"
 import {mainStack} from "@common/navigator"
 import {getObject, storeObject} from "@utils/AsyncStore"
+import fonts from "../../../assets/fonts"
 
 const {width} = Dimensions.get("window")
 
@@ -67,7 +68,7 @@ const LeftComponent = ({search, setSearch}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    searchStyle: {color: "black"},
+    searchStyle: {color: "black", fontFamily: fonts.bold},
     searchContainerStyle: {width: width / 1.2, marginLeft: 10},
     boxRow: {flexDirection: "row", height: 46, alignItems: "center"},
     container: {

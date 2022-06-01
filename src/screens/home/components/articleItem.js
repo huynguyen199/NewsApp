@@ -32,9 +32,12 @@ const ArticleItem = ({item}) => {
             .where("userId", "==", user.uid)
             .onSnapshot((querySnapshot) => {
               if (querySnapshot.docs.length > 0) {
-                bookmarkRef.current?.play(0, 50)
-                setIsBookmark(querySnapshot.docs.length > 0)
+                return (
+                  bookmarkRef.current?.play(0, 50),
+                  setIsBookmark(querySnapshot.docs.length > 0)
+                )
               }
+              setIsBookmark(false)
             })
       }
     }

@@ -1,4 +1,4 @@
-import {View, StyleSheet, TouchableOpacity, Image} from "react-native"
+import {View, StyleSheet, TouchableOpacity, Image, Text} from "react-native"
 import React from "react"
 import CheckBox from "@react-native-community/checkbox"
 import {useTheme} from "@react-navigation/native"
@@ -33,9 +33,7 @@ const SourceItem = ({item, handleCheckbox}) => {
               uri: item.image,
             }}
           />
-          {/* <View style={styles.boxTextRow}>
-            <Text style={styles.txtTitle}>Art</Text>
-          </View>  */}
+          <Text style={styles.txtName}>{item.name}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -44,6 +42,7 @@ const SourceItem = ({item, handleCheckbox}) => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    txtName: {fontFamily: fonts.bold, color: "black"},
     imageLogo: {
       width: 80,
       height: 80,
