@@ -18,6 +18,9 @@ const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
 
     setNews(newsData)
   }
+  const onClearSearch = () => {
+    setSearch("")
+  }
 
   return (
     <View style={styles.container}>
@@ -25,6 +28,8 @@ const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
         placeholder="Search"
         value={search}
         onChangeText={onChangeSearch}
+        hasClearButton
+        onClearText={onClearSearch}
         containerStyle={styles.containerStyleSearch}
       />
       <View style={styles.boxIcon}>

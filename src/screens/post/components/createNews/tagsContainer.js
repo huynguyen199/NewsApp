@@ -5,19 +5,26 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native"
-import React from "react"
+import React, {useState} from "react"
 import {useTheme} from "@react-navigation/native"
 import Input from "@components/input"
 import {Controller} from "react-hook-form"
 import fonts from "@assets/fonts"
 import TagItem from "./tagItem"
+import HelperText from "../../../../components/helperText"
 
 const TagsContainer = ({control, errors, tags, setTags}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const [isError, setIsError] = useState(false)
 
   const onAddTags = (tag) => {
-    setTags((prev) => [...prev, tag])
+    if (tags.includes(tag)) {
+      return setIsError(tags.includes(tag))
+    } else {
+      setIsError(tags.includes(tag))
+      setTags((prev) => [...prev, tag])
+    }
   }
 
   return (
@@ -47,6 +54,12 @@ const TagsContainer = ({control, errors, tags, setTags}) => {
         name="tags"
         // rules={emailContraints}
       />
+      <HelperText
+        isVisible={isError}
+        title={"Tags must not be the same"}
+        containerStyle={styles.errorContainerStyle}
+      />
+
       <ScrollView
         horizontal
         style={styles.listStyle}

@@ -21,7 +21,7 @@ const SelectItem = ({icon, iconType, onPress, title}) => {
           name={icon}
           type={iconType}
           solid={true}
-          size={30}
+          size={26}
           color={colors.lightRed}
         />
         <Text style={styles.txtTitle}>{title}</Text>
@@ -34,7 +34,7 @@ const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {
       marginLeft: 10,
-      fontFamily: fonts.bold,
+      fontFamily: fonts.regular,
       color: colors.black,
       fontSize: 16,
     },

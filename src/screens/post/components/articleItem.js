@@ -1,57 +1,15 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native"
-import React, {useEffect, useRef, useState} from "react"
+import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
+import React from "react"
 import fonts from "@assets/fonts"
 import {useNavigation, useTheme} from "@react-navigation/native"
 import {Ionicons} from "@common/icon"
 import {Icon} from "@rneui/themed"
-import {findCategoryById} from "@services/category"
 import {mainStack} from "@common/navigator"
-import Lottie from "lottie-react-native"
-import assets from "@assets"
-import {findUserById} from "@services/user"
-import _ from "lodash"
 
 const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
-  const [source, setSource] = useState({})
-  const [category, setCategory] = useState({})
   const navigation = useNavigation()
-  const [isBookmark, setIsBookmark] = useState(false)
-  const bookmarkRef = useRef(null)
-
-  useEffect(() => {
-    fetchUserById()
-    fetchCategoryById()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item])
-
-  const fetchUserById = async () => {
-    const userData = await findUserById(item.userId)
-    setSource(userData)
-  }
-  const fetchCategoryById = async () => {
-    const categoryData = await findCategoryById(item.categoryId)
-    setCategory(categoryData)
-  }
-
-  const onToggleBookmark = () => {
-    setIsBookmark(!isBookmark)
-    if (isBookmark) {
-      bookmarkRef.current.play(20, 0)
-    } else {
-      bookmarkRef.current.play(0, 50)
-    }
-    // bookmarkRef.current.
-  }
 
   const onMoveDetail = () => {
     navigation.navigate(mainStack.detail, {postId: item.id})
@@ -78,40 +36,22 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
               : item.title}
           </Text>
           <View style={styles.boxLogo}>
-            {_.isEmpty(source) && _.isEmpty(category) ? (
-              <ActivityIndicator size={20} color={colors.lightRed} />
-            ) : (
-              <>
-                <Image
-                  style={styles.imageLogo}
-                  source={{
-                    uri: source.photoUrl,
-                  }}
-                />
-                <Text style={styles.txtBrand}>
-                  {source.fullName?.length > 5
-                    ? source.fullName.substring(0, 5) + "..."
-                    : source.fullName}
-                </Text>
-                <View style={styles.boxCategory}>
-                  <Text style={styles.txtCategory}>{category.name}</Text>
-                </View>
-              </>
-            )}
+            <Image
+              style={styles.imageLogo}
+              source={{
+                uri: item.user.photoUrl,
+              }}
+            />
+            <Text style={styles.txtBrand}>
+              {item.user.fullName?.length > 5
+                ? item.user.fullName.substring(0, 5) + "..."
+                : item.user.fullName}
+            </Text>
+            <View style={styles.boxCategory}>
+              <Text style={styles.txtCategory}>{item.category.name}</Text>
+            </View>
           </View>
           <View style={styles.boxBottom}>
-            {/* <View style={{width: 50, height: 50}}> */}
-            <TouchableOpacity onPress={onToggleBookmark}>
-              <Lottie
-                ref={bookmarkRef}
-                style={styles.lottieStyle}
-                // style={{backgroundColor: "red"}}
-                source={assets.lottieFiles.bookmark}
-                autoPlay={false}
-                loop={false}
-              />
-            </TouchableOpacity>
-
             <TouchableOpacity onPress={onTouchOptions}>
               <Icon
                 name={Ionicons.ellipsisHorizontal}

@@ -18,7 +18,7 @@ const SearchItem = ({search, item}) => {
   }
 
   const saveHistory = async () => {
-    let data = await getObject("history")
+    let data = (await getObject("history")) ?? []
     data = data.filter((history) => history !== item.title)
     data.unshift(item.title)
     storeObject("history", data)

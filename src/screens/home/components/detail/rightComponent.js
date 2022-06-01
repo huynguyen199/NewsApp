@@ -1,23 +1,28 @@
 import {View, StyleSheet, Share} from "react-native"
 import React from "react"
 import {findArticleById} from "../../../../services/article"
+import {findPostById} from "../../../../services/post"
 import IconButton from "@components/iconButton"
 import {Ionicons} from "@common/icon"
 import {useRoute, useTheme} from "@react-navigation/native"
 
 const RightComponent = () => {
   const route = useRoute()
-  const {articleId} = route.params
-
+  const {articleId, postId} = route.params
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   const onShare = async () => {
     try {
-      const article = await findArticleById(articleId)
+      let articleResult
+      if (articleId) {
+        articleResult = await findArticleById(articleId)
+      } else {
+        articleResult = await findPostById(postId)
+      }
 
       const result = await Share.share({
-        message: article.url,
+        message: articleResult.url ?? articleResult.title,
       })
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

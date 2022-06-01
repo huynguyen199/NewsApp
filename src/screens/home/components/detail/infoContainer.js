@@ -119,7 +119,8 @@ const InfoContainer = ({loading, setLoading}) => {
       {/* content */}
       <ContentContainer infoArticle={infoArticle} />
       {/* tags list */}
-      <TagList />
+
+      <TagList tags={infoArticle.tags} />
     </View>
   )
 }

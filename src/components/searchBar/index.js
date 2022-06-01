@@ -1,10 +1,12 @@
-import {View, TextInput, StyleSheet} from "react-native"
+import {View, TextInput, StyleSheet, TouchableOpacity} from "react-native"
 import React from "react"
+import {Ionicons} from "@common/icon"
 import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {Icon} from "@rneui/themed"
 
 const SearchBar = (props) => {
-  const {containerStyle, rightComponent} = props
+  const {containerStyle, rightComponent, hasClearButton, onClearText} = props
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -12,6 +14,19 @@ const SearchBar = (props) => {
       <View style={styles.leftBox}>
         <TextInput style={styles.styleInput} {...props} />
       </View>
+      {hasClearButton && props.value.length > 0 && (
+        <TouchableOpacity
+          onPress={onClearText}
+          style={styles.containerTouchable}>
+          <Icon
+            name={Ionicons.closeCircle}
+            color={colors.grey}
+            type="ionicon"
+            size={20}
+          />
+        </TouchableOpacity>
+      )}
+
       <View style={styles.rightBox}>{rightComponent}</View>
     </View>
   )
@@ -19,6 +34,7 @@ const SearchBar = (props) => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    containerTouchable: {justifyContent: "center"},
     rightBox: {
       borderRadius: 30,
       justifyContent: "center",

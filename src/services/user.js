@@ -1,5 +1,19 @@
 import firestore from "@react-native-firebase/firestore"
 
+export const getAllUser = async () => {
+  const data = []
+  const querySnapshot = await firestore().collection("user").get()
+
+  querySnapshot.forEach((documentSnapshot) => {
+    data.push({
+      ...documentSnapshot.data(),
+      id: documentSnapshot.id,
+    })
+  })
+
+  return data
+}
+
 export const findUserById = async (id) => {
   let user = null
 

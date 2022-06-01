@@ -25,6 +25,8 @@ import {homeTabs} from "@common/navigator"
 import {findCategoryById, getALlCategory} from "@services/category"
 import {getImageByFileName, uploadImageByUri} from "@services/image"
 import {addPost, findPostById, updatePost} from "@services/post"
+import useAuth from "../../hooks/useAuth"
+import {findUserById} from "../../services/user"
 
 const {width, height} = Dimensions.get("window")
 
@@ -49,6 +51,7 @@ const CreateNews = () => {
     isFailed: false,
     isNoPhoto: false,
   })
+  const {userInfo} = useAuth()
   const {
     handleSubmit,
     control,
@@ -112,13 +115,16 @@ const CreateNews = () => {
 
   const updateNews = async (data) => {
     if (image.fileName === "imageAdded") {
+      const providerData = userInfo._user.providerData[0]
+      const user = await findUserById(providerData.uid)
+
       showLoading()
       const newsData = {
         content: data.content,
         tags: tags,
         title: data.title,
         publishedAt: new Date(),
-        userId: "102460885791282",
+        userId: user.id,
         categoryId: selectCategory.id,
       }
 
@@ -153,13 +159,16 @@ const CreateNews = () => {
     showLoading()
     const photoUrl = await uploadImage()
     if (photoUrl) {
+      const providerData = userInfo._user.providerData[0]
+      const user = await findUserById(providerData.uid)
+
       const newsData = {
         content: data.content,
         tags: tags,
         title: data.title,
         urlToImage: photoUrl,
         publishedAt: new Date(),
-        userId: "102460885791282",
+        userId: user.id,
         categoryId: selectCategory.id,
       }
 
