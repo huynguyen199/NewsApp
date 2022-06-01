@@ -32,6 +32,7 @@ const Ionicons = {
   trendingUp: "trending-up-outline",
   homeSharp: "home-sharp",
   menu: "menu",
+  bookmark: "bookmark",
 }
 const Fontisto = {
   heart: "heart",

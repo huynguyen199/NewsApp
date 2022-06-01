@@ -33,7 +33,7 @@ const SearchHistoryItem = ({item}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtTitle: {color: colors.black, fontFamily: fonts.regular},
+    txtTitle: {color: "black", fontFamily: fonts.regular},
     container: {
       backgroundColor: colors.whiteSmoke,
       paddingVertical: 5,

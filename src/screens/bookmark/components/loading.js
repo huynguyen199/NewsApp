@@ -20,27 +20,7 @@ const Loading = () => {
           <PlaceholderLine width={30} height={30} />
           <PlaceholderLine width={10} height={30} />
         </View>
-        {/* box Header */}
-        <View style={styles.boxRowHeader}>
-          <PlaceholderLine width={80} height={40} />
-          <PlaceholderLine style={styles.styleLine} width={10} height={40} />
-        </View>
-        {/* featured */}
-        <View style={styles.featuredContainer}>
-          <PlaceholderLine width={20} height={20} />
-          <PlaceholderLine width={20} height={20} />
-        </View>
-        {/* featured */}
-        {/* banner */}
-        <View style={styles.bannerContainer}>
-          <PlaceholderMedia style={styles.boxImageBanner} />
-        </View>
-        {/* banner */}
-        {/* News */}
-        <View style={styles.newsContainer}>
-          <PlaceholderLine width={20} height={20} />
-          <PlaceholderLine width={20} height={20} />
-        </View>
+
         {/* News */}
         {/* categories */}
         <View style={styles.categoriesContainer}>
@@ -63,6 +43,27 @@ const Loading = () => {
         </View>
         {/* item list */}
 
+        <View style={styles.itemListTwo}>
+          <PlaceholderMedia style={styles.imageBoxTwo} />
+          <View style={styles.contentBoxTwo}>
+            <PlaceholderLine width={55} />
+            <PlaceholderLine width={45} />
+            <PlaceholderLine width={55} />
+            <PlaceholderLine width={25} />
+            <PlaceholderLine width={15} />
+          </View>
+        </View>
+
+        <View style={styles.itemListTwo}>
+          <PlaceholderMedia style={styles.imageBoxTwo} />
+          <View style={styles.contentBoxTwo}>
+            <PlaceholderLine width={55} />
+            <PlaceholderLine width={45} />
+            <PlaceholderLine width={55} />
+            <PlaceholderLine width={25} />
+            <PlaceholderLine width={15} />
+          </View>
+        </View>
         <View style={styles.itemListTwo}>
           <PlaceholderMedia style={styles.imageBoxTwo} />
           <View style={styles.contentBoxTwo}>

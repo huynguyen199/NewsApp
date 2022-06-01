@@ -14,22 +14,29 @@ const LeftComponent = () => {
   }
 
   return (
-    <TouchableOpacity onPress={onBackHome} style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.boxRow}>
-        <Icon
-          name={Ionicons.back}
-          type="ionicon"
-          color={colors.lightRed}
-          size={30}
-        />
+        <TouchableOpacity onPress={onBackHome}>
+          <Icon
+            name={Ionicons.back}
+            type="ionicon"
+            color={colors.lightRed}
+            size={30}
+          />
+        </TouchableOpacity>
         <Text style={styles.txtTitle}>Search</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtTitle: {color: colors.black, fontFamily: fonts.bold, fontSize: 20},
+    txtTitle: {
+      color: colors.black,
+      fontFamily: fonts.bold,
+      fontSize: 20,
+      marginLeft: 8,
+    },
     boxRow: {flexDirection: "row", alignItems: "center"},
     container: {
       alignItems: "center",

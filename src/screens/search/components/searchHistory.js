@@ -49,7 +49,7 @@ const SearchHistory = ({history, setHistory}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     boxHistoryList: {
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       flexDirection: "row",
       flexWrap: "wrap",
     },

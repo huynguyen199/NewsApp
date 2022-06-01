@@ -1,16 +1,40 @@
 import {View, StyleSheet, Share} from "react-native"
-import React from "react"
-import {findArticleById} from "../../../../services/article"
-import {findPostById} from "../../../../services/post"
+import React, {useEffect, useState} from "react"
+import {findArticleById} from "@services/article"
+import {findPostById} from "@services/post"
 import IconButton from "@components/iconButton"
 import {Ionicons} from "@common/icon"
 import {useRoute, useTheme} from "@react-navigation/native"
+import firestore from "@react-native-firebase/firestore"
+import auth from "@react-native-firebase/auth"
+import Toast from "react-native-toast-message"
+import {addBookmark, deleteBookmarkById} from "@services/bookmark"
 
 const RightComponent = () => {
   const route = useRoute()
   const {articleId, postId} = route.params
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const [isBookmark, setIsBookmark] = useState(false)
+
+  useEffect(() => {
+    const handleBookmark = async () => {
+      if (auth().currentUser) {
+        const user = await auth().currentUser.providerData[0]
+        firestore()
+          .collection("bookmark")
+          .where("id", "==", articleId)
+          .where("userId", "==", user.uid)
+          .onSnapshot((querySnapshot) => {
+            if (querySnapshot.docs.length > 0) {
+              setIsBookmark(true)
+            }
+          })
+      }
+    }
+    handleBookmark()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onShare = async () => {
     try {
@@ -36,16 +60,46 @@ const RightComponent = () => {
     } catch (error) {}
   }
 
+  const ontoggleBookmark = async () => {
+    if (auth().currentUser) {
+      const user = await auth().currentUser.providerData[0]
+      if (isBookmark) {
+        return await deleteBookmarkById(articleId).then(() =>
+          setIsBookmark(false),
+        )
+      }
+
+      const article = await findArticleById(articleId)
+
+      await addBookmark({
+        ...article,
+        publishedAt: new Date(),
+        userId: user.uid,
+      }).then(() => {
+        Toast.show({
+          type: "tomatoToast",
+          text1: "Added to bookmarks",
+          text2: Ionicons.bookmark,
+          position: "bottom",
+        })
+      })
+    } else {
+      Toast.show({
+        type: "tomatoToast",
+        text1: "You are not logged in",
+        text2: Ionicons.warningOutline,
+        position: "bottom",
+      })
+    }
+  }
+
   return (
     <View style={styles.container}>
       <IconButton onPress={onShare} name={Ionicons.shareSocial} />
       <IconButton
-        name={Ionicons.bookmarkOutline}
+        name={isBookmark ? Ionicons.bookmark : Ionicons.bookmarkOutline}
         style={styles.styleBookmark}
-      />
-      <IconButton
-        name={Ionicons.ellipsisVertical}
-        style={styles.styleEllopsis}
+        onPress={ontoggleBookmark}
       />
     </View>
   )

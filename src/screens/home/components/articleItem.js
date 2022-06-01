@@ -1,18 +1,77 @@
 import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
+import React, {useEffect, useRef, useState} from "react"
 import fonts from "@assets/fonts"
 import {useNavigation, useTheme} from "@react-navigation/native"
 import {Ionicons} from "@common/icon"
-import {Icon} from "@rneui/themed"
 import {mainStack} from "@common/navigator"
+import Lottie from "lottie-react-native"
+import assets from "@assets"
+import firestore from "@react-native-firebase/firestore"
+import {addBookmark, deleteBookmarkById} from "../../../services/bookmark"
+import auth from "@react-native-firebase/auth"
+import Toast from "react-native-toast-message"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const navigation = useNavigation()
-
+  const bookmarkRef = useRef(null)
+  const [isBookmark, setIsBookmark] = useState(false)
   const onMoveDetail = () => {
     navigation.navigate(mainStack.detail, {articleId: item.id})
+  }
+
+  useEffect(() => {
+    const fetchBookmark = async () => {
+      if (auth().currentUser) {
+        const user = await auth().currentUser.providerData[0]
+        if (auth().currentUser)
+          return firestore()
+            .collection("bookmark")
+            .where("id", "==", item.id)
+            .where("userId", "==", user.uid)
+            .onSnapshot((querySnapshot) => {
+              if (querySnapshot.docs.length > 0) {
+                bookmarkRef.current?.play(0, 50)
+                setIsBookmark(querySnapshot.docs.length > 0)
+              }
+            })
+      }
+    }
+    fetchBookmark()
+    return () => setIsBookmark(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const onToggleBookmark = async () => {
+    if (auth().currentUser) {
+      const user = await auth().currentUser.providerData[0]
+      if (isBookmark) {
+        return await deleteBookmarkById(item.id).then(() =>
+          bookmarkRef.current?.play(10, 0),
+        )
+      }
+
+      await addBookmark({
+        ...item,
+        publishedAt: new Date(),
+        userId: user.uid,
+      }).then(() => {
+        Toast.show({
+          type: "tomatoToast",
+          text1: "Added to bookmarks",
+          text2: Ionicons.bookmark,
+          position: "bottom",
+        })
+      })
+    } else {
+      Toast.show({
+        type: "tomatoToast",
+        text1: "You are not logged in",
+        text2: Ionicons.warningOutline,
+        position: "bottom",
+      })
+    }
   }
 
   return (
@@ -46,14 +105,15 @@ const ArticleItem = ({item}) => {
               </Text>
             </View>
           </View>
-          <View style={styles.boxBottom}>
-            <Icon
-              name={Ionicons.bookmarkOutline}
-              color={colors.lightRed}
-              type="ionicon"
-              size={25}
+          <TouchableOpacity onPress={onToggleBookmark} style={styles.boxBottom}>
+            <Lottie
+              ref={bookmarkRef}
+              style={styles.lottieStyle}
+              source={assets.lottieFiles.bookmark}
+              autoPlay={false}
+              loop={false}
             />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>
@@ -63,8 +123,8 @@ const makeStyles = (colors) =>
   StyleSheet.create({
     boxBottom: {
       position: "absolute",
-      bottom: 0,
-      right: -5,
+      bottom: -10,
+      right: -15,
     },
     txtCategory: {
       color: colors.lightRed,
@@ -119,6 +179,7 @@ const makeStyles = (colors) =>
       borderWidth: 2,
       borderColor: colors.whiteSmoke,
     },
+    lottieStyle: {width: 50, height: 50},
   })
 
 export default ArticleItem
