@@ -19,11 +19,11 @@ const GeneralContainer = ({
   const styles = makeStyles(colors)
   return (
     <View>
-      <Header
+      {/* <Header
         containerStyle={styles.containerStyleHeader}
         leftComponent={<LeftComponent />}
         rightComponent={<RightComponent />}
-      />
+      /> */}
       <SearchContainer />
       <FeaturedContainer articleFeatured={articleFeatured} />
       <Text style={styles.txtLabel}>News</Text>

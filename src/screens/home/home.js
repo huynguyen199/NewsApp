@@ -11,6 +11,9 @@ import fonts from "@assets/fonts"
 import ArticleList from "./components/articleList"
 import GeneralContainer from "./components/generalContainer"
 import {getALlSources} from "@services/source"
+import Header from "../../components/header"
+import LeftComponent from "./components/leftComponent"
+import RightComponent from "./components/rightComponent"
 
 const url =
   "https://newsapi.org/v2/top-headlines?apiKey=660c8bf81757424b9f90f8d7f2e41740&sources=abc-news,cnn,nbc-news,cbs-news,usa-today"
@@ -229,7 +232,11 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <StatusBar animated={true} backgroundColor={colors.white} />
-
+      <Header
+        containerStyle={styles.containerStyleHeader}
+        leftComponent={<LeftComponent />}
+        rightComponent={<RightComponent />}
+      />
       <ArticleList
         refreshControl={
           <RefreshControl
@@ -255,7 +262,7 @@ const Home = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
-    containerStyleHeader: {marginTop: 10},
+    containerStyleHeader: {marginBottom: 5},
     container: {flex: 1, backgroundColor: colors.white},
     txtLabel: {
       fontFamily: fonts.bold,

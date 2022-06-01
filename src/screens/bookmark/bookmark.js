@@ -203,6 +203,10 @@ const Bookmark = () => {
 
   return (
     <View style={styles.container}>
+      <Header
+        containerStyle={styles.containerStyleHeader}
+        leftComponent={<LeftComponent />}
+      />
       <FlatList
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -215,10 +219,6 @@ const Bookmark = () => {
         }
         ListHeaderComponent={
           <>
-            <Header
-              containerStyle={styles.containerStyleHeader}
-              leftComponent={<LeftComponent />}
-            />
             <CategoryList
               data={categoryList}
               selectCategoryId={selectCategoryId}

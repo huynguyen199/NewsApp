@@ -60,8 +60,8 @@ const makeStyles = (colors) =>
       flexDirection: "row",
       // width: "100%",
       alignItems: "center",
-      marginTop: 10,
       marginHorizontal: 10,
+      marginTop: 5,
     },
   })
 
