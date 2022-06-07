@@ -1,5 +1,6 @@
-import {FlatList} from "react-native"
 import React, {useEffect, useState} from "react"
+
+import {FlatList} from "react-native"
 import SearchItem from "./searchItem"
 import firestore from "@react-native-firebase/firestore"
 
@@ -24,7 +25,6 @@ const SearchList = ({search}) => {
         setArticle(data)
       })
     return () => setArticle([])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
   return (

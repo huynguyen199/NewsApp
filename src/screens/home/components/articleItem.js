@@ -1,15 +1,16 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import React, {useEffect, useRef, useState} from "react"
-import fonts from "@assets/fonts"
-import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "@common/icon"
-import {mainStack} from "@common/navigator"
-import Lottie from "lottie-react-native"
-import assets from "@assets"
-import firestore from "@react-native-firebase/firestore"
 import {addBookmark, deleteBookmarkById} from "../../../services/bookmark"
-import auth from "@react-native-firebase/auth"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
+import {Ionicons} from "@common/icon"
+import Lottie from "lottie-react-native"
 import Toast from "react-native-toast-message"
+import assets from "@assets"
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
@@ -36,8 +37,11 @@ const ArticleItem = ({item}) => {
                   bookmarkRef.current?.play(0, 50),
                   setIsBookmark(querySnapshot.docs.length > 0)
                 )
+              } else {
+                bookmarkRef.current?.play(2, 0)
+                setIsBookmark(false)
+                return
               }
-              setIsBookmark(false)
             })
       }
     }
@@ -73,6 +77,7 @@ const ArticleItem = ({item}) => {
         text1: "You are not logged in",
         text2: Ionicons.warningOutline,
         position: "bottom",
+        props: {color: "red"},
       })
     }
   }
@@ -88,8 +93,8 @@ const ArticleItem = ({item}) => {
         />
         <View style={styles.boxRight}>
           <Text style={styles.txtTitle}>
-            {item.title.length > 40
-              ? item.title.substring(0, 40) + "..."
+            {item.title.length > 30
+              ? item.title.substring(0, 30) + "..."
               : item.title}
           </Text>
           <View style={styles.boxLogo}>

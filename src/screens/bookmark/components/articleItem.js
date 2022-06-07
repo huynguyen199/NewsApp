@@ -1,11 +1,12 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
-import fonts from "@assets/fonts"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "@common/icon"
+
 import {Icon} from "@rneui/themed"
-import {mainStack} from "@common/navigator"
+import {Ionicons} from "@common/icon"
+import React from "react"
 import _ from "lodash"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
 
 const ArticleItem = ({
   item,
@@ -62,7 +63,11 @@ const ArticleItem = ({
             </Text>
 
             <View style={styles.boxCategory}>
-              <Text style={styles.txtCategory}>{item.category?.name}</Text>
+              <Text style={styles.txtCategory}>
+                {item.category?.name.length > 7
+                  ? item.category.name.substring(0, 8) + "..."
+                  : item.category?.name}
+              </Text>
             </View>
           </View>
           <View style={styles.boxBottom}>

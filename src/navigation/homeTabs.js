@@ -1,17 +1,18 @@
 import React, {useContext} from "react"
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import {homeTabs} from "../common/navigator"
-import Home from "../screens/home/home"
-import {useTheme} from "@react-navigation/native"
-import Profile from "../screens/profile/profile"
-import Post from "../screens/post/post"
-import {Ionicons} from "../common/icon"
-import TabBarButton from "./components/tabBarButton"
+
 import Bookmark from "../screens/bookmark/bookmark"
+import Home from "../screens/home/home"
+import {HomeContext} from "../context/home"
 import {Host} from "react-native-portalize"
 import {Image} from "@rneui/themed"
-import {HomeContext} from "../context/home"
+import {Ionicons} from "../common/icon"
+import Post from "../screens/post/post"
+import Profile from "../screens/profile/profile"
 import {StyleSheet} from "react-native"
+import TabBarButton from "./components/tabBarButton"
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
+import {homeTabs} from "../common/navigator"
+import {useTheme} from "@react-navigation/native"
 
 const Tab = createBottomTabNavigator()
 
@@ -20,11 +21,6 @@ const screenOptions = (colors) => ({
   tabBarInactiveTintColor: colors.ghostRed,
   tabBarStyle: {
     height: 60,
-    shadowColor: "transparent",
-    borderRightWidth: 0.1,
-    borderLeftWidth: 0.1,
-
-    borderColor: "whiteSmoke",
   },
   tabBarItemStyle: {
     borderRadius: 20,

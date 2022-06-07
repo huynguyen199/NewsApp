@@ -1,22 +1,22 @@
+import React, {useContext, useEffect, useState} from "react"
 import {RefreshControl, StatusBar, StyleSheet, View} from "react-native"
-import React, {useEffect, useState, useContext} from "react"
-import Loading from "./components/loading"
-import {HomeContext} from "../../context/home"
-import {getFirstOfSource} from "@services/article"
-import {getALlCategory} from "@services/category"
-import {useTheme} from "@react-navigation/native"
-import {addArticle, getAllArtcile, articleCollection} from "@services/article"
-import {randomIntFromInterval, wait} from "@utils/method"
-import fonts from "@assets/fonts"
-import ArticleList from "./components/articleList"
-import GeneralContainer from "./components/generalContainer"
-import {getALlSources} from "@services/source"
-import Header from "../../components/header"
-import LeftComponent from "./components/leftComponent"
-import RightComponent from "./components/rightComponent"
 
-const url =
-  "https://newsapi.org/v2/top-headlines?apiKey=660c8bf81757424b9f90f8d7f2e41740&sources=abc-news,cnn,nbc-news,cbs-news,usa-today"
+import ArticleList from "./components/articleList"
+import BackgroundTimer from "react-native-background-timer"
+import GeneralContainer from "./components/generalContainer"
+import Header from "../../components/header"
+import {HomeContext} from "../../context/home"
+import LeftComponent from "./components/leftComponent"
+import Loading from "./components/loading"
+import RightComponent from "./components/rightComponent"
+import {articleCollection} from "@services/article"
+import fonts from "@assets/fonts"
+import {getALlCategory} from "@services/category"
+import {getALlSources} from "@services/source"
+import {getFirstOfSource} from "@services/article"
+import {handleRssForVnExpress} from "../../utils/handleRss"
+import {useTheme} from "@react-navigation/native"
+import {wait} from "@utils/method"
 
 const Home = () => {
   const [article, setArticle] = useState([])
@@ -31,67 +31,12 @@ const Home = () => {
   const styles = makeStyles(colors)
 
   useEffect(() => {
-    fetchNewsApiAndAddNews()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const delay = 60000
+
+    BackgroundTimer.setInterval(() => {
+      handleRssForVnExpress()
+    }, delay)
   }, [])
-
-  const fetchNewsApiAndAddNews = async () => {
-    let page = 1
-    const articleData = await getAllArtcile()
-
-    const dateLastest = new Date(articleData[0].publishedAt.toDate())
-
-    const endDate = new Date(dateLastest)
-    endDate.setHours(endDate.getHours() + 3)
-    const currDate = new Date()
-
-    if (currDate > endDate) {
-      const articlesTitle = articleData.map((item) => item.title)
-
-      while (true) {
-        const newsApiResult = await fetch(url + `&page=${page}`).then(
-          (response) => response.json(),
-        )
-        const newsApiData = newsApiResult.articles
-        if (articlesTitle.length === 0) {
-          return addAllArticle(newsApiData)
-        }
-        if (newsApiData.length === 0) {
-          return
-        }
-        const arrAfterRemoveSameTitle = await newsApiData.filter(
-          (item) => !articlesTitle.includes(item.title),
-        )
-
-        if (arrAfterRemoveSameTitle.length !== 0) {
-          addAllArticle(arrAfterRemoveSameTitle)
-        }
-        page++
-      }
-    }
-  }
-
-  const addAllArticle = async (arr) => {
-    const categories = await getALlCategory()
-
-    const rndInt = randomIntFromInterval(1, 6)
-    // const categories
-
-    arr.forEach((item) => {
-      const data = {
-        sourceId: item.source.id,
-        author: item.author,
-        title: item.title,
-        description: item.description,
-        url: item.url,
-        urlToImage: item.urlToImage,
-        content: item.content,
-        publishedAt: new Date(item.publishedAt),
-        categoryId: categories[rndInt].id,
-      }
-      addArticle(data)
-    })
-  }
 
   useEffect(() => {
     onChangeFilterCategory(selectCategoryId)

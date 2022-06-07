@@ -1,17 +1,18 @@
 import {
-  View,
-  Text,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native"
-import React from "react"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import React from "react"
 import SearchHistoryItem from "./searchHistoryItem"
+import fonts from "@assets/fonts"
 import {storeObject} from "@utils/AsyncStore"
+import {useTheme} from "@react-navigation/native"
 
 const SearchHistory = ({history, setHistory}) => {
   const {colors} = useTheme()
@@ -23,7 +24,7 @@ const SearchHistory = ({history, setHistory}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <View style={styles.boxSpaceBetween}>
         <Text style={styles.txtTitle}>Search History</Text>
         <TouchableOpacity onPress={onClearHistory}>
@@ -35,14 +36,12 @@ const SearchHistory = ({history, setHistory}) => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        <View style={styles.boxHistoryList}>
-          {history.map((item, index) => (
-            <SearchHistoryItem item={item} key={item + index} />
-          ))}
-        </View>
-      </ScrollView>
-    </View>
+      <View style={styles.boxHistoryList}>
+        {history.map((item, index) => (
+          <SearchHistoryItem item={item} key={item + index} />
+        ))}
+      </View>
+    </ScrollView>
   )
 }
 

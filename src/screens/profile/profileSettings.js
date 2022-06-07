@@ -1,16 +1,17 @@
-import {View, Text, ScrollView, StyleSheet} from "react-native"
 import React, {useRef} from "react"
-import {Ionicons} from "@common/icon"
-import {Icon} from "@rneui/themed"
+import {ScrollView, StyleSheet, Text, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import fonts from "../../assets/fonts"
-import LeftComponent from "./components/profileSettings/leftComponent"
-import SettingItem from "./components/profileSettings/settingItem"
-import {Modalize} from "react-native-modalize"
+
 import Button from "@components/button"
-import {mainStack} from "@common/navigator"
-import auth from "@react-native-firebase/auth"
 import Header from "../../components/header"
+import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
+import LeftComponent from "./components/profileSettings/leftComponent"
+import {Modalize} from "react-native-modalize"
+import SettingItem from "./components/profileSettings/settingItem"
+import auth from "@react-native-firebase/auth"
+import fonts from "../../assets/fonts"
+import {mainStack} from "@common/navigator"
 
 const ProfileSettings = () => {
   const {colors} = useTheme()
@@ -46,6 +47,7 @@ const ProfileSettings = () => {
       <Modalize
         handlePosition={"inside"}
         modalHeight={200}
+        modalStyle={styles.modalStyle}
         ref={logoutModalizeRef}>
         <View style={styles.modalContainer}>
           <Icon
@@ -68,6 +70,7 @@ const ProfileSettings = () => {
               onPress={onSignout}
               containerStyle={styles.yesStyleBtn}
               title="Yes, Logout"
+              textStyle={styles.textYesStyle}
             />
           </View>
         </View>
@@ -113,10 +116,12 @@ const ProfileSettings = () => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    modalStyle: {borderTopLeftRadius: 30, borderTopRightRadius: 30},
+    textYesStyle: {color: "white"},
     yesStyleBtn: {width: 170},
     btnCancel: {
       width: 170,
-      backgroundColor: "white",
+      backgroundColor: colors.white,
       borderWidth: 2,
       borderColor: colors.lightRed,
     },
@@ -129,7 +134,7 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      color: "black",
+      color: colors.black,
       fontSize: 16,
       marginTop: 10,
     },
@@ -137,7 +142,11 @@ const makeStyles = (colors) =>
     modalContainer: {
       alignItems: "center",
       height: 200,
-      backgroundColor: "white",
+      backgroundColor: colors.white,
+      borderColor: "white",
+      borderWidth: 1,
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
     },
     containerHorizontal: {
       marginHorizontal: 10,

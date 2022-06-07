@@ -1,13 +1,14 @@
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
-import {useTheme} from "@react-navigation/native"
-import HelperText from "@components/helperText"
-import {categoryContraints} from "@common/validator"
-import Input from "@components/input"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+
 import {Controller} from "react-hook-form"
-import fonts from "@assets/fonts"
-import {Ionicons} from "@common/icon"
+import HelperText from "@components/helperText"
 import {Icon} from "@rneui/themed"
+import Input from "@components/input"
+import {Ionicons} from "@common/icon"
+import React from "react"
+import {categoryContraints} from "@common/validator"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const CategoryContainer = ({control, errors, onPress}) => {
   const {colors} = useTheme()
@@ -34,6 +35,7 @@ const CategoryContainer = ({control, errors, onPress}) => {
               }
               value={value}
               onChangeText={onChange}
+              placeholderTextColor={colors.grey}
               placeholder={"Select Category"}
               containerStyle={styles.inputContainerStyle}
             />
@@ -60,6 +62,7 @@ const makeStyles = (colors) =>
       fontFamily: fonts.bold,
       fontSize: 16,
       marginLeft: 20,
+      color: colors.black,
     },
   })
 

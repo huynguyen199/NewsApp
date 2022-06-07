@@ -1,12 +1,13 @@
 import {Dimensions, StyleSheet, TouchableOpacity, View} from "react-native"
-import React from "react"
+import {getObject, storeObject} from "@utils/AsyncStore"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useNavigation, useTheme} from "@react-navigation/native"
+import React from "react"
 import SearchBar from "@components/searchBar"
-import {mainStack} from "@common/navigator"
-import {getObject, storeObject} from "@utils/AsyncStore"
 import fonts from "../../../assets/fonts"
+import {mainStack} from "@common/navigator"
 
 const {width} = Dimensions.get("window")
 
@@ -56,11 +57,12 @@ const LeftComponent = ({search, setSearch}) => {
             />
           }
           style={styles.searchStyle}
-          autoFocus={true}
+          // autoFocus={rtrue}
           onSubmitEditing={onSubmitText}
           onChangeText={onChangeSearch}
           containerStyle={styles.searchContainerStyle}
           placeholder="Search"
+          placeholderTextColor="grey"
         />
       </View>
     </View>
@@ -68,7 +70,11 @@ const LeftComponent = ({search, setSearch}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    searchStyle: {color: "black", fontFamily: fonts.bold},
+    searchStyle: {
+      color: "black",
+      fontFamily: fonts.bold,
+      paddingHorizontal: 10,
+    },
     searchContainerStyle: {width: width / 1.2, marginLeft: 10},
     boxRow: {flexDirection: "row", height: 46, alignItems: "center"},
     container: {

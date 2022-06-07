@@ -1,7 +1,8 @@
-import {View, StyleSheet} from "react-native"
+import {StyleSheet, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import TagItem from "./tagItem"
+import {useTheme} from "@react-navigation/native"
 
 const TagList = ({tags}) => {
   const {colors} = useTheme()
@@ -16,7 +17,7 @@ const TagList = ({tags}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    container: {flexDirection: "row", marginTop: 20},
+    container: {flexDirection: "row", marginBottom: 20},
   })
 
 export default TagList

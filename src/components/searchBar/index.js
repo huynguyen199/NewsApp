@@ -1,9 +1,10 @@
-import {View, TextInput, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
-import {Ionicons} from "@common/icon"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import {StyleSheet, TextInput, TouchableOpacity, View} from "react-native"
+
 import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
+import React from "react"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const SearchBar = (props) => {
   const {containerStyle, rightComponent, hasClearButton, onClearText} = props

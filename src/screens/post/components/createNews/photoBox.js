@@ -1,9 +1,10 @@
 import {StyleSheet, Text, TouchableOpacity} from "react-native"
-import React from "react"
-import {Ionicons} from "@common/icon"
+
 import {Icon} from "@rneui/themed"
-import {useTheme} from "@react-navigation/native"
+import {Ionicons} from "@common/icon"
+import React from "react"
 import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const PhotoBox = ({onPress}) => {
   const {colors} = useTheme()

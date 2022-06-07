@@ -1,21 +1,22 @@
-import {View, StyleSheet, FlatList, RefreshControl} from "react-native"
+import {FlatList, RefreshControl, StyleSheet, View} from "react-native"
 import React, {useCallback, useEffect, useRef, useState} from "react"
 import {useFocusEffect, useTheme} from "@react-navigation/native"
-import Header from "@components/header"
-import LeftComponent from "./components/leftComponent"
-import CategoryList from "./components/categoryList"
-import {wait} from "@utils/method"
+
 import ArticleItem from "./components/articleItem"
 import BookmarkEmpty from "./components/bookmarkEmpty"
+import CategoryList from "./components/categoryList"
 import ConfirmBookmarkModal from "./components/confirmBookmarkModal"
+import Header from "@components/header"
+import LeftComponent from "./components/leftComponent"
+import ListEmpty from "./components/listEmpty"
+import ListFooterComponent from "./components/listFooterComponent"
+import Loading from "./components/loading"
+import WithoutAccount from "./components/withoutAccount"
+import auth from "@react-native-firebase/auth"
 import {bookmarkCollection} from "@services/bookmark"
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
-import auth from "@react-native-firebase/auth"
-import ListEmpty from "./components/listEmpty"
-import ListFooterComponent from "./components/listFooterComponent"
-import WithoutAccount from "./components/withoutAccount"
-import Loading from "./components/loading"
+import {wait} from "@utils/method"
 
 const Bookmark = () => {
   const {colors} = useTheme()
@@ -40,11 +41,6 @@ const Bookmark = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   )
-
-  // useEffect(() => {
-  //   handleCategoryList()
-  //   fetchBookmark()
-  // }, [])
 
   const handleCategoryList = async () => {
     const data = await getALlCategory()
@@ -80,18 +76,21 @@ const Bookmark = () => {
         query = query.startAfter(lastDocument)
       }
 
-      query.limit(10).onSnapshot((querySnapshot) => {
-        if (article.length > 2) {
-          setIsLoadingFooter(querySnapshot.docs.length !== 0)
-        }
-        if (querySnapshot.docs.length === 0) {
-          return setIsLoadingFooter(false)
-        }
-        setIsLoadingFooter(article.length !== 0)
+      query
+        .limit(10)
+        .get()
+        .then((querySnapshot) => {
+          if (article.length > 2) {
+            setIsLoadingFooter(querySnapshot.docs.length !== 0)
+          }
+          if (querySnapshot.docs.length === 0) {
+            return setIsLoadingFooter(false)
+          }
+          setIsLoadingFooter(article.length !== 0)
 
-        setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
-        makeArticleData(querySnapshot.docs)
-      })
+          setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
+          makeArticleData(querySnapshot.docs)
+        })
     } else {
       setArticle([])
     }
@@ -109,20 +108,23 @@ const Bookmark = () => {
         query = query.startAfter(lastDocument)
       }
 
-      query.limit(10).onSnapshot((querySnapshot) => {
-        if (article.length > 2) {
-          setIsLoadingFooter(querySnapshot.docs.length !== 0)
-        }
-        if (querySnapshot.docs.length === 0) {
-          // deleteArticle()
+      query
+        .limit(10)
+        .get()
+        .then((querySnapshot) => {
+          if (article.length > 2) {
+            setIsLoadingFooter(querySnapshot.docs.length !== 0)
+          }
+          if (querySnapshot.docs.length === 0) {
+            // deleteArticle()
 
-          return setIsLoadingFooter(false)
-        }
-        setIsLoadingFooter(article.length !== 0)
+            return setIsLoadingFooter(false)
+          }
+          setIsLoadingFooter(article.length !== 0)
 
-        setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
-        makeArticleData(querySnapshot.docs)
-      })
+          setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
+          makeArticleData(querySnapshot.docs)
+        })
     } else {
       setArticle([])
     }
@@ -169,7 +171,17 @@ const Bookmark = () => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
-    wait(2000).then(() => setRefreshing(false))
+    setLoading(true)
+    wait(2000).then(() => {
+      if (selectCategoryId === "all") {
+        fetchBookmark()
+      } else {
+        fetchBookmarkByCategory(selectCategoryId)
+      }
+      setLoading(false)
+      setRefreshing(false)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onEndReachedArticle = () => {
@@ -209,7 +221,11 @@ const Bookmark = () => {
       />
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            colors={[colors.lightRed]}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
         }
         onEndReached={onEndReachedArticle}
         onEndReachedThreshold={0.1}

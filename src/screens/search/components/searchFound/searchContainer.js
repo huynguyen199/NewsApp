@@ -1,9 +1,10 @@
 import {StyleSheet, TouchableOpacity, View} from "react-native"
-import React from "react"
-import SearchBar from "@components/searchBar"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useNavigation, useTheme} from "@react-navigation/native"
+import React from "react"
+import SearchBar from "@components/searchBar"
 import {mainStack} from "@common/navigator"
 
 const SearchContainer = ({titleSearch}) => {
@@ -12,7 +13,7 @@ const SearchContainer = ({titleSearch}) => {
   const navigation = useNavigation()
 
   const onMoveSearch = () => {
-    navigation.navigate(mainStack.search)
+    navigation.navigate(mainStack.search, {titleSearch})
   }
 
   return (

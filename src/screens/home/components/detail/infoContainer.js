@@ -1,24 +1,26 @@
 import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
   Dimensions,
+  Image,
   ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native"
 import React, {useEffect, useState} from "react"
 import {useRoute, useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
-import SourceContainer from "./sourceContainer"
+
 import ContentContainer from "./contentContainer"
-import TagList from "./tagList"
-import {findPostById} from "@services/post"
-import {findArticleById} from "@services/article"
-import {findSourceById} from "@services/source"
-import {findCategoryById} from "@services/category"
-import {findUserById} from "@services/user"
-import WebView from "react-native-webview"
 import Loading from "@components/loading"
+import SourceContainer from "./sourceContainer"
+import TagList from "./tagList"
+import WebView from "react-native-webview"
+import {findArticleById} from "@services/article"
+import {findCategoryById} from "@services/category"
+import {findPostById} from "@services/post"
+import {findSourceById} from "@services/source"
+import {findUserById} from "@services/user"
+import fonts from "@assets/fonts"
+
 const {width, height} = Dimensions.get("window")
 
 const InfoContainer = ({loading, setLoading}) => {
@@ -37,6 +39,7 @@ const InfoContainer = ({loading, setLoading}) => {
     } else if (postId) {
       onReceivePostId()
     }
+    return () => setLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId])
 
@@ -56,6 +59,7 @@ const InfoContainer = ({loading, setLoading}) => {
     setInfoArticle(result)
     const timeRelease = result.publishedAt.toDate()
     const date = new Date(timeRelease)
+
     setTime(date.toDateString())
   }
 
@@ -105,20 +109,25 @@ const InfoContainer = ({loading, setLoading}) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <Image
         style={styles.imgBanner}
         source={{
           uri: infoArticle.urlToImage,
         }}
       />
-      <Text style={styles.txtTitle}>{infoArticle.title}</Text>
-
+      <Text selectable={true} style={styles.txtTitle}>
+        {infoArticle.title.trim()}
+      </Text>
       {/* container hours */}
       <View style={styles.boxInfo}>
-        <Text style={styles.txtHours}>{time}</Text>
+        <Text selectable={true} style={styles.txtHours}>
+          {time}
+        </Text>
         <View style={styles.boxCategory}>
-          <Text style={styles.txtTitleCategory}>{category.name}</Text>
+          <Text selectable={true} style={styles.txtTitleCategory}>
+            {category.name}
+          </Text>
         </View>
       </View>
       {/* sources */}
@@ -144,15 +153,23 @@ const makeStyles = (colors) =>
       borderColor: colors.lightRed,
       marginLeft: 10,
     },
-    txtHours: {fontFamily: fonts.bold},
-    boxInfo: {flexDirection: "row", marginTop: 10, alignItems: "center"},
+    txtHours: {fontFamily: fonts.bold, color: "grey"},
+    boxInfo: {
+      flexDirection: "row",
+      marginTop: 10,
+      alignItems: "center",
+    },
     txtTitle: {
       fontFamily: fonts.bold,
       fontSize: 24,
       color: colors.black,
       marginTop: 20,
     },
-    imgBanner: {width: "100%", height: 270, borderRadius: 40},
+    imgBanner: {
+      width: "100%",
+      height: 270,
+      borderRadius: 40,
+    },
     container: {marginHorizontal: 10},
   })
 export default InfoContainer

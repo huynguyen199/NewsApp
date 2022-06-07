@@ -9,7 +9,7 @@ export const addArticle = (data) => {
     .then(() => {})
 }
 
-export const getAllArtcile = async () => {
+export const getAllArticle = async () => {
   const data = []
 
   const querySnapshot = await firestore()

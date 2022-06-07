@@ -1,9 +1,10 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
+import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
 import React from "react"
 import fonts from "@assets/fonts"
-import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "@common/icon"
-import {Icon} from "@rneui/themed"
 import {mainStack} from "@common/navigator"
 
 const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
@@ -48,7 +49,11 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
                 : item.user.fullName}
             </Text>
             <View style={styles.boxCategory}>
-              <Text style={styles.txtCategory}>{item.category.name}</Text>
+              <Text style={styles.txtCategory}>
+                {item.category?.name.length > 8
+                  ? item.category.name.substring(0, 8) + "..."
+                  : item.category.name}
+              </Text>
             </View>
           </View>
           <View style={styles.boxBottom}>

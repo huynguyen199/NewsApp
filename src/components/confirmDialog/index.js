@@ -1,9 +1,10 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import Modal from "react-native-modal"
+import {StyleSheet, Text, View} from "react-native"
+
+import Button from "../button"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import Button from "../button"
+import Modal from "react-native-modal"
+import React from "react"
 import fonts from "@assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
@@ -79,6 +80,7 @@ const makeStyles = (colors) =>
       fontSize: 20,
       fontFamily: fonts.bold,
       textAlign: "center",
+      color: colors.black,
     },
     boxTitle: {marginHorizontal: 50},
     topIcon: {

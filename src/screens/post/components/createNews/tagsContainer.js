@@ -1,17 +1,18 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native"
 import React, {useState} from "react"
-import {useTheme} from "@react-navigation/native"
-import Input from "@components/input"
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
+
 import {Controller} from "react-hook-form"
-import fonts from "@assets/fonts"
-import TagItem from "./tagItem"
 import HelperText from "../../../../components/helperText"
+import Input from "@components/input"
+import TagItem from "./tagItem"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const TagsContainer = ({control, errors, tags, setTags}) => {
   const {colors} = useTheme()
@@ -39,6 +40,7 @@ const TagsContainer = ({control, errors, tags, setTags}) => {
             value={value}
             onChangeText={onChange}
             placeholder={"Tag"}
+            placeholderTextColor={colors.grey}
             containerStyle={styles.inputContainerStyle}
             rightComponent={
               value?.length > 0 && (
@@ -89,6 +91,7 @@ const makeStyles = (colors) =>
       fontFamily: fonts.bold,
       fontSize: 16,
       marginLeft: 20,
+      color: colors.black,
     },
   })
 

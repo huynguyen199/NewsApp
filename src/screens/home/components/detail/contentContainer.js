@@ -1,7 +1,8 @@
-import {View, Text, StyleSheet} from "react-native"
+import {StyleSheet, Text, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const ContentContainer = ({infoArticle}) => {
   const {colors} = useTheme()
@@ -17,7 +18,7 @@ const ContentContainer = ({infoArticle}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.txtTitle}>
+      <Text selectable={true} style={styles.txtTitle}>
         {formatTextBreakline(infoArticle.content)}
       </Text>
     </View>

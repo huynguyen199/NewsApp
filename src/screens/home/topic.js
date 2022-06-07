@@ -1,18 +1,19 @@
-import {StyleSheet, View} from "react-native"
 import React, {useEffect, useState} from "react"
-import {Icon} from "@rneui/themed"
+import {StyleSheet, View} from "react-native"
+import {findUserById, updateUser} from "@services/user"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import SearchBar from "@components/searchBar"
+
+import Button from "@components/button"
+import Header from "@components/header"
+import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import LeftComponent from "./components/topic/leftComponent"
-import Button from "@components/button"
+import SearchBar from "@components/searchBar"
 import TopicList from "./components/topic/topicList"
-import useAuth from "@hooks/useAuth"
-import {mainStack} from "@common/navigator"
-import Header from "@components/header"
 //services
 import {getALlCategory} from "@services/category"
-import {findUserById, updateUser} from "@services/user"
+import {mainStack} from "@common/navigator"
+import useAuth from "@hooks/useAuth"
 
 const Topic = () => {
   const {colors} = useTheme()
@@ -40,7 +41,7 @@ const Topic = () => {
     const isChecked = data[index].checked
     data[index].checked = !isChecked
     setCategory(data)
-    setCategoryFilter(data)
+    // setCategoryFilter(data)
   }
 
   const fetchCategory = async () => {
@@ -78,11 +79,6 @@ const Topic = () => {
   const onSearchTopic = (text) => {
     setSearch(text)
     const resultSearch = categoryFilter.filter((item) => {
-      console.log(
-        "DEBUG: - file: topic.js - line 78 - resultSearch - item",
-        item,
-      )
-
       return item.name.toLowerCase().includes(text.toLowerCase())
     })
 

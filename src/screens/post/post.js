@@ -1,31 +1,33 @@
 import {
-  View,
-  StyleSheet,
-  FlatList,
   Dimensions,
+  FlatList,
   RefreshControl,
+  StyleSheet,
+  View,
 } from "react-native"
-import React, {useCallback, useEffect, useRef, useState} from "react"
-import ArticleItem from "./components/articleItem"
-import {useFocusEffect, useNavigation, useTheme} from "@react-navigation/native"
-import Loading from "./components/loading"
-import {Modalize} from "react-native-modalize"
 import {Ionicons, Material} from "@common/icon"
-import SelectItem from "./components/selectItem"
-import firestore from "@react-native-firebase/firestore"
-import ListFooterComponent from "./components/listFooterComponent"
-import {mainStack} from "@common/navigator"
+import React, {useCallback, useEffect, useRef, useState} from "react"
+import {useFocusEffect, useNavigation, useTheme} from "@react-navigation/native"
+
+import ArticleItem from "./components/articleItem"
 import ConfirmDialog from "@components/confirmDialog"
-import LoadingDialog from "@components/loadingDialog"
 import ListEmptyComponent from "./components/listEmptyComponent"
+import ListFooterComponent from "./components/listFooterComponent"
 import ListHeaderComponent from "./components/listHeaderComponent"
+import Loading from "./components/loading"
+import LoadingDialog from "@components/loadingDialog"
+import {Modalize} from "react-native-modalize"
+import SelectItem from "./components/selectItem"
+import Toast from "react-native-toast-message"
+import WithoutAccount from "./components/withoutAccount"
 import _ from "lodash"
 import auth from "@react-native-firebase/auth"
-import WithoutAccount from "./components/withoutAccount"
+import {deletePost} from "@services/post"
+import firestore from "@react-native-firebase/firestore"
 //service
 import {getALlCategory} from "@services/category"
-import {deletePost} from "@services/post"
 import {getAllUser} from "../../services/user"
+import {mainStack} from "@common/navigator"
 
 const {height} = Dimensions.get("window")
 
@@ -209,7 +211,7 @@ const Post = () => {
     query
       .where("userId", "==", user.uid)
       .where("categoryId", "==", id)
-      .limit(6)
+      .limit(10)
       .onSnapshot((querySnapshot) => {
         if (news.length > 2) {
           setIsLoadingFooter(querySnapshot.docs.length !== 0)
@@ -236,10 +238,18 @@ const Post = () => {
       .where("userId", "==", userId)
       .limit(10)
       .onSnapshot((querySnapshot) => {
+        const checkArticleExists =
+          querySnapshot.docs.length === 0 && _.isEmpty(lastDocument)
+        const checkEndReached = querySnapshot.docs.length === 0
+
         if (news.length > 2) {
           setIsLoadingFooter(querySnapshot.docs.length !== 0)
         }
-        if (querySnapshot.docs.length === 0) {
+        if (checkArticleExists) {
+          setLoading(false)
+          return clearArticle()
+        }
+        if (checkEndReached) {
           setLoading(false)
           return setIsLoadingFooter(false)
         }
@@ -301,6 +311,12 @@ const Post = () => {
         setNews(newsData)
         setDuplicateNews(newsData)
         hideLoading()
+        Toast.show({
+          type: "trashToast",
+          text1: "deleted successfully",
+          text2: Ionicons.delete,
+          position: "bottom",
+        })
       })
     }, 1000)
   }
@@ -386,7 +402,7 @@ const Post = () => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     optionContainer: {marginTop: 30},
-    optionModalStyle: {alignItems: "center"},
+    optionModalStyle: {alignItems: "center", backgroundColor: colors.white},
     container: {backgroundColor: colors.white, flex: 1},
     containerStyleHeader: {marginTop: 10, backgroundColor: null},
   })

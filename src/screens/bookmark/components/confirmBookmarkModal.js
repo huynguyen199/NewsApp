@@ -1,14 +1,15 @@
-import {View, Text, Dimensions, StyleSheet} from "react-native"
-import React from "react"
-import {Portal} from "react-native-portalize"
-import {Modalize} from "react-native-modalize"
-import {useTheme} from "@react-navigation/native"
+import {Dimensions, StyleSheet, Text, View} from "react-native"
+
 import ArticleItem from "./articleItem"
 import Button from "@components/button"
-import fonts from "@assets/fonts"
-import {deleteBookmarkById} from "../../../services/bookmark"
-import Toast from "react-native-toast-message"
 import {Ionicons} from "@common/icon"
+import {Modalize} from "react-native-modalize"
+import {Portal} from "react-native-portalize"
+import React from "react"
+import Toast from "react-native-toast-message"
+import {deleteBookmarkById} from "../../../services/bookmark"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const {height} = Dimensions.get("window")
 
@@ -83,6 +84,7 @@ const ConfirmBookmarkModal = ({
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    optionModalStyle: {borderTopRightRadius: 20, borderTopLeftRadius: 20},
     containerStyleRemove: {
       width: 160,
       marginLeft: 10,
@@ -111,7 +113,7 @@ const makeStyles = (colors) =>
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
     },
-    containerStyleHeader: {marginTop: 10, backgroundColor: null},
+    containerStyleHeader: {marginTop: 10},
   })
 
 export default ConfirmBookmarkModal

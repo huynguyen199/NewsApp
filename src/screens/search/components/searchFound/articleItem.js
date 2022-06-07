@@ -1,15 +1,16 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React, {useRef, useState, useEffect} from "react"
-import fonts from "@assets/fonts"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import React, {useEffect, useRef, useState} from "react"
+import {addBookmark, deleteBookmarkById} from "@services/bookmark"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Ionicons} from "@common/icon"
-import {mainStack} from "@common/navigator"
 import Lottie from "lottie-react-native"
+import Toast from "react-native-toast-message"
 import assets from "@assets"
 import auth from "@react-native-firebase/auth"
-import Toast from "react-native-toast-message"
-import {deleteBookmarkById, addBookmark} from "@services/bookmark"
 import firestore from "@react-native-firebase/firestore"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
@@ -35,6 +36,10 @@ const ArticleItem = ({item}) => {
               if (querySnapshot.docs.length > 0) {
                 setIsBookmark(true)
                 bookmarkRef.current?.play(0, 50)
+              } else {
+                bookmarkRef.current?.play(2, 0)
+                setIsBookmark(false)
+                return
               }
             })
       }

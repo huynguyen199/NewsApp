@@ -1,19 +1,20 @@
 //components
-import {View, StyleSheet, FlatList} from "react-native"
+import {FlatList, StyleSheet, View} from "react-native"
 import React, {useCallback, useEffect, useState} from "react"
+import {useRoute, useTheme} from "@react-navigation/native"
+
+import ArticleItem from "./components/searchFound/articleItem"
+import CategoryList from "./components/searchFound/categoryList"
 import Header from "@components/header"
 import LeftComponent from "./components/searchFound/leftComponent"
-import {useRoute, useTheme} from "@react-navigation/native"
-import SearchContainer from "./components/searchFound/searchContainer"
-import CategoryList from "./components/searchFound/categoryList"
-import ArticleItem from "./components/searchFound/articleItem"
-import ListFooterComponent from "./components/searchFound/listFooterComponent"
-import SearchResultContainer from "./components/searchFound/searchResultContainer"
 import ListEmptyComponent from "./components/searchFound/listEmptyComponent"
+import ListFooterComponent from "./components/searchFound/listFooterComponent"
+import SearchContainer from "./components/searchFound/searchContainer"
+import SearchResultContainer from "./components/searchFound/searchResultContainer"
+import {articleCollection} from "@services/article"
 //services
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
-import {articleCollection} from "@services/article"
 
 const SearchFound = () => {
   const {colors} = useTheme()
@@ -61,7 +62,7 @@ const SearchFound = () => {
     query
       .startAt(titleSearch)
       .endAt(titleSearch + "\uf8ff")
-      .limit(6)
+      .limit(10)
       .get()
       .then((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
@@ -84,7 +85,7 @@ const SearchFound = () => {
       .startAt(titleSearch)
       .endAt(titleSearch + "\uf8ff")
       .where("categoryId", "==", id)
-      .limit(6)
+      .limit(10)
       .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)

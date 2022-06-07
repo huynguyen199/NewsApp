@@ -1,17 +1,18 @@
-import {StyleSheet, View} from "react-native"
 import React, {useEffect, useState} from "react"
-import {Icon} from "@rneui/themed"
+import {StyleSheet, View} from "react-native"
+import {findUserById, updateUser} from "@services/user"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import SearchBar from "@components/searchBar"
-import {Ionicons} from "@common/icon"
+
 import Button from "@components/button"
-import SourceList from "./components/source/sourceList"
-import LeftComponent from "./components/source/leftComponent"
-import {mainStack} from "@common/navigator"
-import {getALlSources} from "@services/source"
-import {updateUser, findUserById} from "@services/user"
-import useAuth from "@hooks/useAuth"
 import Header from "@components/header"
+import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
+import LeftComponent from "./components/source/leftComponent"
+import SearchBar from "@components/searchBar"
+import SourceList from "./components/source/sourceList"
+import {getALlSources} from "@services/source"
+import {mainStack} from "@common/navigator"
+import useAuth from "@hooks/useAuth"
 
 const Source = () => {
   const {colors} = useTheme()
@@ -48,7 +49,7 @@ const Source = () => {
     const isChecked = data[index].checked
     data[index].checked = !isChecked
     setSources(data)
-    setCategoryFilter(data)
+    // setCategoryFilter(data)
   }
 
   const insertColumnObjectList = (result) => {

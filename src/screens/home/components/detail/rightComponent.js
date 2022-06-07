@@ -1,14 +1,15 @@
-import {View, StyleSheet, Share} from "react-native"
 import React, {useEffect, useState} from "react"
-import {findArticleById} from "@services/article"
-import {findPostById} from "@services/post"
+import {Share, StyleSheet, View} from "react-native"
+import {addBookmark, deleteBookmarkById} from "@services/bookmark"
+import {useRoute, useTheme} from "@react-navigation/native"
+
 import IconButton from "@components/iconButton"
 import {Ionicons} from "@common/icon"
-import {useRoute, useTheme} from "@react-navigation/native"
-import firestore from "@react-native-firebase/firestore"
-import auth from "@react-native-firebase/auth"
 import Toast from "react-native-toast-message"
-import {addBookmark, deleteBookmarkById} from "@services/bookmark"
+import auth from "@react-native-firebase/auth"
+import {findArticleById} from "@services/article"
+import {findPostById} from "@services/post"
+import firestore from "@react-native-firebase/firestore"
 
 const RightComponent = () => {
   const route = useRoute()
@@ -91,6 +92,7 @@ const RightComponent = () => {
         text1: "You are not logged in",
         text2: Ionicons.warningOutline,
         position: "bottom",
+        props: {color: "red"},
       })
     }
   }
