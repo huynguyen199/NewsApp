@@ -10,10 +10,10 @@ import LeftComponent from "./components/leftComponent"
 import Loading from "./components/loading"
 import RightComponent from "./components/rightComponent"
 import {articleCollection} from "@services/article"
+import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
-import {getFirstOfSource} from "@services/article"
 import {handleRssForVnExpress} from "../../utils/handleRss"
 import {useTheme} from "@react-navigation/native"
 import {wait} from "@utils/method"
@@ -31,7 +31,7 @@ const Home = () => {
   const styles = makeStyles(colors)
 
   useEffect(() => {
-    const delay = 60000
+    const delay = 60000 * 15
 
     BackgroundTimer.setInterval(() => {
       handleRssForVnExpress()
@@ -66,8 +66,21 @@ const Home = () => {
   }
 
   const handleFirstOfSource = async () => {
-    const result = await getFirstOfSource()
-    setArticleFeatured(result)
+    // const result = await getFirstOfSource()
+    await firestore()
+      .collection("article")
+      .orderBy("publishedAt", "desc")
+      .limit(1)
+      .onSnapshot((snapshot) => {
+        let result
+        snapshot.forEach((documentSnapshot) => {
+          result = {
+            ...documentSnapshot.data(),
+            id: documentSnapshot.id,
+          }
+        })
+        setArticleFeatured(result)
+      })
   }
 
   const onEndReachedArticle = () => {
@@ -87,6 +100,7 @@ const Home = () => {
       .limit(10)
       .where("categoryId", "==", id)
       // .get()
+
       .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
@@ -104,21 +118,18 @@ const Home = () => {
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
     }
-    query
-      .limit(10)
-      // .get()
-      .onSnapshot((querySnapshot) => {
-        if (article.length > 2) {
-          setIsLoadingFooter(querySnapshot.docs.length !== 0)
-        }
-        if (querySnapshot.docs.length === 0) {
-          return setIsLoadingFooter(false)
-        }
-        setIsLoadingFooter(article.length !== 0)
+    query.limit(10).onSnapshot((snapshot) => {
+      if (article.length > 2) {
+        setIsLoadingFooter(snapshot.docs.length !== 0)
+      }
+      if (snapshot.docs.length === 0) {
+        return setIsLoadingFooter(false)
+      }
+      setIsLoadingFooter(article.length !== 0)
 
-        setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
-        makeArticleData(querySnapshot.docs)
-      })
+      setLastDocument(snapshot.docs[snapshot.docs.length - 1])
+      makeArticleData(snapshot.docs)
+    })
   }
 
   const makeArticleData = async (docs) => {
