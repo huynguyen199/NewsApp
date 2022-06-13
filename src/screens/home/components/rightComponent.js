@@ -1,23 +1,32 @@
-import {View, StyleSheet} from "react-native"
-import React from "react"
+import {StyleSheet, TouchableOpacity, View} from "react-native"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Icon} from "@rneui/themed"
-import {useTheme} from "@react-navigation/native"
 import {Ionicons} from "@common/icon"
+import React from "react"
+import {mainStack} from "../../../common/navigator"
 
 const RightComponent = () => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
+  const navigation = useNavigation()
+
+  const onMoveSearchRss = () => {
+    navigation.navigate(mainStack.searchRss)
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.boxNotify}>
-        <Icon
-          // onPress={onGoBackHome}
-          name={Ionicons.notifications}
-          type="ionicon"
-          color={colors.lightRed}
-          size={20}
-        />
-      </View>
+      <TouchableOpacity onPress={onMoveSearchRss}>
+        <View style={styles.boxNotify}>
+          <Icon
+            // onPress={onGoBackHome}
+            name={Ionicons.addOutline}
+            type="ionicon"
+            color={colors.lightRed}
+            size={20}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }

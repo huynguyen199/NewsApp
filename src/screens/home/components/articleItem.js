@@ -104,7 +104,11 @@ const ArticleItem = ({item}) => {
                 uri: item.source.image,
               }}
             />
-            <Text style={styles.txtBrand}>{item.source.name}</Text>
+            <Text style={styles.txtBrand}>
+              {item.source.name.length > 6
+                ? item.source.name.substring(0, 6) + "..."
+                : item.source.name}
+            </Text>
             <View style={styles.boxCategory}>
               <Text style={styles.txtCategory}>
                 {item.category.name.length > 8

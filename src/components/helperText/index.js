@@ -1,9 +1,10 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import {Ionicons} from "@common/icon"
+import {StyleSheet, Text, View} from "react-native"
+
 import {Icon} from "@rneui/themed"
-import {useTheme} from "@react-navigation/native"
+import {Ionicons} from "@common/icon"
+import React from "react"
 import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const HelperText = ({style, title, isVisible, containerStyle}) => {
   const {colors} = useTheme()

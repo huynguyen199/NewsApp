@@ -34,6 +34,10 @@ const ProfileSettings = () => {
     navigation.navigate(mainStack.appearance)
   }
 
+  const onMoveRss = () => {
+    navigation.navigate(mainStack.managerRss)
+  }
+
   const onSignout = () => {
     auth()
       .signOut()
@@ -88,8 +92,9 @@ const ProfileSettings = () => {
             title={"Edit Profile"}
           />
           <SettingItem
-            nameIcon={Ionicons.notifications}
-            title={"Notification"}
+            onPress={onMoveRss}
+            nameIcon={Ionicons.logoRss}
+            title={"RSS"}
           />
           <SettingItem nameIcon={Ionicons.lockClosed} title={"Security"} />
           <SettingItem

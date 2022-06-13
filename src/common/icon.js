@@ -34,6 +34,9 @@ const Ionicons = {
   menu: "menu",
   bookmark: "bookmark",
   arrowBack: "arrow-back-outline",
+  logoRss: "logo-rss",
+  checkMark: "checkmark-outline",
+  checkMarkCircle: "checkmark-circle",
 }
 const Fontisto = {
   heart: "heart",

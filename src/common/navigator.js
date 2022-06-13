@@ -33,6 +33,8 @@ export const mainStack = {
   createNews: "CreateNewsScreen",
   search: "SearchScreen",
   searchFound: "SearchFoundScreen",
+  searchRss: "searchRss",
+  managerRss: "ManagerRssScreen",
 }
 
 export const rootSwitch = {
