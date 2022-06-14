@@ -22,11 +22,11 @@ import SuccessDialog from "@components/successDialog"
 import TagsContainer from "./components/createNews/tagsContainer"
 import TitleContainer from "./components/createNews/titleContainer"
 import TopicItem from "./components/createNews/topicItem"
-import {findUserById} from "../../services/user"
+import {findUserById} from "@services/user"
 import fonts from "@assets/fonts"
 import {homeTabs} from "@common/navigator"
 import {launchImageLibrary} from "react-native-image-picker"
-import useAuth from "../../hooks/useAuth"
+import useAuth from "@hooks/useAuth"
 import {useForm} from "react-hook-form"
 
 const {width, height} = Dimensions.get("window")

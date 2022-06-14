@@ -1,14 +1,16 @@
 import {
-  View,
-  Text,
   ImageBackground,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native"
-import React from "react"
+
 import CheckBox from "@react-native-community/checkbox"
-import {useTheme} from "@react-navigation/native"
+import React from "react"
 import fonts from "@assets/fonts"
+import {shortString} from "@utils/method"
+import {useTheme} from "@react-navigation/native"
 
 const TopicItem = ({item, handleCheckbox}) => {
   const {colors} = useTheme()
@@ -40,7 +42,7 @@ const TopicItem = ({item, handleCheckbox}) => {
             value={item.checked}
           />
           <View style={styles.boxTextRow}>
-            <Text style={styles.txtTitle}>{item.name}</Text>
+            <Text style={styles.txtTitle}>{shortString(item.name, 12)}</Text>
           </View>
         </ImageBackground>
       </View>

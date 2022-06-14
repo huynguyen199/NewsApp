@@ -1,3 +1,5 @@
+import * as rssParser from "react-native-rss-parser"
+
 import {Dimensions, StyleSheet, TouchableOpacity, View} from "react-native"
 import {getObject, storeObject} from "@utils/AsyncStore"
 import {useNavigation, useTheme} from "@react-navigation/native"
@@ -10,8 +12,10 @@ import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
 
 const {width} = Dimensions.get("window")
+const logoRss =
+  "https://media.istockphoto.com/vectors/rss-icon-vector-vector-id923565258?k=20&m=923565258&s=612x612&w=0&h=_WQz621hWqGe6rmAnT4XTmhhEnBzyPw3h9bB2NcneF8="
 
-const LeftComponent = ({search, setSearch}) => {
+const LeftComponent = ({search, setSearch, isValidUrl, setData}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   const navigation = useNavigation()
@@ -24,19 +28,29 @@ const LeftComponent = ({search, setSearch}) => {
   }
 
   const onSubmitText = async () => {
-    navigation.navigate(mainStack.searchFound, {titleSearch: search})
-    await saveHistory()
-  }
-
-  const saveHistory = async () => {
-    let data = (await getObject("history")) ?? []
-    data = data.filter((history) => history !== search)
-    data.unshift(search)
-    storeObject("history", data)
+    if (isValidUrl) {
+      fetch(search)
+        .then((response) => response.text())
+        .then((responseData) => rssParser.parse(responseData))
+        .then(async (rss) => {
+          const source = {
+            logo: rss.image.url ?? logoRss,
+            title: rss.image.title ?? rss.title,
+            domain: rss.links[0].url.split("/")[2],
+            link: search,
+            category: rss.title,
+            id: "testid",
+          }
+          setData([source])
+        })
+    } else {
+      setData([])
+    }
   }
 
   const onClearSearch = () => {
     setSearch("")
+    setData([])
   }
 
   return (

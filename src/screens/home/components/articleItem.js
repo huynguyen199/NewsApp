@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import React, {useEffect, useRef, useState} from "react"
-import {addBookmark, deleteBookmarkById} from "../../../services/bookmark"
+import {addBookmark, deleteBookmarkById} from "@services/bookmark"
 import {useNavigation, useTheme} from "@react-navigation/native"
 
 import {Ionicons} from "@common/icon"

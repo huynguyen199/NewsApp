@@ -3,14 +3,14 @@ import {ScrollView, StyleSheet, Text, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
 
 import Button from "@components/button"
-import Header from "../../components/header"
+import Header from "@components/header"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import LeftComponent from "./components/profileSettings/leftComponent"
 import {Modalize} from "react-native-modalize"
 import SettingItem from "./components/profileSettings/settingItem"
 import auth from "@react-native-firebase/auth"
-import fonts from "../../assets/fonts"
+import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
 
 const ProfileSettings = () => {

@@ -1,5 +1,6 @@
 import {FlatList, RefreshControl, StyleSheet, View} from "react-native"
 import React, {useCallback, useEffect, useRef, useState} from "react"
+import {findUserById, getCurrentUserId} from "@services/user"
 import {useFocusEffect, useTheme} from "@react-navigation/native"
 
 import ArticleItem from "./components/articleItem"
@@ -14,6 +15,7 @@ import Loading from "./components/loading"
 import WithoutAccount from "./components/withoutAccount"
 import auth from "@react-native-firebase/auth"
 import {bookmarkCollection} from "@services/bookmark"
+import {categoryDefault} from "@utils/handleRss"
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
 import {wait} from "@utils/method"
@@ -43,7 +45,24 @@ const Bookmark = () => {
   )
 
   const handleCategoryList = async () => {
-    const data = await getALlCategory()
+    let data = await getALlCategory()
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      const user = await findUserById(userId)
+      const links = user.links
+      links
+        ? (data = data.filter(
+            (item) =>
+              links.includes(item.url) ||
+              // item.url.includes("vnexpress")
+              categoryDefault.includes(item.url),
+          ))
+        : (data = data.filter((item) => categoryDefault.includes(item.url)))
+    } else {
+      // data = data.filter((item) => item.url.includes("vnexpress"))
+      data = data.filter((item) => categoryDefault.includes(item.url))
+    }
     setCategoryList(data)
   }
   useEffect(() => {

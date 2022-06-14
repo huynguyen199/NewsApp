@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from "react-native"
 
 import {Icon} from "@rneui/themed"
 import React from "react"
-import fonts from "../assets/fonts"
+import fonts from "@assets/fonts"
 
 export const toastConfig = {
   tomatoToast: ({text1, text2, props}) => (

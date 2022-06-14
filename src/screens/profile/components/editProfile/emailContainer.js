@@ -1,11 +1,12 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import {useTheme} from "@react-navigation/native"
-import HelperText from "../../../../components/helperText"
-import {emailContraints} from "../../../../common/validator"
-import Input from "../../../../components/input"
+import {StyleSheet, Text, View} from "react-native"
+
 import {Controller} from "react-hook-form"
-import fonts from "../../../../assets/fonts"
+import HelperText from "@components/helperText"
+import Input from "@components/input"
+import React from "react"
+import {emailContraints} from "@common/validator"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const EmailContainer = ({control, errors}) => {
   const {colors} = useTheme()

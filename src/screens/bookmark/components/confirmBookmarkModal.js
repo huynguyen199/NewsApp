@@ -7,7 +7,7 @@ import {Modalize} from "react-native-modalize"
 import {Portal} from "react-native-portalize"
 import React from "react"
 import Toast from "react-native-toast-message"
-import {deleteBookmarkById} from "../../../services/bookmark"
+import {deleteBookmarkById} from "@services/bookmark"
 import fonts from "@assets/fonts"
 import {useTheme} from "@react-navigation/native"
 

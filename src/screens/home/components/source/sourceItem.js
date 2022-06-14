@@ -1,8 +1,10 @@
-import {View, StyleSheet, TouchableOpacity, Image, Text} from "react-native"
-import React from "react"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+
 import CheckBox from "@react-native-community/checkbox"
-import {useTheme} from "@react-navigation/native"
+import React from "react"
 import fonts from "@assets/fonts"
+import {shortString} from "@utils/method"
+import {useTheme} from "@react-navigation/native"
 
 const SourceItem = ({item, handleCheckbox}) => {
   const {colors} = useTheme()
@@ -33,7 +35,7 @@ const SourceItem = ({item, handleCheckbox}) => {
               uri: item.image,
             }}
           />
-          <Text style={styles.txtName}>{item.name}</Text>
+          <Text style={styles.txtName}>{shortString(item.name, 14)}</Text>
         </View>
       </View>
     </TouchableOpacity>

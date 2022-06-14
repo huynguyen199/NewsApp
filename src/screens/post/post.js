@@ -26,12 +26,22 @@ import {deletePost} from "@services/post"
 import firestore from "@react-native-firebase/firestore"
 //service
 import {getALlCategory} from "@services/category"
-import {getAllUser} from "../../services/user"
+import {getAllUser} from "@services/user"
 import {mainStack} from "@common/navigator"
 
 const {height} = Dimensions.get("window")
 
 const postCollection = firestore().collection("post")
+
+const categoryDefault = [
+  "https://vnexpress.net/rss/khoa-hoc.rss",
+  "https://vnexpress.net/rss/suc-khoe.rss",
+  "https://vnexpress.net/rss/the-gioi.rss",
+  "https://vnexpress.net/rss/so-hoa.rss",
+  "https://vnexpress.net/rss/giai-tri.rss",
+  "https://vnexpress.net/rss/kinh-doanh.rss",
+  "https://vnexpress.net/rss/the-thao.rss",
+]
 
 const Post = () => {
   const [categories, setCategories] = useState([])
@@ -143,7 +153,11 @@ const Post = () => {
 
   const onFetchCategory = async () => {
     setSelectCategoryId("all")
-    const data = await getALlCategory()
+    let data = await getALlCategory()
+    // const userId = await getCurrentUserId()
+
+    data = data.filter((item) => categoryDefault.includes(item.url))
+
     setCategories(data)
   }
 
@@ -339,7 +353,11 @@ const Post = () => {
       {auth().currentUser ? (
         <FlatList
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl
+              colors={[colors.lightRed]}
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
           }
           onEndReached={onEndReachedNews}
           onEndReachedThreshold={0.1}

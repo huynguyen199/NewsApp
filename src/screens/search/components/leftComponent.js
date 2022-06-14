@@ -6,7 +6,7 @@ import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import React from "react"
 import SearchBar from "@components/searchBar"
-import fonts from "../../../assets/fonts"
+import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
 
 const {width} = Dimensions.get("window")

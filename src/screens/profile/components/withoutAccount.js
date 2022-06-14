@@ -1,12 +1,13 @@
-import {View, Text, StyleSheet, ImageBackground} from "react-native"
-import React from "react"
-import {useNavigation, useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
-import Button from "@components/button"
 import {Divider, Icon} from "@rneui/themed"
+import {ImageBackground, StyleSheet, Text, View} from "react-native"
+import {authStack, rootSwitch} from "@common/navigator"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
+import Button from "@components/button"
 import {Ionicons} from "@common/icon"
-import {rootSwitch, authStack} from "../../../common/navigator"
-import {Material} from "../../../common/icon"
+import {Material} from "@common/icon"
+import React from "react"
+import fonts from "@assets/fonts"
 
 const image = {
   uri: "https://thuvienplus.com/themes/cynoebook/public/images/default-user-image.png",

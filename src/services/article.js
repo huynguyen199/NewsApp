@@ -44,11 +44,12 @@ export const getArtcileByArrayTitle = async (arr) => {
   return data
 }
 
-export const getFirstOfSource = async () => {
+export const getFirstOfSource = async (userId) => {
   let data
   const querySnapshot = await firestore()
     .collection("article")
     .orderBy("publishedAt", "desc")
+    .where("userId", "in", [null, userId])
     .limit(1)
     .get()
 

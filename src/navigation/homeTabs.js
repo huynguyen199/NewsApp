@@ -1,17 +1,17 @@
 import React, {useContext} from "react"
 
-import Bookmark from "../screens/bookmark/bookmark"
-import Home from "../screens/home/home"
+import Bookmark from "@screens/bookmark/bookmark"
+import Home from "@screens/home/home"
 import {HomeContext} from "../context/home"
 import {Host} from "react-native-portalize"
 import {Image} from "@rneui/themed"
-import {Ionicons} from "../common/icon"
-import Post from "../screens/post/post"
-import Profile from "../screens/profile/profile"
+import {Ionicons} from "@common/icon"
+import Post from "@screens/post/post"
+import Profile from "@screens/profile/profile"
 import {StyleSheet} from "react-native"
 import TabBarButton from "./components/tabBarButton"
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import {homeTabs} from "../common/navigator"
+import {homeTabs} from "@common/navigator"
 import {useTheme} from "@react-navigation/native"
 
 const Tab = createBottomTabNavigator()

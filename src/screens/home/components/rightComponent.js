@@ -4,7 +4,7 @@ import {useNavigation, useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import React from "react"
-import {mainStack} from "../../../common/navigator"
+import {mainStack} from "@common/navigator"
 
 const RightComponent = () => {
   const {colors} = useTheme()

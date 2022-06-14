@@ -4,7 +4,7 @@ import CategoryList from "./categoryList"
 import FeaturedContainer from "./featuredContainer"
 import React from "react"
 import SearchContainer from "./searchContainer"
-import fonts from "../../../assets/fonts"
+import fonts from "@assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const GeneralContainer = ({

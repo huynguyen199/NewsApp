@@ -6,3 +6,7 @@ export function randomIntFromInterval(min, max) {
 export const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout))
 }
+
+export const shortString = (title, length) => {
+  return title.length > length ? title.substring(0, length) + "..." : title
+}

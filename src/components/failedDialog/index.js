@@ -1,11 +1,12 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import Modal from "react-native-modal"
+import {StyleSheet, Text, View} from "react-native"
+
 import Button from "../button"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
 import Lottie from "lottie-react-native"
-import assets from "../../assets"
+import Modal from "react-native-modal"
+import React from "react"
+import assets from "@assets"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const FailedDialog = ({
   onBackdropPress,

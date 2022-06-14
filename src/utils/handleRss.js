@@ -1,9 +1,9 @@
 import * as rssParser from "react-native-rss-parser"
 
-import {addArticle, getAllArticle} from "../services/article"
+import {addArticle, getAllArticle} from "@services/article"
 
-import {findCategoryIdByLink} from "../services/category"
-import {findSourceIdByName} from "../services/source"
+import {findCategoryIdByLink} from "@services/category"
+import {findSourceIdByName} from "@services/source"
 import firestore from "@react-native-firebase/firestore"
 
 const ENTERTAINMENT = "tbMgPmmLX8FVgZqO0oRn"
@@ -20,6 +20,16 @@ const logoRss =
 const VNEXPRESS = "vn-express"
 const regExString = /(<([^>]+)>)/gi
 
+export const categoryDefault = [
+  "https://vnexpress.net/rss/khoa-hoc.rss",
+  "https://vnexpress.net/rss/suc-khoe.rss",
+  "https://vnexpress.net/rss/the-gioi.rss",
+  "https://vnexpress.net/rss/so-hoa.rss",
+  "https://vnexpress.net/rss/giai-tri.rss",
+  "https://vnexpress.net/rss/kinh-doanh.rss",
+  "https://vnexpress.net/rss/the-thao.rss",
+]
+
 export const handleRssForVnExpress = async () => {
   await addNewEntertainment()
   await addNewSports()
@@ -28,7 +38,7 @@ export const handleRssForVnExpress = async () => {
   await addNewGeneral()
   await addNewScience()
   await addNewHealth()
-  await checkArticleOldAndDelete()
+  // await checkArticleOldAndDelete()
 }
 
 export const addNewArticle = async (link, categoryId, sourceId, userId) => {

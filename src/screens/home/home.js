@@ -1,34 +1,25 @@
 import React, {useContext, useEffect, useState} from "react"
 import {RefreshControl, StatusBar, StyleSheet, View} from "react-native"
-import {findUserById, getCurrentUserId} from "../../services/user"
+import {findUserById, getCurrentUserId} from "@services/user"
 
 import ArticleList from "./components/articleList"
 import BackgroundTimer from "react-native-background-timer"
 import GeneralContainer from "./components/generalContainer"
 import Header from "@components/header"
-import {HomeContext} from "../../context/home"
+import {HomeContext} from "@context/home"
 import LeftComponent from "./components/leftComponent"
 import Loading from "./components/loading"
 import RightComponent from "./components/rightComponent"
 import {addNewArticleFromUser} from "@utils/handleRss"
 import {articleCollection} from "@services/article"
 import auth from "@react-native-firebase/auth"
+import {categoryDefault} from "@utils/handleRss"
 import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
 import {useTheme} from "@react-navigation/native"
 import {wait} from "@utils/method"
-
-const categoryDefault = [
-  "https://vnexpress.net/rss/khoa-hoc.rss",
-  "https://vnexpress.net/rss/suc-khoe.rss",
-  "https://vnexpress.net/rss/the-gioi.rss",
-  "https://vnexpress.net/rss/so-hoa.rss",
-  "https://vnexpress.net/rss/giai-tri.rss",
-  "https://vnexpress.net/rss/kinh-doanh.rss",
-  "https://vnexpress.net/rss/the-thao.rss",
-]
 
 const Home = () => {
   const [article, setArticle] = useState([])
@@ -44,14 +35,14 @@ const Home = () => {
   const styles = makeStyles(colors)
 
   useEffect(() => {
-    const delay = 40000
+    const delay = 60000
     const handleRssFromUser = async () => {
       const currDate = new Date()
 
       const dateLastest = new Date(article[0].publishedAt.toDate())
 
       const endDate = new Date(dateLastest)
-
+      endDate.setHours(endDate.getHours() + 4)
       endDate.setMinutes(endDate.getMinutes() + 30)
 
       if (currDate > endDate) {
@@ -64,8 +55,10 @@ const Home = () => {
         }
       }
     }
-    BackgroundTimer.setInterval(() => {
+    BackgroundTimer.setInterval(async () => {
       // handleRssForVnExpress()
+      // await handleRssForVnExpress()
+
       handleRssFromUser()
     }, delay)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,16 +100,19 @@ const Home = () => {
           ))
         : (data = data.filter((item) => categoryDefault.includes(item.url)))
     } else {
-      data = data.filter((item) => item.url.includes("vnexpress"))
+      // data = data.filter((item) => item.url.includes("vnexpress"))
+      data = data.filter((item) => categoryDefault.includes(item.url))
     }
     setCategoryList(data)
   }
 
   const handleFirstOfSource = async () => {
-    // const result = await getFirstOfSource()
+    const userId = await getCurrentUserId()
+
     await firestore()
       .collection("article")
       .orderBy("publishedAt", "desc")
+      .where("userId", "in", [null, userId])
       .limit(1)
       .onSnapshot((snapshot) => {
         let result

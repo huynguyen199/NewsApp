@@ -8,7 +8,7 @@ import {
 } from "react-native"
 
 import {Controller} from "react-hook-form"
-import HelperText from "../../../../components/helperText"
+import HelperText from "@components/helperText"
 import Input from "@components/input"
 import TagItem from "./tagItem"
 import fonts from "@assets/fonts"

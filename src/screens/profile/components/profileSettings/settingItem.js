@@ -1,10 +1,11 @@
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
-import {Ionicons} from "../../../../common/icon"
-import {useTheme} from "@react-navigation/native"
-import RadioIcon from "./radioIcon"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+
 import {Icon} from "@rneui/themed"
-import fonts from "../../../../assets/fonts"
+import {Ionicons} from "@common/icon"
+import RadioIcon from "./radioIcon"
+import React from "react"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const SettingItem = ({nameIcon, title, onPress, hasIconRight = true}) => {
   const {colors} = useTheme()

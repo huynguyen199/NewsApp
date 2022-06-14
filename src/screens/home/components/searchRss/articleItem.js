@@ -68,10 +68,10 @@ const ArticleItem = ({
           await addNewArticle(item.link, categoryId, sourceId, userId).then(
             () => {
               hideLoadingDialog()
-              showSuccessDialog()
             },
           )
         })
+        showSuccessDialog()
       }
     }
   }
