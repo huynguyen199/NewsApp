@@ -96,7 +96,7 @@ const makeStyles = (colors) =>
     boxBottom: {
       position: "absolute",
       bottom: 0,
-      right: -5,
+      right: 0,
       flexDirection: "row",
       alignItems: "center",
     },

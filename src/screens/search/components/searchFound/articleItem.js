@@ -11,6 +11,7 @@ import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
+import {shortString} from "../../../../utils/method"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
@@ -100,7 +101,9 @@ const ArticleItem = ({item}) => {
                 uri: item.source.image,
               }}
             />
-            <Text style={styles.txtBrand}>{item.source.name}</Text>
+            <Text style={styles.txtBrand}>
+              {shortString(item.source.name, 6)}
+            </Text>
             <View style={styles.boxCategory}>
               <Text style={styles.txtCategory}>
                 {item.category.name.length > 10
@@ -110,12 +113,6 @@ const ArticleItem = ({item}) => {
             </View>
           </View>
           <TouchableOpacity onPress={onToggleBookmark} style={styles.boxBottom}>
-            {/* <Icon
-              name={Ionicons.bookmarkOutline}
-              color={colors.lightRed}
-              type="ionicon"
-              size={25}
-            /> */}
             <Lottie
               ref={bookmarkRef}
               style={styles.lottieStyle}
@@ -134,7 +131,7 @@ const makeStyles = (colors) =>
     boxBottom: {
       position: "absolute",
       bottom: -10,
-      right: -15,
+      right: 0,
     },
     txtCategory: {
       color: colors.lightRed,

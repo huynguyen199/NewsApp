@@ -10,6 +10,7 @@ import {Ionicons} from "@common/icon"
 import LeftComponent from "./components/managerRss/leftComponent"
 import Loading from "@components/loading"
 import Toast from "react-native-toast-message"
+import _ from "lodash"
 import auth from "@react-native-firebase/auth"
 import {fetchRss} from "@utils/handleRss"
 import useDialog from "@hooks/useDialog"
@@ -41,20 +42,31 @@ const ManagerRss = () => {
   const fetchlinkList = async () => {
     const userId = await auth().currentUser.providerData[0].uid
     const user = await findUserById(userId)
-    const links = user.links
     const data = []
+    if (_.isEmpty(user)) {
+      return setLoading(false)
+    }
+    const links = user.links
+
+    if (_.isEmpty(links)) {
+      return setLoading(false)
+    }
     for (const link of links) {
-      await fetchRss(link).then((rss) => {
-        const source = {
-          id: link,
-          logo: rss.image.url ?? logoRss,
-          title: rss.image.title ?? rss.title,
-          domain: rss.links[0].url.split("/")[2],
-          link: link,
-          category: rss.title,
-        }
-        data.push(source)
-      })
+      try {
+        await fetchRss(link).then((rss) => {
+          const source = {
+            id: link,
+            logo: rss.image.url ?? logoRss,
+            title: rss.image.title ?? rss.title,
+            domain: rss.links[0].url.split("/")[2],
+            link: link,
+            category: rss.title,
+          }
+          data.push(source)
+        })
+      } catch (e) {
+        setLoading(false)
+      }
     }
     setRssInfoList(data)
     setLoading(false)

@@ -1,8 +1,9 @@
-import {View, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
-import {Icon} from "@rneui/themed"
+import {StyleSheet, TouchableOpacity, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
+import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
+import React from "react"
 import {mainStack} from "@common/navigator"
 
 const RightComponent = () => {
@@ -36,7 +37,6 @@ const makeStyles = (colors) =>
       backgroundColor: "rgba(252, 50, 50, 0.09)",
       padding: 10,
       borderRadius: 5,
-      marginLeft: 10,
     },
     boxEdit: {
       backgroundColor: "rgba(252, 50, 50, 0.09)",

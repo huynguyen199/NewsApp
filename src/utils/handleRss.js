@@ -53,7 +53,7 @@ export const addNewArticle = async (link, categoryId, sourceId, userId) => {
       if (checkEmpty) {
         return
       }
-      return addArticleWithUser(result, categoryId, sourceId, userId, rss)
+      return await addArticleWithUser(result, categoryId, sourceId, userId, rss)
     })
 }
 
@@ -219,7 +219,7 @@ const filterSameDataForUser = async (items, userId) => {
   const articlesOfUser = articles.filter((item) => item.userId === userId)
   const urlOfArticles = articlesOfUser.map((item) => item.url)
 
-  const result = await items.filter((item) => !urlOfArticles.includes(item.id))
+  const result = items.filter((item) => !urlOfArticles.includes(item.id))
 
   return result
 }

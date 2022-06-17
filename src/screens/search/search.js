@@ -1,12 +1,13 @@
-import {View, StyleSheet, StatusBar} from "react-native"
 import React, {useCallback, useState} from "react"
+import {StatusBar, StyleSheet, View} from "react-native"
 import {useFocusEffect, useTheme} from "@react-navigation/native"
+
+import Header from "@components/header"
 // import {Header} from "@rneui/themed"
 import LeftComponent from "./components/leftComponent"
+import SearchHistory from "./components/searchHistory"
 import SearchList from "./components/searchList"
 import {getObject} from "@utils/AsyncStore"
-import SearchHistory from "./components/searchHistory"
-import Header from "@components/header"
 
 const Search = () => {
   const {colors} = useTheme()

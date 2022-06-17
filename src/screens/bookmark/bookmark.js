@@ -191,12 +191,10 @@ const Bookmark = () => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
     setLoading(true)
+    setSelectCategoryId("all")
     wait(2000).then(() => {
-      if (selectCategoryId === "all") {
-        fetchBookmark()
-      } else {
-        fetchBookmarkByCategory(selectCategoryId)
-      }
+      fetchBookmark()
+
       setLoading(false)
       setRefreshing(false)
     })

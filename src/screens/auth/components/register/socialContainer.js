@@ -1,13 +1,13 @@
-import {View, StyleSheet} from "react-native"
-import React from "react"
-
 import {AccessToken, LoginManager} from "react-native-fbsdk-next"
-import {GoogleSignin} from "@react-native-google-signin/google-signin"
+import {StyleSheet, View} from "react-native"
+import {checkUserExistByUid, createUser, findUserById} from "@services/user"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import auth from "@react-native-firebase/auth"
+
+import {GoogleSignin} from "@react-native-google-signin/google-signin"
+import React from "react"
 import SocicalButton from "@components/socicalButton.js/index.js"
 import Toast from "@common/toast.js"
-import {createUser, findUserById, checkUserExistByUid} from "@services/user"
+import auth from "@react-native-firebase/auth"
 import {mainStack} from "@common/navigator"
 
 const SocialContainer = () => {
@@ -99,6 +99,7 @@ const SocialContainer = () => {
     <View style={styles.container}>
       <SocicalButton
         onPress={onFacebookButtonPress}
+        title={"Facebook"}
         uri={
           "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/800px-Facebook_f_logo_%282019%29.svg.png"
         }
@@ -106,6 +107,7 @@ const SocialContainer = () => {
       />
       <SocicalButton
         onPress={onGoogleButtonPress}
+        title={"Google"}
         uri={
           "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
         }

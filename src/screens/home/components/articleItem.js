@@ -136,7 +136,7 @@ const makeStyles = (colors) =>
     boxBottom: {
       position: "absolute",
       bottom: -10,
-      right: -15,
+      right: 0,
     },
     txtCategory: {
       color: colors.lightRed,

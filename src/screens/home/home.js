@@ -18,6 +18,7 @@ import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
+import {handleRssForVnExpress} from "../../utils/handleRss"
 import {useTheme} from "@react-navigation/native"
 import {wait} from "@utils/method"
 
@@ -35,31 +36,10 @@ const Home = () => {
   const styles = makeStyles(colors)
 
   useEffect(() => {
-    const delay = 60000
-    const handleRssFromUser = async () => {
-      const currDate = new Date()
+    const delay = 60000 * 60
 
-      const dateLastest = new Date(article[0].publishedAt.toDate())
-
-      const endDate = new Date(dateLastest)
-      endDate.setHours(endDate.getHours() + 4)
-      endDate.setMinutes(endDate.getMinutes() + 30)
-
-      if (currDate > endDate) {
-        const userId = await auth().currentUser.providerData[0].uid
-        const user = await findUserById(userId)
-        const links = user.links
-
-        for (const link of links) {
-          await addNewArticleFromUser(link, userId)
-        }
-      }
-    }
     BackgroundTimer.setInterval(async () => {
-      // handleRssForVnExpress()
-      // await handleRssForVnExpress()
-
-      handleRssFromUser()
+      await handleRssForVnExpress()
     }, delay)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

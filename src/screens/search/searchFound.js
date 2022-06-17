@@ -1,6 +1,7 @@
 //components
 import {FlatList, StyleSheet, View} from "react-native"
 import React, {useCallback, useEffect, useState} from "react"
+import {findUserById, getCurrentUserId} from "../../services/user"
 import {useRoute, useTheme} from "@react-navigation/native"
 
 import ArticleItem from "./components/searchFound/articleItem"
@@ -12,6 +13,7 @@ import ListFooterComponent from "./components/searchFound/listFooterComponent"
 import SearchContainer from "./components/searchFound/searchContainer"
 import SearchResultContainer from "./components/searchFound/searchResultContainer"
 import {articleCollection} from "@services/article"
+import {categoryDefault} from "../../utils/handleRss"
 //services
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
@@ -48,12 +50,30 @@ const SearchFound = () => {
   }, [])
 
   const getCategoryList = async () => {
-    const result = await getALlCategory()
-    setCategories(result)
+    let data = await getALlCategory()
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      const user = await findUserById(userId)
+      const links = user.links
+      links
+        ? (data = data.filter(
+            (item) =>
+              links.includes(item.url) ||
+              // item.url.includes("vnexpress")
+              categoryDefault.includes(item.url),
+          ))
+        : (data = data.filter((item) => categoryDefault.includes(item.url)))
+    } else {
+      // data = data.filter((item) => item.url.includes("vnexpress"))
+      data = data.filter((item) => categoryDefault.includes(item.url))
+    }
+    setCategories(data)
   }
 
-  const fetchArticle = () => {
+  const fetchArticle = async () => {
     let query = articleCollection.orderBy("title")
+    const userId = await getCurrentUserId()
 
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
@@ -62,6 +82,9 @@ const SearchFound = () => {
     query
       .startAt(titleSearch)
       .endAt(titleSearch + "\uf8ff")
+      .where("title", ">=", titleSearch)
+      .where("title", "<=", titleSearch + "\uf8ff")
+      .where("userId", "==", userId)
       .limit(10)
       .get()
       .then((querySnapshot) => {
@@ -133,9 +156,9 @@ const SearchFound = () => {
     setArticle([])
     setLastDocument()
   }
-  const onEndReachedArticle = () => {
+  const onEndReachedArticle = async () => {
     selectCategoryId === "all"
-      ? fetchArticle()
+      ? await fetchArticle()
       : fetchArticleByCategoryId(selectCategoryId)
   }
 

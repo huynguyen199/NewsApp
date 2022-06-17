@@ -2,13 +2,11 @@
  * @format
  */
 
-import {AppRegistry, LogBox} from "react-native"
-
 import App from "./App"
+import {AppRegistry} from "react-native"
 import OneSignal from "react-native-onesignal"
 import {name as appName} from "./app.json"
 
-LogBox.ignoreAllLogs()
 //OneSignal Init Code
 OneSignal.setLogLevel(6, 0)
 OneSignal.setAppId("98c86d56-515e-43b2-9bd1-7aeaf49c8fe3")

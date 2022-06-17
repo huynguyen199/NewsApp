@@ -1,5 +1,3 @@
-import * as rssParser from "react-native-rss-parser"
-
 import {FlatList, StyleSheet, Text, View} from "react-native"
 import React, {useEffect, useState} from "react"
 
@@ -39,10 +37,6 @@ const SearchRss = () => {
   )
   const isValidUrl = search.match(regexLinkRss)
 
-  useEffect(() => {
-    // setData([])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search])
   return (
     <View style={styles.container}>
       <Header

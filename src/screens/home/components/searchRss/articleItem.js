@@ -58,20 +58,21 @@ const ArticleItem = ({
         }
         await addCategory(data)
       }
+
       const userId = await auth().currentUser.providerData[0].uid
       const link = item.link
       const isLinkExist = await checkLinkExistsUser(userId, link)
       if (isLinkExist === false) {
-        await addLinksForUser(userId, link).then(async () => {
-          const categoryId = await findCategoryIdByLink(item.link)
-          const sourceId = await findSourceIdByName(item.title)
-          await addNewArticle(item.link, categoryId, sourceId, userId).then(
-            () => {
-              hideLoadingDialog()
-            },
-          )
-        })
-        showSuccessDialog()
+        await addLinksForUser(userId, link)
+          .then(async () => {
+            const categoryId = await findCategoryIdByLink(item.link)
+            const sourceId = await findSourceIdByName(item.title)
+            await addNewArticle(item.link, categoryId, sourceId, userId)
+            hideLoadingDialog()
+          })
+          .then(() => {
+            showSuccessDialog()
+          })
       }
     }
   }

@@ -1,15 +1,23 @@
-import {View, Image, Text, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Icon} from "@rneui/themed"
+
+import {Dimensions} from "react-native"
 import FormLogin from "./components/formLogin"
+import Header from "@components/header"
+import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
+import React from "react"
 import SocialContainer from "./components/socialContainer"
 import WithoutAccountButton from "./components/withoutAccountButton"
-import {Dimensions} from "react-native"
-import {Ionicons} from "@common/icon"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
-import Header from "@components/header"
 
 const {width} = Dimensions.get("window")
 const Login = () => {
@@ -22,7 +30,7 @@ const Login = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Header
         leftComponent={
           <TouchableOpacity
@@ -57,7 +65,7 @@ const Login = () => {
           <WithoutAccountButton />
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -1,14 +1,22 @@
-import {View, Image, Text, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Icon} from "@rneui/themed"
-import FormRegister from "./components/register/formRegister"
+
 import {Dimensions} from "react-native"
-import SocialContainer from "./components/register/socialContainer"
-import fonts from "@assets/fonts"
-import {authStack} from "@common/navigator"
+import FormRegister from "./components/register/formRegister"
 import Header from "@components/header"
+import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
+import React from "react"
+import SocialContainer from "./components/register/socialContainer"
+import {authStack} from "@common/navigator"
+import fonts from "@assets/fonts"
 
 const {width} = Dimensions.get("window")
 const Register = () => {
@@ -21,7 +29,7 @@ const Register = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Header
         leftComponent={
           <TouchableOpacity style={styles.btnBackStyle} onPress={onBackSignIn}>
@@ -54,7 +62,7 @@ const Register = () => {
         </View>
         {/* <WithoutAccountButton /> */}
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
