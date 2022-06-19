@@ -32,7 +32,7 @@ const RightComponent = () => {
           <View style={styles.boxNotify}>
             <Icon
               // onPress={onGoBackHome}
-              name={Ionicons.addOutline}
+              name={Ionicons.logoRss}
               type="ionicon"
               color={colors.lightRed}
               size={20}

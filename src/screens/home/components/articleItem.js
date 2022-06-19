@@ -134,9 +134,7 @@ const ArticleItem = ({item}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     boxBottom: {
-      position: "absolute",
-      bottom: -10,
-      right: 0,
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,

@@ -75,19 +75,21 @@ const SearchFound = () => {
     let query = articleCollection.orderBy("title")
     const userId = await getCurrentUserId()
 
+    if (userId) {
+      query = query.where("userId", "in", [userId, "default"])
+    } else {
+      query = query.where("userId", "==", "default")
+    }
+
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
     }
 
     query
-      .startAt(titleSearch)
-      .endAt(titleSearch + "\uf8ff")
       .where("title", ">=", titleSearch)
       .where("title", "<=", titleSearch + "\uf8ff")
-      .where("userId", "==", userId)
       .limit(10)
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return
         }

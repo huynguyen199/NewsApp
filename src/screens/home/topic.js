@@ -11,6 +11,7 @@ import LeftComponent from "./components/topic/leftComponent"
 import SearchBar from "@components/searchBar"
 import TopicList from "./components/topic/topicList"
 //services
+import {categoryDefault} from "../../utils/handleRss"
 import {getALlCategory} from "@services/category"
 import {mainStack} from "@common/navigator"
 import useAuth from "@hooks/useAuth"
@@ -45,7 +46,8 @@ const Topic = () => {
   }
 
   const fetchCategory = async () => {
-    const result = await getALlCategory()
+    let result = await getALlCategory()
+    result = result.filter((item) => categoryDefault.includes(item.url))
 
     // add column in object list
     const arr = insertColumnObjectList(result)

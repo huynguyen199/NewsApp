@@ -22,6 +22,7 @@ import SuccessDialog from "@components/successDialog"
 import TagsContainer from "./components/createNews/tagsContainer"
 import TitleContainer from "./components/createNews/titleContainer"
 import TopicItem from "./components/createNews/topicItem"
+import {categoryDefault} from "../../utils/handleRss"
 import {findUserById} from "@services/user"
 import fonts from "@assets/fonts"
 import {homeTabs} from "@common/navigator"
@@ -218,7 +219,9 @@ const CreateNews = () => {
   }
 
   const fetchCategory = async () => {
-    const data = await getALlCategory()
+    let data = await getALlCategory()
+    data = data.filter((item) => categoryDefault.includes(item.url))
+
     setCategories(data)
   }
 

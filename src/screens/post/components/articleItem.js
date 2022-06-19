@@ -75,16 +75,12 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    optionIconStyle: {
-      marginRight: 5,
-    },
+    optionIconStyle: {},
     lottieStyle: {width: 50, height: 50},
     boxBottom: {
-      position: "absolute",
-      bottom: 0,
-      right: 0,
-      flexDirection: "row",
-      alignItems: "center",
+      flex: 1,
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,

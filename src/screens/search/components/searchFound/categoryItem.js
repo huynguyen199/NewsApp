@@ -1,7 +1,9 @@
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {shortString} from "../../../../utils/method"
+import {useTheme} from "@react-navigation/native"
 
 const CategoryItem = ({
   item,
@@ -31,7 +33,7 @@ const CategoryItem = ({
               ? styles.txtTitle
               : styles.txtTitleOutline
           }>
-          {item.name}
+          {shortString(item.name, 12)}
         </Text>
       </View>
     </TouchableOpacity>

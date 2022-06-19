@@ -1,9 +1,10 @@
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {getObject, storeObject} from "@utils/AsyncStore"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
+import React from "react"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
-import {getObject, storeObject} from "@utils/AsyncStore"
 
 const SearchHistoryItem = ({item}) => {
   const {colors} = useTheme()
@@ -19,7 +20,6 @@ const SearchHistoryItem = ({item}) => {
     data = data.filter((history) => history !== item)
 
     data.unshift(item)
-    // console.log("data", data)
     storeObject("history", data)
   }
 

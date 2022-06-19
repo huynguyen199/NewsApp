@@ -1,12 +1,11 @@
 import firestore, {firebase} from "@react-native-firebase/firestore"
 
+import {getFullToday} from "../utils/date"
+
 export const articleCollection = firestore().collection("article")
 
 export const addArticle = (data) => {
-  firestore()
-    .collection("article")
-    .add(data)
-    .then(() => {})
+  firestore().collection("article").add(data)
 }
 
 export const getAllArticle = async () => {
@@ -93,4 +92,48 @@ export const findArticleById = async (id) => {
     }
   })
   return article
+}
+
+export const getOneLastestArticle = async () => {
+  let data = null
+
+  const querySnapshot = await firestore()
+    .collection("article")
+    .orderBy("publishedAt", "desc")
+    .where("userId", "==", "default")
+    .limit(1)
+    .get()
+
+  querySnapshot.forEach((documentSnapshot) => {
+    data = {
+      ...documentSnapshot.data(),
+      id: documentSnapshot.id,
+    }
+  })
+  return data
+}
+
+export const getAllArticleUserForToday = async (userId) => {
+  let query = articleCollection
+  const data = []
+  const today = getFullToday()
+
+  if (userId) {
+    query = query.where("userId", "==", userId)
+  } else {
+    query = query.where("userId", "==", "default")
+  }
+  // tbMgPmmLX8FVgZqO0oRn
+  const querySnapshot = await query
+    .where("publishedAt", ">=", new Date(today))
+    .get()
+
+  querySnapshot.forEach((documentSnapshot) => {
+    data.push({
+      ...documentSnapshot.data(),
+      id: documentSnapshot.id,
+    })
+  })
+
+  return data
 }

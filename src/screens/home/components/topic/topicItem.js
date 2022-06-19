@@ -42,7 +42,7 @@ const TopicItem = ({item, handleCheckbox}) => {
             value={item.checked}
           />
           <View style={styles.boxTextRow}>
-            <Text style={styles.txtTitle}>{shortString(item.name, 12)}</Text>
+            <Text style={styles.txtTitle}>{shortString(item.name, 16)}</Text>
           </View>
         </ImageBackground>
       </View>
@@ -53,12 +53,20 @@ const TopicItem = ({item, handleCheckbox}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {
-      color: "white",
+      color: colors.white,
       alignSelf: "flex-end",
       margin: 15,
       fontFamily: fonts.bold,
     },
-    boxTextRow: {flex: 1, flexDirection: "row"},
+    boxTextRow: {
+      flexDirection: "row",
+      backgroundColor: "#000000c0",
+      bottom: 0,
+      position: "absolute",
+      width: "100%",
+      borderBottomLeftRadius: 20,
+      borderBottomRightRadius: 20,
+    },
     styleCheckBox: {
       alignSelf: "flex-end",
       margin: 10,

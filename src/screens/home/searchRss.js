@@ -1,5 +1,5 @@
 import {FlatList, StyleSheet, Text, View} from "react-native"
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 
 import ArticleItem from "./components/searchRss/articleItem"
 import Header from "@components/header"
@@ -65,7 +65,7 @@ const SearchRss = () => {
       <LoadingDialog isVisible={dialog.isLoading} />
       <SuccessDialog
         isVisible={dialog.isSuccess}
-        title={"added new article"}
+        title={"Added new article"}
         titleButton={"Back"}
         onPress={hideSuccessDialog}
       />

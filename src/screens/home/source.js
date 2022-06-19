@@ -72,7 +72,6 @@ const Source = () => {
     const providerData = userInfo._user.providerData[0]
     const user = await findUserById(providerData.uid)
     updateUser(user.id, {source: data})
-    // console.log(data)
   }
 
   const onSearchSources = (text) => {

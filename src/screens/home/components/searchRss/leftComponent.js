@@ -1,7 +1,6 @@
 import * as rssParser from "react-native-rss-parser"
 
 import {Dimensions, StyleSheet, TouchableOpacity, View} from "react-native"
-import {getObject, storeObject} from "@utils/AsyncStore"
 import {useNavigation, useTheme} from "@react-navigation/native"
 
 import {Icon} from "@rneui/themed"
@@ -9,7 +8,6 @@ import {Ionicons} from "@common/icon"
 import React from "react"
 import SearchBar from "@components/searchBar"
 import fonts from "@assets/fonts"
-import {mainStack} from "@common/navigator"
 
 const {width} = Dimensions.get("window")
 const logoRss =
@@ -82,7 +80,7 @@ const LeftComponent = ({search, setSearch, isValidUrl, setData}) => {
           onSubmitEditing={onSubmitText}
           onChangeText={onChangeSearch}
           containerStyle={styles.searchContainerStyle}
-          placeholder="Enter your url here"
+          placeholder="Enter your url RSS here"
           placeholderTextColor="grey"
         />
       </View>

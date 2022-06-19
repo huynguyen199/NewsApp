@@ -252,7 +252,6 @@ const addAllArticle = async (arr, categoryId) => {
 
     addArticle(data)
   })
-  //   console.log("done")
 }
 
 export const checkArticleOldAndDelete = () => {

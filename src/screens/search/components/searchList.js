@@ -20,9 +20,9 @@ const SearchList = ({search}) => {
     const userId = await getCurrentUserId()
     let query = firestore().collection("article")
     if (userId) {
-      query = query.where("userId", "in", [userId, null])
+      query = query.where("userId", "in", [userId, "default"])
     } else {
-      query = query.where("userId", "in", [null])
+      query = query.where("userId", "==", "default")
     }
     query
       .where("title", ">=", search)

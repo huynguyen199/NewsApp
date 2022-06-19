@@ -76,11 +76,7 @@ const makeStyles = (colors) =>
     },
     lottieStyle: {width: 50, height: 50},
     boxBottom: {
-      position: "absolute",
-      bottom: 0,
-      right: 0,
-      flexDirection: "row",
-      alignItems: "center",
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,

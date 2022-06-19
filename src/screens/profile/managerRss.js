@@ -21,6 +21,7 @@ const logoRss =
 const ManagerRss = () => {
   const [rssInfoList, setRssInfoList] = useState([])
   const [selectLinkItem, setSelectLinkItem] = useState(null)
+
   const {dialog, showConfirmDialog, hideConfirmDialog} = useDialog()
   const [loading, setLoading] = useState(true)
   const {colors} = useTheme()
@@ -51,24 +52,29 @@ const ManagerRss = () => {
     if (_.isEmpty(links)) {
       return setLoading(false)
     }
+    const listPromise = []
+
     for (const link of links) {
-      try {
-        await fetchRss(link).then((rss) => {
-          const source = {
-            id: link,
-            logo: rss.image.url ?? logoRss,
-            title: rss.image.title ?? rss.title,
-            domain: rss.links[0].url.split("/")[2],
-            link: link,
-            category: rss.title,
-          }
-          data.push(source)
-        })
-      } catch (e) {
-        setLoading(false)
-      }
+      listPromise.push(fetchRss(link))
     }
-    setRssInfoList(data)
+    Promise.all(listPromise).then((values) => {
+      for (let i = 0; i < values.length; i++) {
+        const rss = values[i]
+        const source = {
+          id: links[i],
+          logo: rss.image.url ?? logoRss,
+          title: rss.image.title ?? rss.title,
+          domain: rss.links[0].url.split("/")[2],
+          link: rss,
+          category: rss.title,
+        }
+
+        data.push(source)
+      }
+
+      setRssInfoList(data)
+    })
+
     setLoading(false)
   }
   const onAcceptDeleteLink = async () => {

@@ -1,12 +1,15 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import React, {useEffect, useState} from "react"
 import {
+  addArticleWithUser,
+  getAricleRssToday,
+} from "../../../../utils/handleArticleRss"
+import {
   addCategory,
   checkCategoryExist,
   findCategoryIdByLink,
 } from "@services/category"
 import {addLinksForUser, checkLinkExistsUser} from "@services/user"
-import {addNewArticle, fetchRss} from "@utils/handleRss"
 import {
   addSource,
   checkSourceExistsByName,
@@ -37,12 +40,15 @@ const ArticleItem = ({
   const onTouchOptions = async () => {
     showLoadingDialog()
     if (auth().currentUser) {
-      const articles = await fetchRss(search)
-      const name = articles.image.title ?? articles.title
-      const categoryName = articles.title
-      const logo = articles.image.url ?? logoRss
+      const {res, items} = await getAricleRssToday(search)
+      const dataOfRss = res
+
+      const name = dataOfRss.image.title ?? dataOfRss.title
+      const categoryName = dataOfRss.title
+      const logo = dataOfRss.image.url ?? logoRss
       const isSourceExist = await checkSourceExistsByName(name)
       const isExistCategory = await checkCategoryExist(categoryName)
+
       if (isSourceExist === false) {
         const data = {
           image: logo,
@@ -67,7 +73,8 @@ const ArticleItem = ({
           .then(async () => {
             const categoryId = await findCategoryIdByLink(item.link)
             const sourceId = await findSourceIdByName(item.title)
-            await addNewArticle(item.link, categoryId, sourceId, userId)
+            addArticleWithUser(items, categoryId, sourceId, userId, dataOfRss)
+            // await addNewArticle(item.link, categoryId, sourceId, userId)
             hideLoadingDialog()
           })
           .then(() => {
@@ -166,11 +173,7 @@ const makeStyles = (colors) =>
     },
     lottieStyle: {width: 50, height: 50},
     boxBottom: {
-      position: "absolute",
-      bottom: 0,
-      right: -5,
-      flexDirection: "row",
-      alignItems: "center",
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,
