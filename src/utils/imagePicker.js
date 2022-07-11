@@ -1,5 +1,6 @@
-import {PermissionsAndroid} from "react-native"
 import * as ImagePicker from "react-native-image-picker"
+
+import {PermissionsAndroid} from "react-native"
 
 const requestCameraPermission = async () => {
   try {
@@ -16,9 +17,7 @@ const requestCameraPermission = async () => {
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
     } else {
     }
-  } catch (err) {
-    console.warn(err)
-  }
+  } catch (err) {}
 }
 
 export const launchImageLibrary = () => {
@@ -31,8 +30,6 @@ export const launchImageLibrary = () => {
   }
 
   return ImagePicker.launchImageLibrary(options, (response) => {
-    console.log("Response = ", response)
-
     if (response.didCancel) {
     } else if (response.error) {
     } else if (response.customButton) {

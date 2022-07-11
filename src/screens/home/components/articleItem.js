@@ -1,15 +1,17 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import React, {useEffect, useRef, useState} from "react"
-import fonts from "@assets/fonts"
+import {addBookmark, deleteBookmarkById} from "@services/bookmark"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Ionicons} from "@common/icon"
-import {mainStack} from "@common/navigator"
 import Lottie from "lottie-react-native"
-import assets from "@assets"
-import firestore from "@react-native-firebase/firestore"
-import {addBookmark, deleteBookmarkById} from "../../../services/bookmark"
-import auth from "@react-native-firebase/auth"
 import Toast from "react-native-toast-message"
+import assets from "@assets"
+import auth from "@react-native-firebase/auth"
+import firestore from "@react-native-firebase/firestore"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
@@ -36,8 +38,11 @@ const ArticleItem = ({item}) => {
                   bookmarkRef.current?.play(0, 50),
                   setIsBookmark(querySnapshot.docs.length > 0)
                 )
+              } else {
+                bookmarkRef.current?.play(2, 0)
+                setIsBookmark(false)
+                return
               }
-              setIsBookmark(false)
             })
       }
     }
@@ -73,6 +78,7 @@ const ArticleItem = ({item}) => {
         text1: "You are not logged in",
         text2: Ionicons.warningOutline,
         position: "bottom",
+        props: {color: "red"},
       })
     }
   }
@@ -88,8 +94,8 @@ const ArticleItem = ({item}) => {
         />
         <View style={styles.boxRight}>
           <Text style={styles.txtTitle}>
-            {item.title.length > 40
-              ? item.title.substring(0, 40) + "..."
+            {item.title.length > 30
+              ? item.title.substring(0, 30) + "..."
               : item.title}
           </Text>
           <View style={styles.boxLogo}>
@@ -99,7 +105,11 @@ const ArticleItem = ({item}) => {
                 uri: item.source.image,
               }}
             />
-            <Text style={styles.txtBrand}>{item.source.name}</Text>
+            <Text style={styles.txtBrand}>
+              {item.source.name.length > 6
+                ? item.source.name.substring(0, 6) + "..."
+                : item.source.name}
+            </Text>
             <View style={styles.boxCategory}>
               <Text style={styles.txtCategory}>
                 {item.category.name.length > 8
@@ -108,15 +118,17 @@ const ArticleItem = ({item}) => {
               </Text>
             </View>
           </View>
-          <TouchableOpacity onPress={onToggleBookmark} style={styles.boxBottom}>
-            <Lottie
-              ref={bookmarkRef}
-              style={styles.lottieStyle}
-              source={assets.lottieFiles.bookmark}
-              autoPlay={false}
-              loop={false}
-            />
-          </TouchableOpacity>
+          <View style={styles.boxBottom}>
+            <TouchableOpacity onPress={onToggleBookmark}>
+              <Lottie
+                ref={bookmarkRef}
+                style={styles.lottieStyle}
+                source={assets.lottieFiles.bookmark}
+                autoPlay={false}
+                loop={false}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -125,13 +137,12 @@ const ArticleItem = ({item}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     boxBottom: {
-      position: "absolute",
-      bottom: -10,
-      right: -15,
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,
       fontFamily: fonts.bold,
+      fontSize: sizes.h3,
     },
     boxCategory: {
       justifyContent: "center",
@@ -148,6 +159,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -161,12 +173,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,
@@ -182,7 +194,10 @@ const makeStyles = (colors) =>
       borderWidth: 2,
       borderColor: colors.whiteSmoke,
     },
-    lottieStyle: {width: 50, height: 50},
+    lottieStyle: {
+      height: 32,
+      width: 32,
+    },
   })
 
 export default ArticleItem

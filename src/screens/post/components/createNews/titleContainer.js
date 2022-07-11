@@ -1,11 +1,13 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import {useTheme} from "@react-navigation/native"
-import HelperText from "@components/helperText"
-import {titleContraints} from "@common/validator"
-import Input from "@components/input"
+import {StyleSheet, Text, View} from "react-native"
+
 import {Controller} from "react-hook-form"
+import HelperText from "@components/helperText"
+import Input from "@components/input"
+import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
+import {titleContraints} from "@common/validator"
+import {useTheme} from "@react-navigation/native"
 
 const TitleContainer = ({control, errors}) => {
   const {colors} = useTheme()
@@ -20,6 +22,7 @@ const TitleContainer = ({control, errors}) => {
         render={({field: {onChange, onBlur, value}}) => (
           <Input
             value={value}
+            placeholderTextColor={colors.grey}
             onChangeText={onChange}
             placeholder={"Title"}
             containerStyle={styles.inputContainerStyle}
@@ -44,8 +47,9 @@ const makeStyles = (colors) =>
     inputContainerStyle: {marginTop: 5, borderColor: colors.whiteSmoke},
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
+      color: colors.black,
     },
   })
 

@@ -1,11 +1,13 @@
-import {View, Text, StyleSheet, Dimensions} from "react-native"
+import {Dimensions, StyleSheet, Text, View} from "react-native"
 import React, {useRef} from "react"
-import Modal from "react-native-modal"
+
 import Button from "../button"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
 import Lottie from "lottie-react-native"
+import Modal from "react-native-modal"
 import assets from "@assets"
+import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const {width} = Dimensions.get("window")
 
@@ -61,7 +63,7 @@ const makeStyles = (colors) =>
     },
     containerStyleBtn: {marginTop: 20, width: width / 1.7},
     txtTitle: {
-      fontSize: 20,
+      fontSize: sizes.h2,
       fontFamily: fonts.bold,
       color: colors.lightRed,
       textAlign: "center",

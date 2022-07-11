@@ -1,9 +1,10 @@
 import {StyleSheet, TouchableOpacity, View} from "react-native"
-import React from "react"
-import SearchBar from "@components/searchBar"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useNavigation, useTheme} from "@react-navigation/native"
+import React from "react"
+import SearchBar from "@components/searchBar"
 import {mainStack} from "@common/navigator"
 
 const SearchContainer = () => {
@@ -25,7 +26,7 @@ const SearchContainer = () => {
           rightComponent={
             <Icon
               name={Ionicons.search}
-              color={"black"}
+              color={"grey"}
               type="ionicon"
               solid={true}
               size={24}

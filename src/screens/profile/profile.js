@@ -1,19 +1,21 @@
-import {View, Text, StyleSheet, ImageBackground, Linking} from "react-native"
-import React, {useCallback, useState} from "react"
-import Header from "@components/header"
-import LeftComponent from "./components/leftComponent"
-import RightComponent from "./components/rightComponent"
-import {useFocusEffect, useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
-import Button from "@components/button"
 import {Divider, Icon} from "@rneui/themed"
+import {ImageBackground, Linking, StyleSheet, Text, View} from "react-native"
+import React, {useCallback, useState} from "react"
+import {useFocusEffect, useTheme} from "@react-navigation/native"
+
+import Button from "@components/button"
+import Header from "@components/header"
 import {Ionicons} from "@common/icon"
-import WithoutAccount from "./components/withoutAccount"
+import LeftComponent from "./components/leftComponent"
 import Loading from "./components/loading"
-import {findUserById} from "@services/user"
-import useAuth from "@hooks/useAuth"
 import {Material} from "@common/icon"
+import RightComponent from "./components/rightComponent"
+import WithoutAccount from "./components/withoutAccount"
 import {findPostByUserId} from "@services/post"
+import {findUserById} from "@services/user"
+import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
+import useAuth from "@hooks/useAuth"
 
 const Profile = () => {
   const {colors} = useTheme()
@@ -54,15 +56,10 @@ const Profile = () => {
 
   const onOpenWebsite = async () => {
     const url = profile.website
+
     if (!url) return
 
-    const supported = await Linking.canOpenURL(url)
-
-    if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
-      await Linking.openURL(url)
-    }
+    await Linking.openURL(url)
   }
 
   if (userInfo === null) {
@@ -124,7 +121,7 @@ const Profile = () => {
           title="Website"
           leftIcon={Ionicons.globe}
           containerStyle={styles.containerStyleButton}
-          textStyle={{color: colors.lightRed}}
+          textStyle={{color: colors.lightRed, fontSize: sizes.h2}}
         />
       </View>
     </View>
@@ -146,7 +143,11 @@ const makeStyles = (colors) =>
       fontFamily: fonts.regular,
       color: colors.black,
     },
-    txtNumOfFollowing: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
+    txtNumOfFollowing: {
+      fontFamily: fonts.bold,
+      fontSize: sizes.h1,
+      color: colors.black,
+    },
     boxRight: {
       flex: 1,
       justifyContent: "center",
@@ -160,8 +161,8 @@ const makeStyles = (colors) =>
     },
     txtNumberFollower: {
       fontFamily: fonts.bold,
-      fontSize: 24,
       color: colors.black,
+      fontSize: sizes.h1,
     },
     boxCenter: {
       flex: 1,
@@ -172,7 +173,11 @@ const makeStyles = (colors) =>
       borderColor: colors.lightGrey,
     },
     txtNews: {marginTop: 10, fontFamily: fonts.regular, color: colors.black},
-    txtNumberNews: {fontFamily: fonts.bold, fontSize: 24, color: colors.black},
+    txtNumberNews: {
+      fontFamily: fonts.bold,
+      fontSize: sizes.h1,
+      color: colors.black,
+    },
     leftProfile: {
       flex: 1,
       justifyContent: "center",
@@ -195,7 +200,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       color: colors.black,
       fontFamily: fonts.bold,
-      fontSize: 24,
+      fontSize: sizes.h1,
       marginTop: 20,
     },
     imageChildStyle: {

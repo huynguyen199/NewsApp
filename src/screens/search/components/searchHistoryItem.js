@@ -1,9 +1,11 @@
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {getObject, storeObject} from "@utils/AsyncStore"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
+import React from "react"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
-import {getObject, storeObject} from "@utils/AsyncStore"
+import {sizes} from "../../../assets/fonts"
 
 const SearchHistoryItem = ({item}) => {
   const {colors} = useTheme()
@@ -19,7 +21,6 @@ const SearchHistoryItem = ({item}) => {
     data = data.filter((history) => history !== item)
 
     data.unshift(item)
-    // console.log("data", data)
     storeObject("history", data)
   }
 
@@ -33,7 +34,7 @@ const SearchHistoryItem = ({item}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtTitle: {color: "black", fontFamily: fonts.regular},
+    txtTitle: {color: "black", fontFamily: fonts.regular, fontSize: sizes.h3},
     container: {
       backgroundColor: colors.whiteSmoke,
       paddingVertical: 5,

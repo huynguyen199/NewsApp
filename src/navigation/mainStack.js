@@ -1,17 +1,19 @@
+import Appearance from "@screens/profile/appearance"
+import {CardStyleInterpolators} from "@react-navigation/stack"
+import CreateNews from "@screens/post/createNews"
+import Detail from "@screens/home/detail"
+import EditProfile from "@screens/profile/editProfile"
+import HomeTabs from "./homeTabs"
+import ManagerRss from "@screens/profile/managerRss"
+import ProfileSettings from "@screens/profile/profileSettings"
 import React from "react"
+import Search from "@screens/search/search"
+import SearchFound from "@screens/search/searchFound"
+import SearchRss from "@screens/home/searchRss"
+import Source from "@screens/home/source"
+import Topic from "@screens/home/topic"
 import {createStackNavigator} from "@react-navigation/stack"
 import {mainStack} from "@common/navigator"
-import HomeTabs from "./homeTabs"
-import Topic from "@screens/home/topic"
-import Source from "@screens/home/source"
-import Detail from "@screens/home/detail"
-import ProfileSettings from "@screens/profile/profileSettings"
-import EditProfile from "@screens/profile/editProfile"
-import Appearance from "@screens/profile/appearance"
-import CreateNews from "@screens/post/createNews"
-import Search from "../screens/search/search"
-import {CardStyleInterpolators} from "@react-navigation/stack"
-import SearchFound from "../screens/search/searchFound"
 import {useTheme} from "@react-navigation/native"
 
 const Stack = createStackNavigator()
@@ -63,6 +65,11 @@ const MainStack = () => {
       />
       <Stack.Screen
         options={{headerShown: false}}
+        name={mainStack.managerRss}
+        component={ManagerRss}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
         name={mainStack.appearance}
         component={Appearance}
       />
@@ -82,6 +89,12 @@ const MainStack = () => {
         options={{headerShown: false}}
         name={mainStack.searchFound}
         component={SearchFound}
+      />
+      {/* search rss */}
+      <Stack.Screen
+        options={{headerShown: false}}
+        name={mainStack.searchRss}
+        component={SearchRss}
       />
     </Stack.Navigator>
   )

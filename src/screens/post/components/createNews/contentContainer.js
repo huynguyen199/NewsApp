@@ -1,11 +1,13 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import {useTheme} from "@react-navigation/native"
-import HelperText from "@components/helperText"
-import {contentContraints} from "@common/validator"
-import Input from "@components/input"
+import {StyleSheet, Text, View} from "react-native"
+
 import {Controller} from "react-hook-form"
+import HelperText from "@components/helperText"
+import Input from "@components/input"
+import React from "react"
+import {contentContraints} from "@common/validator"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const ContentContainer = ({control, errors}) => {
   const {colors} = useTheme()
@@ -24,6 +26,7 @@ const ContentContainer = ({control, errors}) => {
             placeholder={"Type News/Article Here..."}
             style={styles.inputStyle}
             multiline={true}
+            placeholderTextColor={colors.grey}
             containerStyle={styles.inputContainerStyle}
           />
         )}
@@ -57,8 +60,9 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
+      color: colors.black,
     },
   })
 

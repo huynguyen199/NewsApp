@@ -1,8 +1,8 @@
+import AuthStack from "./authStack"
+import MainStack from "./mainStack"
 import React from "react"
 import {createStackNavigator} from "@react-navigation/stack"
-import AuthStack from "./authStack"
-import {rootSwitch} from "../common/navigator"
-import MainStack from "./mainStack"
+import {rootSwitch} from "@common/navigator"
 
 const Stack = createStackNavigator()
 

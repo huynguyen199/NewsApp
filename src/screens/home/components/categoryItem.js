@@ -1,8 +1,10 @@
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import React, {useContext} from "react"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+
 import {HomeContext} from "@context/home"
+import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const CategoryItem = ({item, setArticle, setLastDocument}) => {
   const {colors} = useTheme()
@@ -29,7 +31,9 @@ const CategoryItem = ({item, setArticle, setLastDocument}) => {
               ? styles.txtTitle
               : styles.txtTitleOutline
           }>
-          {item.name}
+          {item.name.length > 12
+            ? item.name.substring(0, 12) + "..."
+            : item.name}
         </Text>
       </View>
     </TouchableOpacity>
@@ -37,8 +41,12 @@ const CategoryItem = ({item, setArticle, setLastDocument}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtTitle: {color: colors.white, fontFamily: fonts.bold},
-    txtTitleOutline: {color: colors.lightRed, fontFamily: fonts.bold},
+    txtTitle: {color: colors.white, fontFamily: fonts.bold, fontSize: sizes.h3},
+    txtTitleOutline: {
+      color: colors.lightRed,
+      fontFamily: fonts.bold,
+      fontSize: sizes.h3,
+    },
     container: {
       backgroundColor: colors.lightRed,
       paddingVertical: 10,

@@ -1,11 +1,13 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
+import {StyleSheet, Text, View} from "react-native"
+
 import {Controller} from "react-hook-form"
-import Input from "../../../../components/input"
-import HelperText from "../../../../components/helperText"
+import HelperText from "@components/helperText"
+import Input from "@components/input"
+import React from "react"
+import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
-import {websiteContraints} from "../../../../common/validator"
-import fonts from "../../../../assets/fonts"
+import {websiteContraints} from "@common/validator"
 
 const WebsiteContainer = ({control, errors}) => {
   const {colors} = useTheme()
@@ -43,7 +45,7 @@ const makeStyles = (colors) =>
     inputContainerStyle: {marginTop: 5},
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
       color: colors.black,
     },

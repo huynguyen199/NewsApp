@@ -1,14 +1,15 @@
 import {
-  View,
-  Text,
   ImageBackground,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native"
-import React from "react"
+
 import CheckBox from "@react-native-community/checkbox"
-import {useTheme} from "@react-navigation/native"
+import React from "react"
 import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const TopicItem = ({
   item,
@@ -55,12 +56,18 @@ const TopicItem = ({
 const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {
-      color: "white",
+      color: colors.white,
       alignSelf: "flex-end",
       margin: 15,
       fontFamily: fonts.bold,
     },
-    boxTextRow: {flex: 1, flexDirection: "row"},
+    boxTextRow: {
+      flexDirection: "row",
+      backgroundColor: "#000000c0",
+      bottom: 0,
+      position: "absolute",
+      width: "100%",
+    },
     styleCheckBox: {
       alignSelf: "flex-end",
       margin: 10,

@@ -1,7 +1,9 @@
-import {View, Text, StyleSheet, Image} from "react-native"
+import {Image, StyleSheet, Text, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const LeftComponent = () => {
   const {colors} = useTheme()
@@ -14,7 +16,7 @@ const LeftComponent = () => {
           uri: "https://www.patentlyapple.com/.a/6a0120a5580826970c01b7c8b154b7970b-pi",
         }}
       />
-      <Text style={styles.txtTitle}>News</Text>
+      <Text style={styles.txtTitle}>My Post</Text>
     </View>
   )
 }
@@ -24,7 +26,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       color: colors.black,
       fontFamily: fonts.bold,
-      fontSize: 20,
+      fontSize: sizes.h1,
       marginLeft: 10,
     },
     container: {

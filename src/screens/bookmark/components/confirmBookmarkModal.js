@@ -1,16 +1,18 @@
-import {View, Text, Dimensions, StyleSheet} from "react-native"
-import React from "react"
-import {Portal} from "react-native-portalize"
-import {Modalize} from "react-native-modalize"
-import {useTheme} from "@react-navigation/native"
+import {Dimensions, StyleSheet, Text, View} from "react-native"
+
 import ArticleItem from "./articleItem"
 import Button from "@components/button"
-import fonts from "@assets/fonts"
-import {deleteBookmarkById} from "../../../services/bookmark"
-import Toast from "react-native-toast-message"
 import {Ionicons} from "@common/icon"
+import {Modalize} from "react-native-modalize"
+import {Portal} from "react-native-portalize"
+import React from "react"
+import Toast from "react-native-toast-message"
+import {deleteBookmarkById} from "@services/bookmark"
+import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
-const {height} = Dimensions.get("window")
+const {width, height} = Dimensions.get("window")
 
 const ConfirmBookmarkModal = ({
   bookmarkRef,
@@ -47,9 +49,8 @@ const ConfirmBookmarkModal = ({
     <Portal>
       <Modalize
         handlePosition={"inside"}
-        modalHeight={height / 2.2}
+        modalHeight={width / 1.2}
         modalStyle={styles.optionModalStyle}
-        // rootStyle={{alignItems: "center"}}
         ref={bookmarkRef}>
         <View style={styles.container}>
           <ArticleItem
@@ -65,11 +66,15 @@ const ConfirmBookmarkModal = ({
               containerStyle={styles.containerStyleCancel}
               textStyle={{
                 color: colors.lightRed,
+                fontSize: sizes.h3,
               }}
               title="Cancel"
               onPress={hideBookmarkModal}
             />
             <Button
+              textStyle={{
+                fontSize: sizes.h3,
+              }}
               containerStyle={styles.containerStyleRemove}
               onPress={onAcceptRemoveBookmark}
               title="Yes, Remove"
@@ -83,35 +88,40 @@ const ConfirmBookmarkModal = ({
 
 const makeStyles = (colors) =>
   StyleSheet.create({
+    optionModalStyle: {borderTopRightRadius: 20, borderTopLeftRadius: 20},
     containerStyleRemove: {
-      width: 160,
+      width: 150,
       marginLeft: 10,
       borderWidth: 1,
       borderColor: colors.lightRed,
     },
     containerStyleCancel: {
-      width: 160,
+      width: 150,
       marginRight: 10,
       borderWidth: 1,
       backgroundColor: colors.white,
       borderColor: colors.lightRed,
     },
-    boxButtonRow: {flexDirection: "row", marginTop: 20},
+    boxButtonRow: {
+      flexDirection: "row",
+      marginTop: 20,
+      justifyContent: "center",
+    },
     txtTitle: {
       color: colors.black,
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h3 + 2,
       marginTop: 20,
+      textAlign: "center",
     },
     container: {
-      height: height / 2.2,
+      height: height / 1.8,
       backgroundColor: colors.white,
-      alignItems: "center",
-      justifyContent: "center",
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
+      marginTop: 5,
     },
-    containerStyleHeader: {marginTop: 10, backgroundColor: null},
+    containerStyleHeader: {marginTop: 10},
   })
 
 export default ConfirmBookmarkModal

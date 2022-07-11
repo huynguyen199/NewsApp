@@ -1,32 +1,33 @@
+import {Divider, Icon} from "@rneui/themed"
 import {
-  View,
   ImageBackground,
-  StyleSheet,
   ScrollView,
-  TouchableOpacity,
   StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from "react-native"
 import React, {useEffect, useState} from "react"
-import Header from "@components/header"
-import LeftComponent from "./components/editProfile/leftComponent"
-import fonts from "@assets/fonts"
-import {useNavigation, useTheme} from "@react-navigation/native"
-import Button from "@components/button"
-import {useForm} from "react-hook-form"
-import {launchImageLibrary} from "@utils/imagePicker"
-import {Divider, Icon} from "@rneui/themed"
-import useAuth from "@hooks/useAuth"
 import {findUserById, updateUser} from "@services/user"
 import {getImageByFileName, uploadImageByUri} from "@services/image"
-import SuccessDialog from "@components/successDialog"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
+import AboutContainer from "./components/editProfile/aboutContainer"
+import Button from "@components/button"
+import EmailContainer from "./components/editProfile/emailContainer"
+import Header from "@components/header"
+import LeftComponent from "./components/editProfile/leftComponent"
 import LoadingDialog from "@components/loadingDialog"
-import {homeTabs} from "@common/navigator"
 import {Material} from "@common/icon"
 import NameContainer from "./components/editProfile/nameContainer"
 import PhoneContainer from "./components/editProfile/phoneContainer"
-import EmailContainer from "./components/editProfile/emailContainer"
-import AboutContainer from "./components/editProfile/aboutContainer"
+import SuccessDialog from "@components/successDialog"
 import WebsiteContainer from "./components/editProfile/websiteContainer"
+import fonts from "@assets/fonts"
+import {homeTabs} from "@common/navigator"
+import {launchImageLibrary} from "@utils/imagePicker"
+import useAuth from "@hooks/useAuth"
+import {useForm} from "react-hook-form"
 
 const EditProfile = () => {
   const {colors} = useTheme()
@@ -101,7 +102,7 @@ const EditProfile = () => {
     setValue("phoneNumber", profile.phoneNumber)
     setValue("email", profile.email)
     setValue("about", profile.about)
-    setValue("website", profile.about)
+    setValue("website", profile.website)
     setImage({...image, uri: profile.photoUrl})
   }
 
@@ -214,7 +215,11 @@ const makeStyles = (colors) =>
       right: 10,
       borderRadius: 20,
     },
-    imageStyle: {borderRadius: 120 / 2},
+    imageStyle: {
+      borderRadius: 120 / 2,
+      borderWidth: 1,
+      borderColor: colors.black,
+    },
     styleBackground: {width: 120, height: 120},
     boxInfo: {
       justifyContent: "center",

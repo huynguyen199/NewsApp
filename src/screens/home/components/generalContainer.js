@@ -1,13 +1,12 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import Header from "@components/header"
-import fonts from "../../../assets/fonts"
-import {useTheme} from "@react-navigation/native"
-import SearchContainer from "./searchContainer"
-import FeaturedContainer from "./featuredContainer"
+import {StyleSheet, Text, View} from "react-native"
+
 import CategoryList from "./categoryList"
-import LeftComponent from "./leftComponent"
-import RightComponent from "./rightComponent"
+import FeaturedContainer from "./featuredContainer"
+import React from "react"
+import SearchContainer from "./searchContainer"
+import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const GeneralContainer = ({
   articleFeatured,
@@ -19,11 +18,6 @@ const GeneralContainer = ({
   const styles = makeStyles(colors)
   return (
     <View>
-      {/* <Header
-        containerStyle={styles.containerStyleHeader}
-        leftComponent={<LeftComponent />}
-        rightComponent={<RightComponent />}
-      /> */}
       <SearchContainer />
       <FeaturedContainer articleFeatured={articleFeatured} />
       <Text style={styles.txtLabel}>News</Text>
@@ -42,7 +36,7 @@ const makeStyles = (colors) =>
     containerStyleHeader: {marginTop: 10},
     txtLabel: {
       fontFamily: fonts.bold,
-      fontSize: 20,
+      fontSize: sizes.h1,
       color: colors.black,
       margin: 10,
     },

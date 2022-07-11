@@ -4,9 +4,7 @@ export const addPost = async (data) => {
   firestore()
     .collection("post")
     .add(data)
-    .then(() => {
-      console.log("User added!")
-    })
+    .then(() => {})
 }
 
 export const updatePost = async (id, data) => {
@@ -14,9 +12,7 @@ export const updatePost = async (id, data) => {
     .collection("post")
     .doc(id)
     .update(data)
-    .then(() => {
-      console.log("Post updated!")
-    })
+    .then(() => {})
 }
 
 export const deletePost = async (id) => {
@@ -24,9 +20,7 @@ export const deletePost = async (id) => {
     .collection("post")
     .doc(id)
     .delete()
-    .then(() => {
-      console.log("User deleted!")
-    })
+    .then(() => {})
 }
 
 export const findPostById = async (id) => {

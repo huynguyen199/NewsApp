@@ -1,6 +1,8 @@
-import {View, Text, StyleSheet} from "react-native"
+import {StyleSheet, Text, View} from "react-native"
+
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const SearchResultContainer = ({numberResults}) => {
@@ -16,7 +18,11 @@ const SearchResultContainer = ({numberResults}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     txtNumResult: {fontFamily: fonts.bold, color: colors.lightRed},
-    txtResult: {fontFamily: fonts.bold, color: colors.black},
+    txtResult: {
+      fontFamily: fonts.bold,
+      color: colors.black,
+      fontSize: sizes.h2,
+    },
     container: {
       flexDirection: "row",
       justifyContent: "space-between",

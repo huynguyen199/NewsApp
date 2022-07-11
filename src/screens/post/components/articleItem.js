@@ -1,10 +1,12 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
+import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
 import React from "react"
 import fonts from "@assets/fonts"
-import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "@common/icon"
-import {Icon} from "@rneui/themed"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
 
 const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
   const {colors} = useTheme()
@@ -48,7 +50,11 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
                 : item.user.fullName}
             </Text>
             <View style={styles.boxCategory}>
-              <Text style={styles.txtCategory}>{item.category.name}</Text>
+              <Text style={styles.txtCategory}>
+                {item.category?.name.length > 8
+                  ? item.category.name.substring(0, 8) + "..."
+                  : item.category.name}
+              </Text>
             </View>
           </View>
           <View style={styles.boxBottom}>
@@ -70,20 +76,17 @@ const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    optionIconStyle: {
-      marginRight: 5,
-    },
+    optionIconStyle: {},
     lottieStyle: {width: 50, height: 50},
     boxBottom: {
-      position: "absolute",
-      bottom: 0,
-      right: -5,
-      flexDirection: "row",
-      alignItems: "center",
+      flex: 1,
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,
       fontFamily: fonts.bold,
+      fontSize: sizes.h3,
     },
     boxCategory: {
       justifyContent: "center",
@@ -100,6 +103,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -113,12 +117,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,

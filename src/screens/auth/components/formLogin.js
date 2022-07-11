@@ -1,24 +1,26 @@
-import {View, Text, StyleSheet} from "react-native"
+import {Controller, useForm} from "react-hook-form"
 import React, {useEffect, useState} from "react"
-import Label from "./label"
-import HelperText from "@components/helperText"
+import {StyleSheet, Text, View} from "react-native"
+import {emailContraints, passwordContraints} from "@common/validator"
+import {getObject, storeObject} from "@utils/AsyncStore"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import Input from "@components/input"
+
 import Button from "@components/button"
+import CheckBox from "@react-native-community/checkbox"
 import EyeIcon from "./eyeIcon"
 import EyeOffIcon from "./eyeOffIcon"
-import CheckBox from "@react-native-community/checkbox"
-import {Controller, useForm} from "react-hook-form"
-import {mainStack} from "@common/navigator"
-import useAuth from "@hooks/useAuth"
-import {emailContraints, passwordContraints} from "@common/validator"
-import auth from "@react-native-firebase/auth"
-import SuccessDialog from "@components/successDialog"
 import FailedDialog from "@components/failedDialog"
-import {getObject, storeObject} from "@utils/AsyncStore"
+import HelperText from "@components/helperText"
+import Input from "@components/input"
+import Label from "./label"
 import LoadingDialog from "@components/loadingDialog"
-import fonts from "@assets/fonts"
+import SuccessDialog from "@components/successDialog"
+import auth from "@react-native-firebase/auth"
 import {findUserById} from "@services/user"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
+import useAuth from "@hooks/useAuth"
 
 const FormLogin = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
@@ -131,7 +133,11 @@ const FormLogin = () => {
   return (
     <>
       <View>
-        <Label style={styles.styleEmail} title={"Email"} />
+        <Label
+          style={styles.styleEmail}
+          textStyle={{fontSize: sizes.h2}}
+          title={"Email"}
+        />
         <Controller
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -153,7 +159,7 @@ const FormLogin = () => {
         style={styles.styleEmailHelper}
       />
       <View>
-        <Label title={"Password"} />
+        <Label textStyle={{fontSize: sizes.h2}} title={"Password"} />
         <Controller
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -193,7 +199,11 @@ const FormLogin = () => {
         />
         <Text style={styles.txtTitle}>Remember me</Text>
       </View>
-      <Button title={"Sign in"} onPress={handleSubmit(onSubmitForm)} />
+      <Button
+        textStyle={{fontSize: sizes.h2}}
+        title={"Sign in"}
+        onPress={handleSubmit(onSubmitForm)}
+      />
       {/* Dialog */}
       <SuccessDialog
         isVisible={dialog.isSuccess}
@@ -230,6 +240,7 @@ const makeStyles = (colors) =>
       fontFamily: fonts.bold,
       color: colors.red,
       marginLeft: 5,
+      fontSize: sizes.h3,
     },
     boxRow: {
       flexDirection: "row",

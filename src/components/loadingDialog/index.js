@@ -1,10 +1,11 @@
-import {View, Text, ActivityIndicator, StyleSheet} from "react-native"
-import React from "react"
-import Modal from "react-native-modal"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import {ActivityIndicator, StyleSheet, Text, View} from "react-native"
 
-const LoadingDialog = ({onBackdropPress, isVisible}) => {
+import Modal from "react-native-modal"
+import React from "react"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
+
+const LoadingDialog = ({onBackdropPress, isVisible, title}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -18,7 +19,7 @@ const LoadingDialog = ({onBackdropPress, isVisible}) => {
           <ActivityIndicator size={50} color={colors.lightRed} />
         </View>
         <View style={styles.boxTitle}>
-          <Text style={styles.txtTitle}>Please wait...</Text>
+          <Text style={styles.txtTitle}>{title ?? "Please wait..."}</Text>
         </View>
       </View>
     </Modal>

@@ -1,10 +1,12 @@
 import {StyleSheet, TouchableOpacity, View} from "react-native"
-import React from "react"
-import SearchBar from "@components/searchBar"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useNavigation, useTheme} from "@react-navigation/native"
+import React from "react"
+import SearchBar from "@components/searchBar"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../../assets/fonts"
 
 const SearchContainer = ({titleSearch}) => {
   const {colors} = useTheme()
@@ -12,7 +14,7 @@ const SearchContainer = ({titleSearch}) => {
   const navigation = useNavigation()
 
   const onMoveSearch = () => {
-    navigation.navigate(mainStack.search)
+    navigation.navigate(mainStack.search, {titleSearch})
   }
 
   return (
@@ -37,7 +39,7 @@ const SearchContainer = ({titleSearch}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    searchStyle: {color: "black"},
+    searchStyle: {color: "black", fontSize: sizes.h3},
     containerStyleSearch: {flex: 1},
     boxIcon: {
       backgroundColor: "rgba(252, 50, 50, 0.09)",

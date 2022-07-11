@@ -28,3 +28,31 @@ export const findSourceById = async (id) => {
   })
   return source
 }
+
+export const addSource = (data) => {
+  firestore()
+    .collection("source")
+    .add(data)
+    .then(() => {})
+}
+
+export const checkSourceExistsByName = async (name) => {
+  return await firestore()
+    .collection("source")
+    .where("name", "in", [name])
+    .get()
+    .then((querySnapshot) => querySnapshot.docs.length > 0)
+}
+
+export const findSourceIdByName = async (name) => {
+  const querySnapshot = await firestore()
+    .collection("source")
+    .where("name", "==", name)
+    .get()
+  let id
+  querySnapshot.forEach((documentSnapshot) => {
+    id = documentSnapshot.id
+  })
+  return id
+  // return category
+}

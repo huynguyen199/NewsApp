@@ -1,101 +1,94 @@
+import React, {useContext, useEffect, useState} from "react"
 import {RefreshControl, StatusBar, StyleSheet, View} from "react-native"
-import React, {useEffect, useState, useContext} from "react"
-import Loading from "./components/loading"
-import {HomeContext} from "../../context/home"
-import {getFirstOfSource} from "@services/article"
-import {getALlCategory} from "@services/category"
-import {useTheme} from "@react-navigation/native"
-import {addArticle, getAllArtcile, articleCollection} from "@services/article"
-import {randomIntFromInterval, wait} from "@utils/method"
-import fonts from "@assets/fonts"
-import ArticleList from "./components/articleList"
-import GeneralContainer from "./components/generalContainer"
-import {getALlSources} from "@services/source"
-import Header from "../../components/header"
-import LeftComponent from "./components/leftComponent"
-import RightComponent from "./components/rightComponent"
+import {
+  addNewArticleFromUser,
+  updateNewArticle,
+} from "../../utils/handleArticleRss"
+import {findUserById, getCurrentUserId} from "@services/user"
+import {
+  getAllArticleUserForToday,
+  getOneLastestArticle,
+} from "../../services/article"
 
-const url =
-  "https://newsapi.org/v2/top-headlines?apiKey=660c8bf81757424b9f90f8d7f2e41740&sources=abc-news,cnn,nbc-news,cbs-news,usa-today"
+import ArticleList from "./components/articleList"
+import BackgroundTimer from "react-native-background-timer"
+import GeneralContainer from "./components/generalContainer"
+import Header from "@components/header"
+import {HomeContext} from "@context/home"
+import LeftComponent from "./components/leftComponent"
+import Loading from "./components/loading"
+import RightComponent from "./components/rightComponent"
+import {articleCollection} from "@services/article"
+import auth from "@react-native-firebase/auth"
+import {categoryDefault} from "@utils/handleRss"
+import firestore from "@react-native-firebase/firestore"
+import fonts from "@assets/fonts"
+import {getALlCategory} from "@services/category"
+import {getALlSources} from "@services/source"
+import {useTheme} from "@react-navigation/native"
+import {wait} from "@utils/method"
 
 const Home = () => {
   const [article, setArticle] = useState([])
   const [isLoadingFooter, setIsLoadingFooter] = useState(false)
   const [lastDocument, setLastDocument] = useState()
   const [loading, setLoading] = useState(true)
-  const {selectCategoryId} = useContext(HomeContext)
+  const {selectCategoryId, setSelectCategoryId} = useContext(HomeContext)
   const [categoryList, setCategoryList] = useState([])
   const [articleFeatured, setArticleFeatured] = useState({})
   const [refreshing, setRefreshing] = useState(false)
+
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
   useEffect(() => {
-    fetchNewsApiAndAddNews()
+    const subscriber = auth().onAuthStateChanged(() => {
+      handleCategoryList()
+      handleFirstOfSource()
+      fetchArticle()
+    })
+    return subscriber // unsubscribe on unmount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const fetchNewsApiAndAddNews = async () => {
-    let page = 1
-    const articleData = await getAllArtcile()
+  useEffect(() => {
+    const delay = 30000
+    BackgroundTimer.setInterval(async () => {
+      updateArticleEveryTwoHours()
+    }, delay)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    const dateLastest = new Date(articleData[0].publishedAt.toDate())
+  const updateArticleEveryTwoHours = async () => {
+    const data = await getOneLastestArticle()
 
-    const endDate = new Date(dateLastest)
-    endDate.setHours(endDate.getHours() + 3)
-    const currDate = new Date()
+    const dateOfLastArticle = new Date(data.publishedAt.toDate())
 
-    if (currDate > endDate) {
-      const articlesTitle = articleData.map((item) => item.title)
+    dateOfLastArticle.setMinutes(dateOfLastArticle.getMinutes() + 30)
+    const curr = new Date()
+    // check aritcle after 1 hour to handle
+    if (curr > dateOfLastArticle) {
+      const articleToday = await getAllArticleUserForToday("default")
+      await updateNewArticle(articleToday)
+      await checkAndUpdateNewsArticleFromLink()
+    }
+  }
 
-      while (true) {
-        const newsApiResult = await fetch(url + `&page=${page}`).then(
-          (response) => response.json(),
-        )
-        const newsApiData = newsApiResult.articles
-        if (articlesTitle.length === 0) {
-          return addAllArticle(newsApiData)
+  const checkAndUpdateNewsArticleFromLink = async () => {
+    const userId = await getCurrentUserId()
+    if (userId) {
+      const user = await findUserById(userId)
+      if ("links" in user) {
+        const links = user.links
+        for (const link of links) {
+          await addNewArticleFromUser(link, userId)
         }
-        if (newsApiData.length === 0) {
-          return
-        }
-        const arrAfterRemoveSameTitle = await newsApiData.filter(
-          (item) => !articlesTitle.includes(item.title),
-        )
-
-        if (arrAfterRemoveSameTitle.length !== 0) {
-          addAllArticle(arrAfterRemoveSameTitle)
-        }
-        page++
       }
     }
   }
 
-  const addAllArticle = async (arr) => {
-    const categories = await getALlCategory()
-
-    const rndInt = randomIntFromInterval(1, 6)
-    // const categories
-
-    arr.forEach((item) => {
-      const data = {
-        sourceId: item.source.id,
-        author: item.author,
-        title: item.title,
-        description: item.description,
-        url: item.url,
-        urlToImage: item.urlToImage,
-        content: item.content,
-        publishedAt: new Date(item.publishedAt),
-        categoryId: categories[rndInt].id,
-      }
-      addArticle(data)
-    })
-  }
-
   useEffect(() => {
     onChangeFilterCategory(selectCategoryId)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectCategoryId])
 
@@ -107,22 +100,51 @@ const Home = () => {
     }
   }
 
-  useEffect(() => {
-    handleCategoryList()
-    handleFirstOfSource()
-    fetchArticle()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const handleCategoryList = async () => {
-    const data = await getALlCategory()
+    let data = await getALlCategory()
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      const user = await findUserById(userId)
+      const links = user.links
+      links
+        ? (data = data.filter(
+            (item) =>
+              links.includes(item.url) ||
+              // item.url.includes("vnexpress")
+              categoryDefault.includes(item.url),
+          ))
+        : (data = data.filter((item) => categoryDefault.includes(item.url)))
+    } else {
+      // data = data.filter((item) => item.url.includes("vnexpress"))
+      data = data.filter((item) => categoryDefault.includes(item.url))
+    }
     setCategoryList(data)
   }
 
   const handleFirstOfSource = async () => {
-    const result = await getFirstOfSource()
-    setArticleFeatured(result)
+    const userId = await getCurrentUserId()
+    let query = firestore().collection("article").orderBy("publishedAt", "desc")
+
+    if (userId) {
+      query = query.where("userId", "in", ["default", userId])
+    } else {
+      query = query.where("userId", "==", "default")
+    }
+
+    await query
+      .limit(1)
+      .get()
+      .then((snapshot) => {
+        let result
+        snapshot.forEach((documentSnapshot) => {
+          result = {
+            ...documentSnapshot.data(),
+            id: documentSnapshot.id,
+          }
+        })
+        setArticleFeatured(result)
+      })
   }
 
   const onEndReachedArticle = () => {
@@ -133,16 +155,26 @@ const Home = () => {
     }
   }
 
-  const fetchArticleByCategoryId = (id) => {
+  const fetchArticleByCategoryId = async (id) => {
     let query = articleCollection
+
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      query = query.where("userId", "in", ["default", userId])
+    } else {
+      query = query.where("userId", "in", ["default"])
+    }
+
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
     }
+
     query
-      .limit(10)
       .where("categoryId", "==", id)
-      // .get()
-      .onSnapshot((querySnapshot) => {
+      .limit(10)
+      .get()
+      .then((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
         }
@@ -153,29 +185,36 @@ const Home = () => {
       })
   }
 
-  const fetchArticle = () => {
-    let query = articleCollection.orderBy("publishedAt", "desc")
+  const fetchArticle = async () => {
+    let query = firestore().collection("article").orderBy("publishedAt", "desc")
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      query = query.where("userId", "in", ["default", userId])
+    } else {
+      query = query.where("userId", "in", ["default"])
+    }
 
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
     }
+
     query
       .limit(10)
-      // .get()
-      .onSnapshot((querySnapshot) => {
+      .get()
+      .then((snapshot) => {
         if (article.length > 2) {
-          setIsLoadingFooter(querySnapshot.docs.length !== 0)
+          setIsLoadingFooter(snapshot.docs.length !== 0)
         }
-        if (querySnapshot.docs.length === 0) {
+        if (snapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
         }
         setIsLoadingFooter(article.length !== 0)
 
-        setLastDocument(querySnapshot.docs[querySnapshot.docs.length - 1])
-        makeArticleData(querySnapshot.docs)
+        setLastDocument(snapshot.docs[snapshot.docs.length - 1])
+        makeArticleData(snapshot.docs)
       })
   }
-
   const makeArticleData = async (docs) => {
     const data = []
     docs.forEach((documentSnapshot) => {
@@ -188,6 +227,10 @@ const Home = () => {
     let articleData = [...article]
     const categoryArr = await getALlCategory()
     const sourceArr = await getALlSources()
+
+    if (refreshing) {
+      articleData = []
+    }
 
     //filter new array
     for (let i = 0; i < data.length; i++) {
@@ -212,16 +255,16 @@ const Home = () => {
     setRefreshing(true)
     setLoading(true)
     wait(2000).then(() => {
-      setArticle([])
-      setLastDocument()
-      if (selectCategoryId === "all") {
-        fetchArticle()
-      } else {
-        fetchArticleByCategoryId(selectCategoryId)
-      }
+      handleCategoryList()
       handleFirstOfSource()
+      setSelectCategoryId("all")
+      // setArticle([])
+      setLastDocument()
+      fetchArticle()
+
       setRefreshing(false)
     })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

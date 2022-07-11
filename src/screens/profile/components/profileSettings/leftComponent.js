@@ -1,8 +1,10 @@
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
-import {Icon} from "@rneui/themed"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import fonts from "../../../../assets/fonts"
+
+import {Icon} from "@rneui/themed"
+import React from "react"
+import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 
 const LeftComponent = () => {
   const {colors} = useTheme()
@@ -32,7 +34,7 @@ const LeftComponent = () => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     txtTitle: {
-      fontSize: 20,
+      fontSize: sizes.h1,
       color: colors.black,
       fontFamily: fonts.bold,
       marginLeft: 10,

@@ -1,11 +1,14 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React from "react"
-import fonts from "@assets/fonts"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "@common/icon"
+
 import {Icon} from "@rneui/themed"
-import {mainStack} from "@common/navigator"
+import {Ionicons} from "@common/icon"
+import {RFPercentage} from "react-native-responsive-fontsize"
+import React from "react"
 import _ from "lodash"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
+import {sizes} from "@assets/fonts"
 
 const ArticleItem = ({
   item,
@@ -62,7 +65,11 @@ const ArticleItem = ({
             </Text>
 
             <View style={styles.boxCategory}>
-              <Text style={styles.txtCategory}>{item.category?.name}</Text>
+              <Text style={styles.txtCategory}>
+                {item.category?.name.length > 7
+                  ? item.category.name.substring(0, 8) + "..."
+                  : item.category?.name}
+              </Text>
             </View>
           </View>
           <View style={styles.boxBottom}>
@@ -72,7 +79,7 @@ const ArticleItem = ({
                 color={colors.lightRed}
                 style={styles.optionIconStyle}
                 type="ionicon"
-                size={25}
+                size={RFPercentage(3)}
               />
             </TouchableOpacity>
             {/* </View> */}
@@ -89,15 +96,12 @@ const makeStyles = (colors) =>
     },
     lottieStyle: {width: 50, height: 50},
     boxBottom: {
-      position: "absolute",
-      bottom: 0,
-      right: -5,
-      flexDirection: "row",
-      alignItems: "center",
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,
       fontFamily: fonts.bold,
+      fontSize: sizes.h3,
     },
     boxCategory: {
       justifyContent: "center",
@@ -114,6 +118,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -127,12 +132,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,
@@ -141,7 +146,6 @@ const makeStyles = (colors) =>
       borderBottomLeftRadius: 20,
     },
     container: {
-      backgroundColor: colors.white,
       margin: 10,
       flexDirection: "row",
       borderRadius: 20,

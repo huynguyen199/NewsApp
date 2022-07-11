@@ -1,9 +1,11 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
+import {StyleSheet, Text, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Dimensions} from "react-native"
+import React from "react"
 import {authStack} from "@common/navigator"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
 
 const {height} = Dimensions.get("window")
 
@@ -35,11 +37,13 @@ const makeStyles = (colors) =>
     txtTitle: {
       fontFamily: fonts.regular,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     container: {
-      marginTop: height / 20 - 20,
+      marginTop: height / 20 - 30,
       justifyContent: "center",
       alignItems: "center",
+      marginBottom: 10,
     },
   })
 export default WithoutAccountButton

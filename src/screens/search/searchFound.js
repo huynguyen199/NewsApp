@@ -1,19 +1,22 @@
 //components
-import {View, StyleSheet, FlatList} from "react-native"
+import {FlatList, StyleSheet, View} from "react-native"
 import React, {useCallback, useEffect, useState} from "react"
+import {findUserById, getCurrentUserId} from "../../services/user"
+import {useRoute, useTheme} from "@react-navigation/native"
+
+import ArticleItem from "./components/searchFound/articleItem"
+import CategoryList from "./components/searchFound/categoryList"
 import Header from "@components/header"
 import LeftComponent from "./components/searchFound/leftComponent"
-import {useRoute, useTheme} from "@react-navigation/native"
-import SearchContainer from "./components/searchFound/searchContainer"
-import CategoryList from "./components/searchFound/categoryList"
-import ArticleItem from "./components/searchFound/articleItem"
-import ListFooterComponent from "./components/searchFound/listFooterComponent"
-import SearchResultContainer from "./components/searchFound/searchResultContainer"
 import ListEmptyComponent from "./components/searchFound/listEmptyComponent"
+import ListFooterComponent from "./components/searchFound/listFooterComponent"
+import SearchContainer from "./components/searchFound/searchContainer"
+import SearchResultContainer from "./components/searchFound/searchResultContainer"
+import {articleCollection} from "@services/article"
+import {categoryDefault} from "../../utils/handleRss"
 //services
 import {getALlCategory} from "@services/category"
 import {getALlSources} from "@services/source"
-import {articleCollection} from "@services/article"
 
 const SearchFound = () => {
   const {colors} = useTheme()
@@ -47,23 +50,46 @@ const SearchFound = () => {
   }, [])
 
   const getCategoryList = async () => {
-    const result = await getALlCategory()
-    setCategories(result)
+    let data = await getALlCategory()
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      const user = await findUserById(userId)
+      const links = user.links
+      links
+        ? (data = data.filter(
+            (item) =>
+              links.includes(item.url) ||
+              // item.url.includes("vnexpress")
+              categoryDefault.includes(item.url),
+          ))
+        : (data = data.filter((item) => categoryDefault.includes(item.url)))
+    } else {
+      // data = data.filter((item) => item.url.includes("vnexpress"))
+      data = data.filter((item) => categoryDefault.includes(item.url))
+    }
+    setCategories(data)
   }
 
-  const fetchArticle = () => {
+  const fetchArticle = async () => {
     let query = articleCollection.orderBy("title")
+    const userId = await getCurrentUserId()
+
+    if (userId) {
+      query = query.where("userId", "in", [userId, "default"])
+    } else {
+      query = query.where("userId", "==", "default")
+    }
 
     if (lastDocument !== undefined) {
       query = query.startAfter(lastDocument)
     }
 
     query
-      .startAt(titleSearch)
-      .endAt(titleSearch + "\uf8ff")
-      .limit(6)
-      .get()
-      .then((querySnapshot) => {
+      .where("title", ">=", titleSearch)
+      .where("title", "<=", titleSearch + "\uf8ff")
+      .limit(10)
+      .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return
         }
@@ -84,7 +110,7 @@ const SearchFound = () => {
       .startAt(titleSearch)
       .endAt(titleSearch + "\uf8ff")
       .where("categoryId", "==", id)
-      .limit(6)
+      .limit(10)
       .onSnapshot((querySnapshot) => {
         if (querySnapshot.docs.length === 0) {
           return setIsLoadingFooter(false)
@@ -132,9 +158,9 @@ const SearchFound = () => {
     setArticle([])
     setLastDocument()
   }
-  const onEndReachedArticle = () => {
+  const onEndReachedArticle = async () => {
     selectCategoryId === "all"
-      ? fetchArticle()
+      ? await fetchArticle()
       : fetchArticleByCategoryId(selectCategoryId)
   }
 

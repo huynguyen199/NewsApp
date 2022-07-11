@@ -1,9 +1,10 @@
-import {Text, Image, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import {Image, StyleSheet, Text, TouchableOpacity} from "react-native"
 
-const SocicalButton = ({onPress, containerStyle, uri}) => {
+import React from "react"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
+
+const SocicalButton = ({onPress, containerStyle, uri, title}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
 
@@ -17,7 +18,7 @@ const SocicalButton = ({onPress, containerStyle, uri}) => {
           uri,
         }}
       />
-      <Text style={styles.txtTitle}>Facebook</Text>
+      <Text style={styles.txtTitle}>{title}</Text>
     </TouchableOpacity>
   )
 }

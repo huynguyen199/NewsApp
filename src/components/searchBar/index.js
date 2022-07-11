@@ -1,12 +1,20 @@
-import {View, TextInput, StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
-import {Ionicons} from "@common/icon"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import {StyleSheet, TextInput, TouchableOpacity, View} from "react-native"
+
 import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
+import React from "react"
+import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const SearchBar = (props) => {
-  const {containerStyle, rightComponent, hasClearButton, onClearText} = props
+  const {
+    containerStyle,
+    rightComponent,
+    hasClearButton,
+    onClearText,
+    containerStyleClear,
+  } = props
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
@@ -17,7 +25,7 @@ const SearchBar = (props) => {
       {hasClearButton && props.value.length > 0 && (
         <TouchableOpacity
           onPress={onClearText}
-          style={styles.containerTouchable}>
+          style={[styles.containerTouchable, containerStyleClear]}>
           <Icon
             name={Ionicons.closeCircle}
             color={colors.grey}
@@ -26,8 +34,9 @@ const SearchBar = (props) => {
           />
         </TouchableOpacity>
       )}
-
-      <View style={styles.rightBox}>{rightComponent}</View>
+      {hasClearButton && props.value.length === 0 && (
+        <View style={styles.rightBox}>{rightComponent}</View>
+      )}
     </View>
   )
 }
@@ -46,6 +55,7 @@ const makeStyles = (colors) =>
       marginLeft: 15,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     container: {
       backgroundColor: colors.ghostWhite,

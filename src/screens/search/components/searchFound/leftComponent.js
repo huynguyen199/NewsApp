@@ -1,9 +1,11 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
-import React from "react"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useNavigation, useTheme} from "@react-navigation/native"
+import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 
 const LeftComponent = () => {
   const {colors} = useTheme()
@@ -34,7 +36,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       color: colors.black,
       fontFamily: fonts.bold,
-      fontSize: 20,
+      fontSize: sizes.h1,
       marginLeft: 8,
     },
     boxRow: {flexDirection: "row", alignItems: "center"},

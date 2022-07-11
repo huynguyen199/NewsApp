@@ -1,21 +1,23 @@
-import {View, StyleSheet} from "react-native"
-import React, {useState} from "react"
-import {useNavigation, useTheme} from "@react-navigation/native"
-import EyeOffIcon from "./eyeOffIcon"
 import {Controller, useForm} from "react-hook-form"
-import HelperText from "@components/helperText"
+import React, {useState} from "react"
+import {StyleSheet, View} from "react-native"
+import {createUser, findUserById} from "@services/user"
+import {emailContraints, passwordContraints} from "@common/validator"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import Button from "@components/button"
 import EyeIcon from "./eyeIcon"
-import {emailContraints, passwordContraints} from "@common/validator"
-import Label from "./label"
-import Input from "@components/input"
-import auth from "@react-native-firebase/auth"
-import SuccessDialog from "@components/successDialog"
+import EyeOffIcon from "./eyeOffIcon"
 import FailedDialog from "@components/failedDialog"
+import HelperText from "@components/helperText"
+import Input from "@components/input"
+import Label from "./label"
 import LoadingDialog from "@components/loadingDialog"
-import {createUser, findUserById} from "@services/user"
-import useAuth from "@hooks/useAuth"
+import SuccessDialog from "@components/successDialog"
+import auth from "@react-native-firebase/auth"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../../assets/fonts"
+import useAuth from "@hooks/useAuth"
 
 const FormRegister = () => {
   const [isVisible, setIsVisible] = useState(true)
@@ -126,7 +128,11 @@ const FormRegister = () => {
   return (
     <>
       <View>
-        <Label style={styles.styleEmail} title={"Email"} />
+        <Label
+          style={styles.styleEmail}
+          textStyle={{fontSize: sizes.h2}}
+          title={"Email"}
+        />
         <Controller
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -148,7 +154,7 @@ const FormRegister = () => {
         style={styles.styleEmailHelper}
       />
       <View>
-        <Label title={"Password"} />
+        <Label textStyle={{fontSize: sizes.h2}} title={"Password"} />
         <Controller
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -179,7 +185,11 @@ const FormRegister = () => {
       />
 
       <View style={styles.boxButtonSignUp}>
-        <Button title={"Sign up"} onPress={handleSubmit(onSubmitForm)} />
+        <Button
+          textStyle={{fontSize: sizes.h2}}
+          title={"Sign up"}
+          onPress={handleSubmit(onSubmitForm)}
+        />
       </View>
       <SuccessDialog
         isVisible={dialog.isSuccess}

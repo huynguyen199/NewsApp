@@ -1,32 +1,35 @@
 // Components
-import {View, Text, ScrollView, Dimensions, StyleSheet} from "react-native"
+import {Dimensions, ScrollView, StyleSheet, Text, View} from "react-native"
 import React, {useEffect, useRef, useState} from "react"
-import Header from "@components/header"
-import LeftComponent from "./components/createNews/leftComponent"
-import {useNavigation, useRoute, useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
-import {Divider} from "@rneui/themed"
-import TitleContainer from "./components/createNews/titleContainer"
-import {useForm} from "react-hook-form"
-import Button from "@components/button"
-import CategoryContainer from "./components/createNews/categoryContainer"
-import ContentContainer from "./components/createNews/contentContainer"
-import TagsContainer from "./components/createNews/tagsContainer"
-import SelectedPhotoBox from "./components/createNews/selectedPhotoBox"
-import PhotoBox from "./components/createNews/photoBox"
-import SuccessDialog from "@components/successDialog"
-import FailedDialog from "@components/failedDialog"
-import TopicItem from "./components/createNews/topicItem"
-import {Modalize} from "react-native-modalize"
-import {launchImageLibrary} from "react-native-image-picker"
-import LoadingDialog from "@components/loadingDialog"
-import {homeTabs} from "@common/navigator"
+import {addPost, findPostById, updatePost} from "@services/post"
 // Services
 import {findCategoryById, getALlCategory} from "@services/category"
 import {getImageByFileName, uploadImageByUri} from "@services/image"
-import {addPost, findPostById, updatePost} from "@services/post"
-import useAuth from "../../hooks/useAuth"
-import {findUserById} from "../../services/user"
+import {useNavigation, useRoute, useTheme} from "@react-navigation/native"
+
+import Button from "@components/button"
+import CategoryContainer from "./components/createNews/categoryContainer"
+import ContentContainer from "./components/createNews/contentContainer"
+import {Divider} from "@rneui/themed"
+import FailedDialog from "@components/failedDialog"
+import Header from "@components/header"
+import LeftComponent from "./components/createNews/leftComponent"
+import LoadingDialog from "@components/loadingDialog"
+import {Modalize} from "react-native-modalize"
+import PhotoBox from "./components/createNews/photoBox"
+import SelectedPhotoBox from "./components/createNews/selectedPhotoBox"
+import SuccessDialog from "@components/successDialog"
+import TagsContainer from "./components/createNews/tagsContainer"
+import TitleContainer from "./components/createNews/titleContainer"
+import TopicItem from "./components/createNews/topicItem"
+import {categoryDefault} from "../../utils/handleRss"
+import {findUserById} from "@services/user"
+import fonts from "@assets/fonts"
+import {homeTabs} from "@common/navigator"
+import {launchImageLibrary} from "react-native-image-picker"
+import {sizes} from "../../assets/fonts"
+import useAuth from "@hooks/useAuth"
+import {useForm} from "react-hook-form"
 
 const {width, height} = Dimensions.get("window")
 
@@ -217,7 +220,9 @@ const CreateNews = () => {
   }
 
   const fetchCategory = async () => {
-    const data = await getALlCategory()
+    let data = await getALlCategory()
+    data = data.filter((item) => categoryDefault.includes(item.url))
+
     setCategories(data)
   }
 
@@ -281,6 +286,7 @@ const CreateNews = () => {
         <Button
           onPress={handleSubmit(onSubmitForm)}
           containerStyle={{width: width - 30}}
+          textStyle={{fontSize: sizes.h2}}
           title={articleId ? "Update Now" : "Publish Now"}
         />
       </View>
@@ -288,6 +294,7 @@ const CreateNews = () => {
         handlePosition={"inside"}
         modalHeight={height - 50}
         modalStyle={styles.categoryModalStyle}
+        handleStyle={{backgroundColor: colors.grey}}
         // rootStyle={{alignItems: "center"}}
         ref={categoryRef}
         flatListProps={{
@@ -327,11 +334,11 @@ const makeStyles = (colors) =>
     boxMarginForm: {marginHorizontal: 10},
     containerStyleHeader: {marginVertical: 10},
     txtTitle: {
-      fontSize: 20,
+      fontSize: sizes.h1,
       fontFamily: fonts.bold,
       color: colors.black,
     },
-    categoryModalStyle: {alignItems: "center"},
+    categoryModalStyle: {alignItems: "center", backgroundColor: colors.white},
     bottomContainer: {
       flex: 0.15,
       backgroundColor: colors.white,
@@ -342,6 +349,6 @@ const makeStyles = (colors) =>
       alignItems: "center",
       justifyContent: "center",
     },
-    container: {flex: 1, backgroundColor: "white"},
+    container: {flex: 1, backgroundColor: colors.white},
   })
 export default CreateNews

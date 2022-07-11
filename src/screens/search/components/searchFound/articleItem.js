@@ -1,15 +1,18 @@
-import {View, Text, Image, TouchableOpacity, StyleSheet} from "react-native"
-import React, {useRef, useState, useEffect} from "react"
-import fonts from "@assets/fonts"
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native"
+import React, {useEffect, useRef, useState} from "react"
+import {addBookmark, deleteBookmarkById} from "@services/bookmark"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
 import {Ionicons} from "@common/icon"
-import {mainStack} from "@common/navigator"
 import Lottie from "lottie-react-native"
+import Toast from "react-native-toast-message"
 import assets from "@assets"
 import auth from "@react-native-firebase/auth"
-import Toast from "react-native-toast-message"
-import {deleteBookmarkById, addBookmark} from "@services/bookmark"
 import firestore from "@react-native-firebase/firestore"
+import fonts from "@assets/fonts"
+import {mainStack} from "@common/navigator"
+import {shortString} from "../../../../utils/method"
+import {sizes} from "../../../../assets/fonts"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
@@ -35,6 +38,10 @@ const ArticleItem = ({item}) => {
               if (querySnapshot.docs.length > 0) {
                 setIsBookmark(true)
                 bookmarkRef.current?.play(0, 50)
+              } else {
+                bookmarkRef.current?.play(2, 0)
+                setIsBookmark(false)
+                return
               }
             })
       }
@@ -95,7 +102,9 @@ const ArticleItem = ({item}) => {
                 uri: item.source.image,
               }}
             />
-            <Text style={styles.txtBrand}>{item.source.name}</Text>
+            <Text style={styles.txtBrand}>
+              {shortString(item.source.name, 6)}
+            </Text>
             <View style={styles.boxCategory}>
               <Text style={styles.txtCategory}>
                 {item.category.name.length > 10
@@ -104,21 +113,18 @@ const ArticleItem = ({item}) => {
               </Text>
             </View>
           </View>
-          <TouchableOpacity onPress={onToggleBookmark} style={styles.boxBottom}>
-            {/* <Icon
-              name={Ionicons.bookmarkOutline}
-              color={colors.lightRed}
-              type="ionicon"
-              size={25}
-            /> */}
-            <Lottie
-              ref={bookmarkRef}
-              style={styles.lottieStyle}
-              source={assets.lottieFiles.bookmark}
-              autoPlay={false}
-              loop={false}
-            />
-          </TouchableOpacity>
+          <View style={styles.boxBottom}>
+            <TouchableOpacity>
+              <Lottie
+                onPress={onToggleBookmark}
+                ref={bookmarkRef}
+                style={styles.lottieStyle}
+                source={assets.lottieFiles.bookmark}
+                autoPlay={false}
+                loop={false}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -127,12 +133,11 @@ const ArticleItem = ({item}) => {
 const makeStyles = (colors) =>
   StyleSheet.create({
     boxBottom: {
-      position: "absolute",
-      bottom: -10,
-      right: -15,
+      alignItems: "flex-end",
     },
     txtCategory: {
       color: colors.lightRed,
+      fontSize: sizes.h3,
       fontFamily: fonts.bold,
     },
     boxCategory: {
@@ -150,6 +155,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -163,12 +169,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,
@@ -184,7 +190,7 @@ const makeStyles = (colors) =>
       borderWidth: 2,
       borderColor: colors.whiteSmoke,
     },
-    lottieStyle: {width: 50, height: 50},
+    lottieStyle: {width: 32, height: 32},
   })
 
 export default ArticleItem

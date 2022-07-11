@@ -1,6 +1,7 @@
-import {View, FlatList, StyleSheet} from "react-native"
-import React from "react"
+import {FlatList, StyleSheet, View} from "react-native"
+
 import CategoryItem from "./categoryItem"
+import React from "react"
 
 const CategoryList = ({
   data,
