@@ -5,6 +5,7 @@ import {useNavigation, useTheme} from "@react-navigation/native"
 import React from "react"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
 
 const SearchHistoryItem = ({item}) => {
   const {colors} = useTheme()
@@ -33,7 +34,7 @@ const SearchHistoryItem = ({item}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtTitle: {color: "black", fontFamily: fonts.regular},
+    txtTitle: {color: "black", fontFamily: fonts.regular, fontSize: sizes.h3},
     container: {
       backgroundColor: colors.whiteSmoke,
       paddingVertical: 5,

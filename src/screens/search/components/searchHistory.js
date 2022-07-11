@@ -11,6 +11,7 @@ import {Ionicons} from "@common/icon"
 import React from "react"
 import SearchHistoryItem from "./searchHistoryItem"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
 import {storeObject} from "@utils/AsyncStore"
 import {useTheme} from "@react-navigation/native"
 
@@ -52,7 +53,7 @@ const makeStyles = (colors) =>
       flexDirection: "row",
       flexWrap: "wrap",
     },
-    txtTitle: {color: colors.black, fontFamily: fonts.bold, fontSize: 18},
+    txtTitle: {color: colors.black, fontFamily: fonts.bold, fontSize: sizes.h2},
     boxSpaceBetween: {
       justifyContent: "space-between",
       alignItems: "center",

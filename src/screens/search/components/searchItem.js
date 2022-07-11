@@ -1,11 +1,13 @@
 import {StyleSheet, TouchableOpacity} from "react-native"
-import React from "react"
+import {getObject, storeObject} from "@utils/AsyncStore"
 import {useNavigation, useTheme} from "@react-navigation/native"
+
+import Highlighter from "react-native-highlight-words"
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import Highlighter from "react-native-highlight-words"
+import React from "react"
 import {mainStack} from "@common/navigator"
-import {getObject, storeObject} from "@utils/AsyncStore"
+import {sizes} from "../../../assets/fonts"
 
 const SearchItem = ({search, item}) => {
   const {colors} = useTheme()
@@ -50,8 +52,9 @@ const makeStyles = (colors) =>
     hightlightStyle: {
       color: colors.black,
       width: "90%",
+      fontSize: sizes.h3,
     },
-    txtHightlight: {fontWeight: "bold"},
+    txtHightlight: {fontWeight: "bold", fontSize: sizes.h3},
     container: {
       flexDirection: "row",
       justifyContent: "space-between",

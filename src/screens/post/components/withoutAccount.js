@@ -1,13 +1,15 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import Header from "@components/header"
-import LeftComponent from "./leftComponent"
+import {StyleSheet, Text, View} from "react-native"
 import {useNavigation, useTheme} from "@react-navigation/native"
-import {Ionicons} from "@common/icon"
-import {Icon} from "@rneui/themed"
-import fonts from "@assets/fonts"
+
 import Button from "@components/button"
+import Header from "@components/header"
+import {Icon} from "@rneui/themed"
+import {Ionicons} from "@common/icon"
+import LeftComponent from "./leftComponent"
+import React from "react"
+import fonts from "@assets/fonts"
 import {rootSwitch} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
 
 const WithoutAccount = () => {
   const {colors} = useTheme()
@@ -40,6 +42,7 @@ const WithoutAccount = () => {
         onPress={onMoveHome}
         containerStyle={styles.signInContainerStyle}
         title="Sign in Now"
+        textStyle={{fontSize: sizes.h2}}
       />
     </View>
   )
@@ -52,7 +55,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       fontFamily: fonts.bold,
       color: colors.lightRed,
-      fontSize: 20,
+      fontSize: sizes.h1,
       marginTop: 30,
     },
     boxIcon: {

@@ -1,10 +1,12 @@
 import {StyleSheet, View} from "react-native"
-import React from "react"
-import SearchBar from "@components/searchBar"
+
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
-import {useTheme} from "@react-navigation/native"
+import React from "react"
+import SearchBar from "@components/searchBar"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
   const {colors} = useTheme()
@@ -48,7 +50,11 @@ const SearchContainer = ({search, setSearch, setNews, duplicateNews}) => {
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    searchBarStyle: {color: "black", fontFamily: fonts.bold},
+    searchBarStyle: {
+      color: "black",
+      fontFamily: fonts.bold,
+      fontSize: sizes.h3,
+    },
     containerStyleSearch: {flex: 1, paddingHorizontal: 10},
     boxIcon: {
       backgroundColor: "rgba(252, 50, 50, 0.09)",

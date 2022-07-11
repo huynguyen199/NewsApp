@@ -11,6 +11,7 @@ import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
 
 const ArticleItem = ({item}) => {
   const {colors} = useTheme()
@@ -117,15 +118,17 @@ const ArticleItem = ({item}) => {
               </Text>
             </View>
           </View>
-          <TouchableOpacity onPress={onToggleBookmark} style={styles.boxBottom}>
-            <Lottie
-              ref={bookmarkRef}
-              style={styles.lottieStyle}
-              source={assets.lottieFiles.bookmark}
-              autoPlay={false}
-              loop={false}
-            />
-          </TouchableOpacity>
+          <View style={styles.boxBottom}>
+            <TouchableOpacity onPress={onToggleBookmark}>
+              <Lottie
+                ref={bookmarkRef}
+                style={styles.lottieStyle}
+                source={assets.lottieFiles.bookmark}
+                autoPlay={false}
+                loop={false}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -139,6 +142,7 @@ const makeStyles = (colors) =>
     txtCategory: {
       color: colors.lightRed,
       fontFamily: fonts.bold,
+      fontSize: sizes.h3,
     },
     boxCategory: {
       justifyContent: "center",
@@ -155,6 +159,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -168,12 +173,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,
@@ -189,7 +194,10 @@ const makeStyles = (colors) =>
       borderWidth: 2,
       borderColor: colors.whiteSmoke,
     },
-    lottieStyle: {width: 50, height: 50},
+    lottieStyle: {
+      height: 32,
+      width: 32,
+    },
   })
 
 export default ArticleItem

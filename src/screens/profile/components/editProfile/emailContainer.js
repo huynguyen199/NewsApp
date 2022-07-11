@@ -6,6 +6,7 @@ import Input from "@components/input"
 import React from "react"
 import {emailContraints} from "@common/validator"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const EmailContainer = ({control, errors}) => {
@@ -45,7 +46,7 @@ const makeStyles = (colors) =>
     inputContainerStyle: {marginTop: 5},
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
       color: colors.black,
     },

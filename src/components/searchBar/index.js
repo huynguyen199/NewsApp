@@ -4,6 +4,7 @@ import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const SearchBar = (props) => {
@@ -54,6 +55,7 @@ const makeStyles = (colors) =>
       marginLeft: 15,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     container: {
       backgroundColor: colors.ghostWhite,

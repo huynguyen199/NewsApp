@@ -1,11 +1,13 @@
-import {Text, StyleSheet} from "react-native"
-import React from "react"
+import {StyleSheet, Text} from "react-native"
+
 import {Controller} from "react-hook-form"
-import {useTheme} from "@react-navigation/native"
 import HelperText from "@components/helperText"
-import {phoneContraints} from "@common/validator"
-import fonts from "@assets/fonts"
 import Input from "@components/input"
+import React from "react"
+import fonts from "@assets/fonts"
+import {phoneContraints} from "@common/validator"
+import {sizes} from "../../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const PhoneContainer = ({control, errors}) => {
   const {colors} = useTheme()
@@ -45,7 +47,8 @@ const makeStyles = (colors) =>
     errorContainerStyle: {height: 30},
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
+
       marginLeft: 20,
       color: colors.black,
     },

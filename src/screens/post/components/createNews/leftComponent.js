@@ -4,6 +4,7 @@ import {useNavigation, useTheme} from "@react-navigation/native"
 import {Icon} from "@rneui/themed"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 
 const LeftComponent = ({articleId}) => {
   const {colors} = useTheme()
@@ -37,7 +38,7 @@ const makeStyles = (colors) =>
   StyleSheet.create({
     iconContainerStyle: {marginLeft: 10},
     txtTitle: {
-      fontSize: 20,
+      fontSize: sizes.h1,
       color: colors.black,
       fontFamily: fonts.bold,
       marginLeft: 10,

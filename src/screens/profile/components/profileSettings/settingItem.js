@@ -5,6 +5,7 @@ import {Ionicons} from "@common/icon"
 import RadioIcon from "./radioIcon"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const SettingItem = ({nameIcon, title, onPress, hasIconRight = true}) => {
@@ -34,7 +35,7 @@ const makeStyles = (colors) =>
       marginLeft: 10,
       fontFamily: fonts.bold,
       color: colors.black,
-      fontSize: 18,
+      fontSize: sizes.h2,
     },
     boxRow: {flexDirection: "row", alignItems: "center"},
     container: {

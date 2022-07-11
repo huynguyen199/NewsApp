@@ -1,7 +1,9 @@
-import {View, Text, StyleSheet, Image} from "react-native"
+import {Image, StyleSheet, Text, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const LeftComponent = () => {
   const {colors} = useTheme()
@@ -24,7 +26,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       color: colors.black,
       fontFamily: fonts.bold,
-      fontSize: 20,
+      fontSize: sizes.h1,
       marginLeft: 10,
     },
     container: {

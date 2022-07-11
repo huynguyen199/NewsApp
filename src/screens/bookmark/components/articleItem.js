@@ -3,10 +3,12 @@ import {useNavigation, useTheme} from "@react-navigation/native"
 
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
+import {RFPercentage} from "react-native-responsive-fontsize"
 import React from "react"
 import _ from "lodash"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
+import {sizes} from "@assets/fonts"
 
 const ArticleItem = ({
   item,
@@ -77,7 +79,7 @@ const ArticleItem = ({
                 color={colors.lightRed}
                 style={styles.optionIconStyle}
                 type="ionicon"
-                size={25}
+                size={RFPercentage(3)}
               />
             </TouchableOpacity>
             {/* </View> */}
@@ -99,6 +101,7 @@ const makeStyles = (colors) =>
     txtCategory: {
       color: colors.lightRed,
       fontFamily: fonts.bold,
+      fontSize: sizes.h3,
     },
     boxCategory: {
       justifyContent: "center",
@@ -115,6 +118,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -128,12 +132,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,
@@ -142,7 +146,6 @@ const makeStyles = (colors) =>
       borderBottomLeftRadius: 20,
     },
     container: {
-      backgroundColor: colors.white,
       margin: 10,
       flexDirection: "row",
       borderRadius: 20,

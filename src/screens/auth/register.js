@@ -17,6 +17,7 @@ import React from "react"
 import SocialContainer from "./components/register/socialContainer"
 import {authStack} from "@common/navigator"
 import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
 
 const {width} = Dimensions.get("window")
 const Register = () => {
@@ -77,11 +78,12 @@ const makeStyles = (colors) =>
       color: colors.black,
       marginBottom: width / 18,
       marginTop: width / 18,
+      fontSize: sizes.h3,
     },
     stylePasswordHelper: {marginTop: 5},
     styleEmailHelper: {marginTop: 5},
     txtTitle: {
-      fontSize: 24,
+      fontSize: sizes.h1,
       color: colors.black,
       marginTop: width / 10 - 10,
       fontFamily: fonts.bold,

@@ -6,6 +6,7 @@ import {Ionicons} from "@common/icon"
 import Modal from "react-native-modal"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const ConfirmDialog = ({
@@ -77,7 +78,7 @@ const makeStyles = (colors) =>
       borderColor: colors.lightRed,
     },
     txtTitle: {
-      fontSize: 20,
+      fontSize: sizes.h2,
       fontFamily: fonts.bold,
       textAlign: "center",
       color: colors.black,

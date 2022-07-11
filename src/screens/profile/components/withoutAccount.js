@@ -8,6 +8,7 @@ import {Ionicons} from "@common/icon"
 import {Material} from "@common/icon"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
 
 const image = {
   uri: "https://thuvienplus.com/themes/cynoebook/public/images/default-user-image.png",
@@ -45,12 +46,13 @@ const WithoutAccount = () => {
           <Button
             containerStyle={styles.signInContainerStyle}
             title={"Sign In"}
+            textStyle={{fontSize: sizes.h2}}
             onPress={onMoveSignIn}
           />
           <Button
             containerStyle={styles.signUpContainerStyle}
             onPress={onMoveSignUp}
-            textStyle={{color: colors.lightRed}}
+            textStyle={{fontSize: sizes.h2, color: colors.lightRed}}
             title={"Sign Up"}
           />
         </View>
@@ -78,7 +80,7 @@ const WithoutAccount = () => {
         title="Website"
         leftIcon={Ionicons.globe}
         containerStyle={styles.containerStyleButton}
-        textStyle={{color: colors.lightRed}}
+        textStyle={{color: colors.lightRed, fontSize: sizes.h2}}
       />
     </View>
   )
@@ -115,7 +117,7 @@ const makeStyles = (colors) =>
     },
     txtNumOfFollowing: {
       fontFamily: fonts.bold,
-      fontSize: 24,
+      fontSize: sizes.h1,
       color: colors.black,
     },
     boxRight: {
@@ -129,7 +131,11 @@ const makeStyles = (colors) =>
       fontFamily: fonts.regular,
       color: "black",
     },
-    txtNumberFollower: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
+    txtNumberFollower: {
+      fontFamily: fonts.bold,
+      fontSize: sizes.h1,
+      color: "black",
+    },
     boxCenter: {
       flex: 1,
       justifyContent: "center",
@@ -139,7 +145,7 @@ const makeStyles = (colors) =>
       borderColor: colors.lightGrey,
     },
     txtNews: {marginTop: 10, fontFamily: fonts.regular},
-    txtNumberNews: {fontFamily: fonts.bold, fontSize: 24, color: "black"},
+    txtNumberNews: {fontFamily: fonts.bold, fontSize: sizes.h1, color: "black"},
     leftProfile: {
       flex: 1,
       justifyContent: "center",
@@ -162,7 +168,7 @@ const makeStyles = (colors) =>
     txtTitle: {
       color: "black",
       fontFamily: fonts.bold,
-      fontSize: 24,
+      fontSize: sizes.h1,
     },
     imageChildStyle: {
       width: 20,

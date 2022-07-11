@@ -34,6 +34,8 @@ const addNewSports = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/the-thao.rss",
   )
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -48,6 +50,8 @@ const addNewGeneral = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/the-gioi.rss",
   )
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -62,6 +66,9 @@ const addNewHealth = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/suc-khoe.rss",
   )
+
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -76,6 +83,8 @@ const addNewScience = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/khoa-hoc.rss",
   )
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -90,6 +99,8 @@ const addNewBusiness = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/kinh-doanh.rss",
   )
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -104,6 +115,8 @@ const addNewTechnology = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/so-hoa.rss",
   )
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -117,6 +130,8 @@ const addNewEntertainment = async (articleUserToday) => {
   const dataOfRss = await getItemAricleRssToday(
     "https://vnexpress.net/rss/giai-tri.rss",
   )
+  if (dataOfRss.length === 0) return
+
   const result = filterSameData(articleUserToday, dataOfRss)
 
   const checkEmpty = result.length === 0
@@ -200,7 +215,7 @@ const filterSameData = (articleUserToday, dataOfRss) => {
 export const addNewArticleFromUser = async (link, userId) => {
   const {res, items} = await getAricleRssToday(link)
 
-  if (items.length === 0) return console.log("don't have new aritcle")
+  if (items.length === 0) return
 
   const title = res.image.title ?? res.title
 

@@ -1,7 +1,9 @@
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const CategoryItem = ({
   item,
@@ -39,8 +41,12 @@ const CategoryItem = ({
 }
 const makeStyles = (colors) =>
   StyleSheet.create({
-    txtTitle: {color: colors.white, fontFamily: fonts.bold},
-    txtTitleOutline: {color: colors.lightRed, fontFamily: fonts.bold},
+    txtTitle: {color: colors.white, fontFamily: fonts.bold, fontSize: sizes.h3},
+    txtTitleOutline: {
+      color: colors.lightRed,
+      fontFamily: fonts.bold,
+      fontSize: sizes.h3,
+    },
     container: {
       backgroundColor: colors.lightRed,
       paddingVertical: 10,

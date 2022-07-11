@@ -1,9 +1,12 @@
-import {View, Text, ImageBackground, StyleSheet} from "react-native"
+import {ImageBackground, StyleSheet, Text, View} from "react-native"
 import React, {memo} from "react"
+import {useNavigation, useTheme} from "@react-navigation/native"
+
 import Button from "@components/button"
 import fonts from "@assets/fonts"
-import {useNavigation, useTheme} from "@react-navigation/native"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
+
 const FeaturedContainer = ({articleFeatured}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
@@ -28,6 +31,7 @@ const FeaturedContainer = ({articleFeatured}) => {
           <Button
             containerStyle={styles.containerStyleBtn}
             title={"Read now"}
+            textStyle={styles.textStyleRead}
             onPress={onMoveDetail}
           />
         </View>
@@ -38,22 +42,28 @@ const FeaturedContainer = ({articleFeatured}) => {
 
 const makeStyles = (colors) =>
   StyleSheet.create({
-    containerStyleBtn: {width: 140, height: 50, marginTop: 10},
+    textStyleRead: {fontSize: sizes.h2},
+    containerStyleBtn: {
+      width: 140,
+      height: 50,
+      marginTop: 10,
+      fontSize: sizes.h2,
+    },
     boxBottom: {margin: 20},
     txtTitle: {
       color: "white",
       fontFamily: fonts.bold,
-      fontSize: 20,
+      fontSize: sizes.h2,
     },
     imageStyle: {borderRadius: 20},
     backgroundStyle: {
       width: "100%",
-      height: 230,
+      height: 200,
       flexDirection: "row",
       alignItems: "flex-end",
       marginTop: 10,
     },
-    txtLabel: {fontFamily: fonts.bold, fontSize: 20, color: colors.black},
+    txtLabel: {fontFamily: fonts.bold, fontSize: sizes.h1, color: colors.black},
     container: {marginHorizontal: 10, marginTop: 10},
   })
 

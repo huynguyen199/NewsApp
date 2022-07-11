@@ -6,6 +6,7 @@ import {Ionicons} from "@common/icon"
 import React from "react"
 import fonts from "@assets/fonts"
 import {mainStack} from "@common/navigator"
+import {sizes} from "../../../assets/fonts"
 
 const ArticleItem = ({item, showOptionsModal, setSelectedArticleId}) => {
   const {colors} = useTheme()
@@ -85,6 +86,7 @@ const makeStyles = (colors) =>
     txtCategory: {
       color: colors.lightRed,
       fontFamily: fonts.bold,
+      fontSize: sizes.h3,
     },
     boxCategory: {
       justifyContent: "center",
@@ -101,6 +103,7 @@ const makeStyles = (colors) =>
       marginLeft: 5,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     imageLogo: {
       width: 30,
@@ -114,12 +117,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,

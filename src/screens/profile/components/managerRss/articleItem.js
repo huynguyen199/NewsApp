@@ -4,6 +4,7 @@ import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const ArticleItem = ({item, setSelectLinkItem, showConfirmDialog}) => {
@@ -111,12 +112,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,

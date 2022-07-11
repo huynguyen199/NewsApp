@@ -1,14 +1,15 @@
-import {View, Text, StyleSheet} from "react-native"
-import React from "react"
-import {useTheme} from "@react-navigation/native"
-import fonts from "@assets/fonts"
+import {StyleSheet, Text, View} from "react-native"
 
-const Label = ({title, style}) => {
+import React from "react"
+import fonts from "@assets/fonts"
+import {useTheme} from "@react-navigation/native"
+
+const Label = ({title, style, textStyle}) => {
   const {colors} = useTheme()
   const styles = makeStyles(colors)
   return (
     <View style={style}>
-      <Text style={styles.styleLabel}>
+      <Text style={[styles.styleLabel, textStyle]}>
         {title}
         <Text style={styles.txtTitle}>*</Text>
       </Text>

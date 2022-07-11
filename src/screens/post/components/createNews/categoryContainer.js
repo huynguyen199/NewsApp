@@ -8,6 +8,7 @@ import {Ionicons} from "@common/icon"
 import React from "react"
 import {categoryContraints} from "@common/validator"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const CategoryContainer = ({control, errors, onPress}) => {
@@ -60,7 +61,7 @@ const makeStyles = (colors) =>
     inputContainerStyle: {marginTop: 5, borderColor: colors.whiteSmoke},
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
       color: colors.black,
     },

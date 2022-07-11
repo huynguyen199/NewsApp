@@ -19,6 +19,7 @@ import LeftComponent from "./components/leftComponent"
 import Loading from "./components/loading"
 import RightComponent from "./components/rightComponent"
 import {articleCollection} from "@services/article"
+import auth from "@react-native-firebase/auth"
 import {categoryDefault} from "@utils/handleRss"
 import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
@@ -38,8 +39,17 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(false)
 
   const {colors} = useTheme()
-
   const styles = makeStyles(colors)
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(() => {
+      handleCategoryList()
+      handleFirstOfSource()
+      fetchArticle()
+    })
+    return subscriber // unsubscribe on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const delay = 30000
@@ -60,7 +70,7 @@ const Home = () => {
     if (curr > dateOfLastArticle) {
       const articleToday = await getAllArticleUserForToday("default")
       await updateNewArticle(articleToday)
-      checkAndUpdateNewsArticleFromLink()
+      await checkAndUpdateNewsArticleFromLink()
     }
   }
 
@@ -89,13 +99,6 @@ const Home = () => {
       return fetchArticleByCategoryId(categoryId)
     }
   }
-
-  useEffect(() => {
-    handleCategoryList()
-    handleFirstOfSource()
-    fetchArticle()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const handleCategoryList = async () => {
     let data = await getALlCategory()
@@ -160,7 +163,7 @@ const Home = () => {
     if (userId) {
       query = query.where("userId", "in", ["default", userId])
     } else {
-      query = query.where("userId", "==", "default")
+      query = query.where("userId", "in", ["default"])
     }
 
     if (lastDocument !== undefined) {
@@ -189,7 +192,7 @@ const Home = () => {
     if (userId) {
       query = query.where("userId", "in", ["default", userId])
     } else {
-      query = query.where("userId", "==", "default")
+      query = query.where("userId", "in", ["default"])
     }
 
     if (lastDocument !== undefined) {

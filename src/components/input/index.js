@@ -1,7 +1,9 @@
-import {View, TextInput, StyleSheet} from "react-native"
+import {StyleSheet, TextInput, View} from "react-native"
+
 import React from "react"
-import {useTheme} from "@react-navigation/native"
 import fonts from "@assets/fonts"
+import {sizes} from "../../assets/fonts"
+import {useTheme} from "@react-navigation/native"
 
 const Input = (props) => {
   const {containerStyle, rightComponent} = props
@@ -30,6 +32,7 @@ const makeStyles = (colors) =>
       marginLeft: 15,
       fontFamily: fonts.bold,
       color: colors.black,
+      fontSize: sizes.h3,
     },
     container: {
       backgroundColor: colors.white,

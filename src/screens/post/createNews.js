@@ -27,6 +27,7 @@ import {findUserById} from "@services/user"
 import fonts from "@assets/fonts"
 import {homeTabs} from "@common/navigator"
 import {launchImageLibrary} from "react-native-image-picker"
+import {sizes} from "../../assets/fonts"
 import useAuth from "@hooks/useAuth"
 import {useForm} from "react-hook-form"
 
@@ -285,6 +286,7 @@ const CreateNews = () => {
         <Button
           onPress={handleSubmit(onSubmitForm)}
           containerStyle={{width: width - 30}}
+          textStyle={{fontSize: sizes.h2}}
           title={articleId ? "Update Now" : "Publish Now"}
         />
       </View>
@@ -332,7 +334,7 @@ const makeStyles = (colors) =>
     boxMarginForm: {marginHorizontal: 10},
     containerStyleHeader: {marginVertical: 10},
     txtTitle: {
-      fontSize: 20,
+      fontSize: sizes.h1,
       fontFamily: fonts.bold,
       color: colors.black,
     },

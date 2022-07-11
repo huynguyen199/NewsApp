@@ -5,6 +5,7 @@ import HelperText from "@components/helperText"
 import Input from "@components/input"
 import React from "react"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {titleContraints} from "@common/validator"
 import {useTheme} from "@react-navigation/native"
 
@@ -46,7 +47,7 @@ const makeStyles = (colors) =>
     inputContainerStyle: {marginTop: 5, borderColor: colors.whiteSmoke},
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
       color: colors.black,
     },

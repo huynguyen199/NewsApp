@@ -22,6 +22,7 @@ import Toast from "react-native-toast-message"
 import WithoutAccount from "./components/withoutAccount"
 import _ from "lodash"
 import auth from "@react-native-firebase/auth"
+import {categoryDefault} from "../../utils/handleRss"
 import {deletePost} from "@services/post"
 import firestore from "@react-native-firebase/firestore"
 //service
@@ -32,16 +33,6 @@ import {mainStack} from "@common/navigator"
 const {height} = Dimensions.get("window")
 
 const postCollection = firestore().collection("post")
-
-const categoryDefault = [
-  "https://vnexpress.net/rss/khoa-hoc.rss",
-  "https://vnexpress.net/rss/suc-khoe.rss",
-  "https://vnexpress.net/rss/the-gioi.rss",
-  "https://vnexpress.net/rss/so-hoa.rss",
-  "https://vnexpress.net/rss/giai-tri.rss",
-  "https://vnexpress.net/rss/kinh-doanh.rss",
-  "https://vnexpress.net/rss/the-thao.rss",
-]
 
 const Post = () => {
   const [categories, setCategories] = useState([])

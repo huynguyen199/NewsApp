@@ -1,9 +1,8 @@
-import {FlatList} from "react-native"
-import React from "react"
 import ArticleItem from "./articleItem"
-
-import ListFooterComponent from "./listFooterComponent"
+import {FlatList} from "react-native"
 import ListEmpty from "./listEmpty"
+import ListFooterComponent from "./listFooterComponent"
+import React from "react"
 
 const ArticleList = ({
   article,

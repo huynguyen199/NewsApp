@@ -19,8 +19,10 @@ import {
 import {Icon} from "@rneui/themed"
 import {Ionicons} from "@common/icon"
 import auth from "@react-native-firebase/auth"
+import {categoryDefault} from "../../../../utils/handleRss"
 import firestore from "@react-native-firebase/firestore"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const logoRss =
@@ -93,7 +95,9 @@ const ArticleItem = ({
           .where("id", "==", userId)
           .where("links", "array-contains", search)
           .onSnapshot((snapshot) => {
-            setIsChecked(snapshot.docs.length > 0)
+            setIsChecked(
+              categoryDefault.includes(search) || snapshot.docs.length > 0,
+            )
           })
       }
     }
@@ -208,12 +212,12 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 18,
+      fontSize: sizes.h2,
       color: colors.black,
     },
     boxRight: {
       margin: 10,
-      width: 200,
+      flex: 1,
     },
     imageLeft: {
       width: 150,

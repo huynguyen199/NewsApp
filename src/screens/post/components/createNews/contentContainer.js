@@ -6,6 +6,7 @@ import Input from "@components/input"
 import React from "react"
 import {contentContraints} from "@common/validator"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const ContentContainer = ({control, errors}) => {
@@ -59,7 +60,7 @@ const makeStyles = (colors) =>
     },
     txtTitle: {
       fontFamily: fonts.bold,
-      fontSize: 16,
+      fontSize: sizes.h2,
       marginLeft: 20,
       color: colors.black,
     },

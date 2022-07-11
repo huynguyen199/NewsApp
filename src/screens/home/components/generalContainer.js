@@ -5,6 +5,7 @@ import FeaturedContainer from "./featuredContainer"
 import React from "react"
 import SearchContainer from "./searchContainer"
 import fonts from "@assets/fonts"
+import {sizes} from "../../../assets/fonts"
 import {useTheme} from "@react-navigation/native"
 
 const GeneralContainer = ({
@@ -35,7 +36,7 @@ const makeStyles = (colors) =>
     containerStyleHeader: {marginTop: 10},
     txtLabel: {
       fontFamily: fonts.bold,
-      fontSize: 20,
+      fontSize: sizes.h1,
       color: colors.black,
       margin: 10,
     },
